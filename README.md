@@ -1,3 +1,4 @@
+
 # Project Name
 
 This repo is meant for providing samples for cognitive services APIs. Note that these are just simple wrappers to the APIs. For SDKs and SDK samples there are separate repos. You can check out all cognitive services APIs here: https://azure.microsoft.com/en-us/services/cognitive-services/. You can check out detailed documentation of these APIs here: https://docs.microsoft.com/en-us/azure/#pivot=products&panel=cognitive.
@@ -23,7 +24,8 @@ Your favorite IDE. Node.js are for Node.js 6 version.
 
 1. git clone [repository clone url]
 2. cd [respository name]
-3. Insert Access Key.
+3. Choose your sample and language and open in your favorite IDE. 
+3. Insert Access Key (and other parameters as required).
 4. Build and Run.
 
 ## Resources
