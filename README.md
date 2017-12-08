@@ -20,6 +20,7 @@ You can get free access keys from here: https://azure.microsoft.com/en-us/try/co
 1. Your favorite IDE. 
 2. Node.js samples are for Node.js 6 version.
 3. Java samples will need JDK 7 or 8 and will require gson library in some cases.
+4. For python, you will need 3.x version.
 
 ### Quickstart
 (Add steps to get up and running quickly)
