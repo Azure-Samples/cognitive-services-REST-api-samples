@@ -1,3 +1,6 @@
+//Copyright (c) Microsoft Corporation. All rights reserved.
+//Licensed under the MIT License.
+
 var request = require("request");
 
 var subscriptionKey = 'YOUR-SUBSCRIPTION-KEY';
