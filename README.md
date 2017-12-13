@@ -23,12 +23,11 @@ You can get free access keys from here: https://azure.microsoft.com/en-us/try/co
 4. For python, you will need 3.x version.
 
 ### Quickstart
-(Add steps to get up and running quickly)
 
-1. git clone [repository clone url]
-2. cd [respository name]
+1. git clone https://github.com/Azure-Samples/cognitive-services-REST-api-samples
+2. cd cognitive-services-REST-api-samples
 3. Choose your sample and language and open in your favorite IDE. 
-3. Insert Access Key (and other parameters as required).
+3. Insert Access Key (and other parameters as required). See Geeting Started section above for info on how to get keys.
 4. Build and Run.
 
 ## Resources
