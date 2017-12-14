@@ -9,7 +9,7 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64, requests
 ###############################################
 
 # Replace the subscription_key string value with your valid subscription key.
-subscription_key = '13hc77781f7e4b19b5fcdd72a8df7156'
+subscription_key = 'Enter key here'
 
 # Replace or verify the region.
 #
