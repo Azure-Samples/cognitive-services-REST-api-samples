@@ -1,5 +1,8 @@
 //Copyright (c) Microsoft Corporation. All rights reserved.
 //Licensed under the MIT License.
+//For more information about this sample, see the following documentation:
+// https://docs.microsoft.com/en-us/azure/cognitive-services/bing-image-search/tutorial-image-post
+
 using System;
 using System.Collections.Generic;
 using System.Text;
