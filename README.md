@@ -1,4 +1,3 @@
-t
 # Samples for REST APIs in Cognitive Services
 
 This repo provides code samples for cognitive services APIs. There are sections for Language, Search, and Vision APIs using various progamming languages. Note that these are just simple wrappers to the APIs. For SDKs and SDK samples there are separate repos. You can check out all cognitive services APIs here: https://azure.microsoft.com/en-us/services/cognitive-services/. You can check out detailed documentation of these APIs here: https://docs.microsoft.com/en-us/azure/#pivot=products&panel=cognitive.
