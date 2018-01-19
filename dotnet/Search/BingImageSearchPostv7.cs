@@ -61,9 +61,9 @@ namespace ConsoleAppPostImage
         {
             WebClient client = new WebClient();
             client.Headers["Ocp-Apim-Subscription-Key"] = accessKey;
-            client.Headers["ContentType"] = "multipart/form-data"; 
+            //client.Headers["Content-Type"] = "multipart/form-data"; 
 
-            byte[] resp = client.UploadFile(uriBase + "?modules=All", imageFile);
+            byte[] resp = client.UploadFile(uriBase + "?modules=All", imageFile); // modules=RecognizedEntities
             var json = System.Text.Encoding.Default.GetString(resp);
 
             // Create result object for return
