@@ -18,7 +18,7 @@ namespace ConsoleAppPostImage
         const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0/images/details";
 
         // The image to upload. Replace with your file and path.
-        const string imageFile = @"C:\Users\YOUR-IMAGE-FILE.jpg"; ;
+        const string imageFile = @"C:\Users\PATH\YOUR-IMAGE-FILE.jpg"; ;
 
         // Used to return image results including relevant headers
         struct SearchResult
