@@ -14,7 +14,7 @@ namespace BingSearchApisQuickstart
     {
 
         // Replace this string value with your valid access key.
-        const string subscriptionKey = "bbfb78ad189649248750011e83b7b22d";
+        const string subscriptionKey = "Enter your subscription key here";
 
         // Verify the endpoint URI. If you encounter unexpected authorization errors,
         // double-check this value against the Bing search endpoint in your Azure dashboard.
