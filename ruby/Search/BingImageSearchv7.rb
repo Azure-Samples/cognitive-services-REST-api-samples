@@ -7,7 +7,7 @@ require 'json'
 # **********************************************
 
 # Replace the accessKey string value with your valid access key.
-accessKey = "58620d3dcee1477ca2fbd886e23e545b"
+accessKey = "enter your key here"
 
 # Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
 # search APIs.  In the future, regional endpoints may be available.  If you
