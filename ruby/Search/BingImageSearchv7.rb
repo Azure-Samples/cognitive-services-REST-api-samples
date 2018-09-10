@@ -1,4 +1,3 @@
-ruby
 require 'net/https'
 require 'uri'
 require 'json'
@@ -8,7 +7,7 @@ require 'json'
 # **********************************************
 
 # Replace the accessKey string value with your valid access key.
-accessKey = "enter key here"
+accessKey = "enter your key here"
 
 # Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
 # search APIs.  In the future, regional endpoints may be available.  If you
@@ -18,7 +17,7 @@ accessKey = "enter key here"
 uri  = "https://api.cognitive.microsoft.com"
 path = "/bing/v7.0/images/search"
 
-term = "puppies"
+term = "tropical ocean"
 
 if accessKey.length != 32 then
     puts "Invalid Bing Search API subscription key!"
@@ -37,13 +36,11 @@ response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https'
     http.request(request)
 end
 
-puts "\nRelevant Headers:\n\n"
-response.each_header do |key, value|
-    # header names are coerced to lowercase
-    if key.start_with?("bingapis-") or key.start_with?("x-msedge-") then
-        puts key + ": " + value
-    end
-end
-
 puts "\nJSON Response:\n\n"
-puts JSON::pretty_generate(JSON(response.body))
+
+parsed_json = JSON.parse(response.body)
+total_returned_images = parsed_json["totalEstimatedMatches"]
+first_result = parsed_json["value"][0]["thumbnailUrl"]
+
+puts "total number of returned matches: #{total_returned_images}"
+puts "Url to the thumnail of the first returned search result: #{first_result}"
