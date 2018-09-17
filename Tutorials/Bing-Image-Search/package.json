@@ -1,0 +1,14 @@
+{
+  "name": "BingImageSearchApp",
+  "version": "1.0.0",
+  "description": "A single-page web app that displays images from the Bing Image Search API ",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Microsoft Corporation",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
