@@ -6,13 +6,13 @@
 let https = require('https');
 
 /* NOTE: Replace this endpoint with a valid Azure computer vision endpoint. Example https://northeurope.api.cognitive.microsoft.com/ */
-let endpoint = 'https://northeurope.api.cognitive.microsoft.com/';
+let endpoint = '';
 
 /* NOTE: Replace this example key with a valid subscription key (see the Prequisites section above). Also note v5 and v7 require separate subscription keys. */
-let key = 'f04bc2820847439aa78e836355ea7af4';
+let key = '';
 
 /* NOTE: Replace this url with an image with text url */
-let url = 'https://media-s3-us-east-1.ceros.com/ozy/images/2017/12/15/a1d39ecf46cbec0ddd89f130bcdb42bc/convo-1-text-4.png?imageOpt=1&fit=bounds&width=297';
+let url = '';
 let detectOrientation = false;
 
 const ComputerVisionClient = require('azure-cognitiveservices-computervision');
