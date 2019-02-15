@@ -1,6 +1,6 @@
 <?php
 // Replace with a valid subscription key from your Azure account.
-$accessKey = 'enter key here';
+$accessKey = '6911fc5837bf4c7d83b18233ea8c25eb';
 $endpoint = 'https://api.cognitive.microsoft.com/bing/v7.0/search';
 $term = 'Microsoft Cognitive Services';
 

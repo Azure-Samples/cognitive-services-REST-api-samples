@@ -1,3 +1,5 @@
+
+
 'use strict';
 
 let https = require ('https');
@@ -7,7 +9,7 @@ let https = require ('https');
 // **********************************************
 
 // Replace the subscriptionKey string value with your valid subscription key.
-let subscriptionKey = 'ENTER KEY HERE';
+let subscriptionKey = 'ENTER YOUR KEY HERE';
 
 let host = 'api.cognitive.microsoft.com';
 let path = '/bing/v7.0/entities';
@@ -15,7 +17,7 @@ let path = '/bing/v7.0/entities';
 let mkt = 'en-US';
 let q = 'italian restaurant near me';
 
-let params = '?mkt=' + mkt + '&q=' + encodeURI(q);
+let query = '?mkt=' + mkt + '&q=' + encodeURI(q);
 
 let response_handler = function (response) {
     let body = '';
@@ -23,9 +25,8 @@ let response_handler = function (response) {
         body += d;
     });
     response.on ('end', function () {
-		let body_ = JSON.parse (body);
-		let body__ = JSON.stringify (body_, null, '  ');
-        console.log (body__);
+        let json = JSON.stringify(JSON.parse(body), null, '  ');
+        console.log (json);
     });
     response.on ('error', function (e) {
         console.log ('Error: ' + e.message);
@@ -36,7 +37,7 @@ let Search = function () {
 	let request_params = {
 		method : 'GET',
 		hostname : host,
-		path : path + params,
+		path : path + query,
 		headers : {
 			'Ocp-Apim-Subscription-Key' : subscriptionKey,
 		}
