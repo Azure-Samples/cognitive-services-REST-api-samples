@@ -19,7 +19,7 @@ namespace AutosuggestSample1
         static string market = "en-US";
 
         // NOTE: Replace this example key with a valid subscription key.
-                static string key = "INSERT API KEY";
+                static string key = "INSERT YOUR API KEY HERE";
 
         static string query = "sail";
 

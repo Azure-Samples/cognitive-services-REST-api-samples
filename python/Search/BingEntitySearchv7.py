@@ -1,3 +1,50 @@
+import os, requests, json
+
+subscriptionKey = 'put_your_key_here'
+host = ''
+path = ''
+search_query = ''
+
+def entitySearch():
+
+    params = {
+    }
+	#the url to send the request
+    constructed_url = host + path
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': subscriptionKey
+    }
+    
+    request = requests.get(constructed_url, headers=headers)
+    response = request.json()
+
+    print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))
+
+if __name__ = "__main__":
+    entitySearch()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # -*- coding: utf-8 -*-
 
 import http.client, urllib.parse
