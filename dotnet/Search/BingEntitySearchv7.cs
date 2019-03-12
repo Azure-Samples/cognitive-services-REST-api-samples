@@ -28,7 +28,7 @@ namespace EntitySearchSample
             string contentString = await response.Content.ReadAsStringAsync();
             dynamic parsedJson = JsonConvert.DeserializeObject(contentString);
 
-            Console.WriteLine(JsonConvert.SerializeObject(parsedJson, Formatting.Indented));
+            Console.WriteLine(parsedJson);
         }
 
         static void Main(string[] args)
