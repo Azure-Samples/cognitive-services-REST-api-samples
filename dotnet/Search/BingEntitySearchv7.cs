@@ -1,6 +1,6 @@
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
-using System.Text;
 
 namespace EntitySearchSample
 {
@@ -12,7 +12,7 @@ namespace EntitySearchSample
         static string market = "en-US";
 
         // NOTE: Replace this example key with a valid subscription key.
-        static string key = "ENTER KEY HERE";
+        static string key = "ENTER YOUR KEY HERE";
 
         static string query = "italian restaurant near me";
 
@@ -26,76 +26,15 @@ namespace EntitySearchSample
             HttpResponseMessage response = await client.GetAsync(uri);
 
             string contentString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(JsonPrettyPrint(contentString));
+            dynamic parsedJson = JsonConvert.DeserializeObject(contentString);
+
+            Console.WriteLine(JsonConvert.SerializeObject(parsedJson, Formatting.Indented));
         }
 
         static void Main(string[] args)
         {
             Search();
             Console.ReadLine();
-        }
-
-
-        static string JsonPrettyPrint(string json)
-        {
-            if (string.IsNullOrEmpty(json))
-                return string.Empty;
-
-            json = json.Replace(Environment.NewLine, "").Replace("\t", "");
-
-            StringBuilder sb = new StringBuilder();
-            bool quote = false;
-            bool ignore = false;
-            int offset = 0;
-            int indentLength = 3;
-
-            foreach (char ch in json)
-            {
-                switch (ch)
-                {
-                    case '"':
-                        if (!ignore) quote = !quote;
-                        break;
-                    case '\'':
-                        if (quote) ignore = !ignore;
-                        break;
-                }
-
-                if (quote)
-                    sb.Append(ch);
-                else
-                {
-                    switch (ch)
-                    {
-                        case '{':
-                        case '[':
-                            sb.Append(ch);
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', ++offset * indentLength));
-                            break;
-                        case '}':
-                        case ']':
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', --offset * indentLength));
-                            sb.Append(ch);
-                            break;
-                        case ',':
-                            sb.Append(ch);
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', offset * indentLength));
-                            break;
-                        case ':':
-                            sb.Append(ch);
-                            sb.Append(' ');
-                            break;
-                        default:
-                            if (ch != ' ') sb.Append(ch);
-                            break;
-                    }
-                }
-            }
-
-            return sb.ToString().Trim();
         }
 
     }
