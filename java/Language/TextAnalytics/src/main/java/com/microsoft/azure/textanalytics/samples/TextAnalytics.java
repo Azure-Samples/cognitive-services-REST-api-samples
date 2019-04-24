@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 
 public class TextAnalytics {
     /**
-     * The API Subscription Key that was generated when you created a cogntiive
+     * The API Subscription Key that was generated when you created a cognitive
      * services resource in Azure. Make sure to change this.
      */
     private static final String subscriptionKey = "enter-your-key-here";
@@ -62,41 +62,70 @@ public class TextAnalytics {
     }
 
     public static void main(String[] args) {
-        /* For language detection your input documents don't have to specify language */
-        Documents documents = new Documents();
-        documents.add("1", "This is a document written in English.");
-        documents.add("2", "Este es un document escrito en Español.");
-        documents.add("3", "这是一个用中文写的文件");
-
-        String text = new Gson().toJson(documents);
-
-        String languageResult = LanguageDetection.DetectLanguage(host, subscriptionKey, text);
-        System.out.println("LANGUAGE RESPONSE:");
-        System.out.println(languageResult);
-
         /*
          * For sentiment, keyphrase, and entity recognition your input documents must
          * specify language so that the proper model is used. If a language isn't
-         * specified, we assume english is the document language.
+         * specified, we assume english is the document language. For language
+         * detection, you need not specify a language.
          */
-        Documents multiLanguageDocuments = new Documents();
-        multiLanguageDocuments.add("1", "I love Seattle. It's a great city.", "en");
-        multiLanguageDocuments.add("2", "Este clima me encanta. Esta muy soleado hoy en Buenos Aires.", "es");
 
-        String multiLanguageText = new Gson().toJson(multiLanguageDocuments);
+        /* Sentiment Analysis */
+        Documents multiLanguageSentimentDocuments = new Documents();
+        multiLanguageSentimentDocuments.add("1", "I had the best day of my life.", "en");
+        multiLanguageSentimentDocuments.add("2", "This was a waste of my time. The speaker put me to sleep.", "en");
+        multiLanguageSentimentDocuments.add("3", "No tengo dinero ni nada que dar...", "es");
+        multiLanguageSentimentDocuments.add("4",
+                "L'hotel veneziano era meraviglioso. È un bellissimo pezzo di architettura.", "it");
 
-        String sentimentResult = SentimentAnalysis.AnalyzeSentiment(host, subscriptionKey, multiLanguageText);
+        String multiLanguageSentimentText = new Gson().toJson(multiLanguageSentimentDocuments);
+
+        String sentimentResult = SentimentAnalysis.AnalyzeSentiment(host, subscriptionKey, multiLanguageSentimentText);
         System.out.println("SENTIMENT RESPONSE:");
         System.out.println(sentimentResult);
+        System.out.println();
 
-        String keyPhraseExtractionResult = KeyPhraseExtraction.DetectKeyPhrases(host, subscriptionKey,
-                multiLanguageText);
-        System.out.println("KEY PHRASE RESPONSE:");
-        System.out.println(keyPhraseExtractionResult);
+        /* For language detection your input documents don't have to specify language */
+        Documents languageDetectionDocuments = new Documents();
+        languageDetectionDocuments.add("1", "This is a document written in English.");
+        languageDetectionDocuments.add("2", "Este es un document escrito en Español.");
+        languageDetectionDocuments.add("3", "这是一个用中文写的文件");
 
-        String entityRecognitionResult = EntityRecognition.DetectEntities(host, subscriptionKey, multiLanguageText);
+        String languageDetectionText = new Gson().toJson(languageDetectionDocuments);
+
+        String languageResult = LanguageDetection.DetectLanguage(host, subscriptionKey, languageDetectionText);
+        System.out.println("LANGUAGE RESPONSE:");
+        System.out.println(languageResult);
+        System.out.println();
+
+        /* Entity Recognition */
+        Documents multiLanguageNerDocuments = new Documents();
+        multiLanguageNerDocuments.add("1",
+                "Microsoft was founded by Bill Gates and Paul Allen on April 4, 1975, to develop and sell BASIC interpreters for the Altair 8800.",
+                "en");
+        multiLanguageNerDocuments.add("2",
+                "La sede principal de Microsoft se encuentra en la ciudad de Redmond, a 21 kilómetros de Seattle.",
+                "es");
+
+        String multiLanguageNerText = new Gson().toJson(multiLanguageNerDocuments);
+        String entityRecognitionResult = EntityRecognition.DetectEntities(host, subscriptionKey, multiLanguageNerText);
         System.out.println("ENTITY RECOGNITION RESPONSE:");
         System.out.println(entityRecognitionResult);
+        System.out.println();
+
+        /* KeyPhrase Extraction */
+        Documents multiLanguageKpeDocuments = new Documents();
+        multiLanguageKpeDocuments.add("1", "猫は幸せ", "ja");
+        multiLanguageKpeDocuments.add("2", "Fahrt nach Stuttgart und dann zum Hotel zu Fu.", "de");
+        multiLanguageKpeDocuments.add("3", "My cat might need to see a veterinarian.", "en");
+        multiLanguageKpeDocuments.add("4", "A mi me encanta el fútbol!", "es");
+
+        String multiLanguageKpeText = new Gson().toJson(multiLanguageKpeDocuments);
+
+        String keyPhraseExtractionResult = KeyPhraseExtraction.DetectKeyPhrases(host, subscriptionKey,
+                multiLanguageKpeText);
+        System.out.println("KEY PHRASE RESPONSE:");
+        System.out.println(keyPhraseExtractionResult);
+        System.out.println();
     }
 }
 
