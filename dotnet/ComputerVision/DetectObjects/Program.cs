@@ -18,7 +18,7 @@ namespace DetectObjects
         {
             Console.WriteLine("Detect objects in images:");
 
-            string imageFilePath = @"Images\sample6.png";
+            string imageFilePath = @"sample6.png";
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-dotnet-sdk-samples/raw/master/ComputerVision/Images/sample4.png";
 
             var t1 = DetectObjectsFromStreamAsync(imageFilePath);

@@ -19,7 +19,7 @@ namespace ExtractText
         {
             Console.WriteLine("Extract text in images:");
 
-            string imageFilePath = @"Images\sample2.png";
+            string imageFilePath = @"sample2.png";
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-dotnet-sdk-samples/raw/master/ComputerVision/Images/sample0.png";
 
             var t1 = ExtractTextFromStreamAsync(imageFilePath);
