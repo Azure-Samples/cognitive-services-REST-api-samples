@@ -21,7 +21,7 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 | Images | Sample images to run the projects |
 | OCR | Performs OCR on the image|
 | ComputerVision.sln | The Visual Studio solution with the above as projects|
-| `readme.md` | This README file. |
+| readme.md | This README file. |
 
 
 ## Prerequisites
@@ -37,7 +37,7 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 ## Running the samples
 
 1. Right-click on the relavant project (detectObjects, extractText, etc) and click on 'Set as StartUp Project'
-2. In 'Program.cs' , update the line ```private const string subscriptionKey = "<your training key here>";``` with your subscription key. For example, if your subscription key is `0123456789abcdef0123456789ABCDEF`, then the line should look like ```c# private const string subscriptionKey = "0123456789abcdef0123456789ABCDEF"; ```
+2. In 'Program.cs' , update the line ```private const string subscriptionKey = "<your training key here>";``` with your subscription key. For example, if your subscription key is `0123456789abcdef0123456789ABCDEF`, then the line should look like ``` private const string subscriptionKey = "0123456789abcdef0123456789ABCDEF"; ```
 3. Update the endpoint with the region you generated your endpoint for. For example, if you are using the westcentralus endpoint, you should change the line ``` computerVision.Endpoint = "https://westus.api.cognitive.microsoft.com"; ``` to  ``` computerVision.Endpoint = "https://westcentralus.api.cognitive.microsoft.com"; ```
 4. (Optional) Change the remote image URL and location of local image
 5. (Optional) Comment out visual parameters not needed for AnalyzeImage 
@@ -45,4 +45,4 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 
 ## Resources
 - An explanation of the various concepts and visual features in the API can be found [here](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home)
-- A detailed documentations of the API can be found [here][https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/56f91f2e778daf14a499e1fa)
+- A detailed documentations of the API can be found [here](https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/56f91f2e778daf14a499e1fa)
