@@ -15,12 +15,12 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 
 | File/folder | Description |
 |-------------|-------------|
-| AnalyzeImage       | Analyzes image on specified visual parameters |
-| DetectObjects | Detects objects in an image |
-| ExtractText | Looks for printed or handwritten text in an image|
+| AnalyzeImage       | Project that analyzes image on specified visual parameters |
+| DetectObjects | Project that detects objects in an image |
+| ExtractText | Project that looks for printed or handwritten text in an image|
 | Images | Sample images to run the projects |
-| OCR | Performs OCR on the image|
-| ComputerVision.sln | The Visual Studio solution with the above as projects|
+| OCR | Project that performs OCR on the image|
+| ComputerVision.sln | The Visual Studio solution with the above projects|
 | readme.md | This README file. |
 
 
@@ -45,4 +45,4 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 
 ## Resources
 - An explanation of the various concepts and visual features in the API can be found [here](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home)
-- A detailed documentations of the API can be found [here](https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/56f91f2e778daf14a499e1fa)
+- A detailed documentation of the API can be found [here](https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/56f91f2e778daf14a499e1fa)
