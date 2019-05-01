@@ -9,7 +9,7 @@ products:
 
 # Sample Solution that uses the Computer Vision Rest APIs
 
-The projects in this code are quickstarts that show how to use Computer Vision Rest API for local and remote images
+The projects in this code are quickstarts that show how to use Computer Vision Rest API for local and remote images.
 
 ## Contents
 
