@@ -18,7 +18,6 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 | AnalyzeImage       | Project that analyzes image on specified visual parameters |
 | DetectObjects | Project that detects objects in an image |
 | ExtractText | Project that looks for printed or handwritten text in an image|
-| Images | Sample images to run the projects |
 | OCR | Project that performs OCR on the image|
 | ComputerVision.sln | The Visual Studio solution with the above projects|
 | readme.md | This README file. |
@@ -33,6 +32,7 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 
 1. Clone or download this sample repository
 2. Open the solution ComputerVision.sln in Visual Studio
+3. Download the images from [this repo](https://github.com/Azure-Samples/cognitive-services-sample-data-files/blob/master/ComputerVision/Images/) and add the images to each project. Alternatively modify the `imageFilePath` in all projects to reflect the path of an appropriate local image.
 
 ## Running the samples
 
