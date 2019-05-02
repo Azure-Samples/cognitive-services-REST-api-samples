@@ -18,7 +18,7 @@ namespace AnalyzeImage
         {
             Console.WriteLine("Images being analyzed:");
 
-            string imageFilePath = @"Images\faces.jpg";
+            string imageFilePath = @"Images\faces.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/landmark.jpg";
 
             var t1 = AnalyzeFromStreamAsync(imageFilePath);

@@ -18,7 +18,7 @@ namespace OCR
         {
             Console.WriteLine("OCR on the images:");
 
-            string imageFilePath = @"Images\printed_text.jpg";
+            string imageFilePath = @"Images\printed_text.jpg";  // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/handwritten_text.jpg";
             var t1 = OCRFromStreamAsync(imageFilePath);
             var t2 = OCRFromUrlAsync(remoteImageUrl);
