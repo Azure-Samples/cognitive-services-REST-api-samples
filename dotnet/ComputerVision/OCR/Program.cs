@@ -18,8 +18,8 @@ namespace OCR
         {
             Console.WriteLine("OCR on the images:");
 
-            string imageFilePath = @"sample1.png";
-            string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/sample0.png";
+            string imageFilePath = @"Images\printed_text.jpg";
+            string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/handwritten_text.jpg";
             var t1 = OCRFromStreamAsync(imageFilePath);
             var t2 = OCRFromUrlAsync(remoteImageUrl);
 

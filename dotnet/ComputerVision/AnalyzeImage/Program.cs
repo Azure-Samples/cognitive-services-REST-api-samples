@@ -18,8 +18,8 @@ namespace AnalyzeImage
         {
             Console.WriteLine("Images being analyzed:");
 
-            string imageFilePath = @"sample6.png";
-            string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/sample4.png";
+            string imageFilePath = @"Images\faces.jpg";
+            string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/landmark.jpg";
 
             var t1 = AnalyzeFromStreamAsync(imageFilePath);
             var t2 = AnalyzeFromUrlAsync(remoteImageUrl);
