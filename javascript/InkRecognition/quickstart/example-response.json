@@ -1,0 +1,900 @@
+{
+  "recognitionUnits": [
+    {
+      "alternates": [
+        {
+          "category": "inkWord",
+          "recognizedString": "finick"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "flick"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fhick"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fhicl<"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "funk"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "quirk"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "frick"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fhict<"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fuick"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 12.170000076293945,
+        "topX": 27.940000534057617,
+        "topY": 14.239999771118164,
+        "width": 25.969999313354492
+      },
+      "category": "inkWord",
+      "class": "leaf",
+      "id": 4,
+      "parentId": 3,
+      "recognizedText": "quick",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 27.65999984741211,
+          "y": 14.350000381469727
+        },
+        {
+          "x": 53.720001220703125,
+          "y": 13.680000305175781
+        },
+        {
+          "x": 54.040000915527344,
+          "y": 25.770000457763672
+        },
+        {
+          "x": 27.969999313354492,
+          "y": 26.440000534057617
+        }
+      ],
+      "strokeIds": [
+        328,
+        329,
+        330,
+        331,
+        332,
+        333
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "inkWord",
+          "recognizedString": "none:"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "not:"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "none."
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "note."
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "none,"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "node:"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "nae:"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "nope:"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "nae,"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 5.690000057220459,
+        "topX": 63.52000045776367,
+        "topY": 15.6899995803833,
+        "width": 20.579999923706055
+      },
+      "category": "inkWord",
+      "class": "leaf",
+      "id": 5,
+      "parentId": 3,
+      "recognizedText": "note:",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 63.369998931884766,
+          "y": 15.949999809265137
+        },
+        {
+          "x": 83.98999786376953,
+          "y": 15.40999984741211
+        },
+        {
+          "x": 84.12999725341797,
+          "y": 20.829999923706055
+        },
+        {
+          "x": 63.52000045776367,
+          "y": 21.3700008392334
+        }
+      ],
+      "strokeIds": [
+        334,
+        335,
+        336,
+        337
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "line",
+          "recognizedString": "quick none:"
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick not:"
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick none."
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick note."
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick none,"
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick node:"
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick nae:"
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick nope:"
+        },
+        {
+          "category": "line",
+          "recognizedString": "quick nae,"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 12.170000076293945,
+        "topX": 27.940000534057617,
+        "topY": 14.239999771118164,
+        "width": 56.15999984741211
+      },
+      "category": "line",
+      "childIds": [
+        4,
+        5
+      ],
+      "class": "container",
+      "id": 3,
+      "parentId": 2,
+      "recognizedText": "quick note:",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 27.65999984741211,
+          "y": 14.350000381469727
+        },
+        {
+          "x": 83.93000030517578,
+          "y": 12.890000343322754
+        },
+        {
+          "x": 84.23999786376953,
+          "y": 24.979999542236328
+        },
+        {
+          "x": 27.969999313354492,
+          "y": 26.440000534057617
+        }
+      ],
+      "strokeIds": [
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336,
+        337
+      ]
+    },
+    {
+      "boundingRectangle": {
+        "height": 12.170000076293945,
+        "topX": 27.940000534057617,
+        "topY": 14.239999771118164,
+        "width": 56.15999984741211
+      },
+      "category": "paragraph",
+      "childIds": [
+        3
+      ],
+      "class": "container",
+      "id": 2,
+      "parentId": 1,
+      "rotatedBoundingRectangle": [
+        {
+          "x": 27.65999984741211,
+          "y": 14.350000381469727
+        },
+        {
+          "x": 83.93000030517578,
+          "y": 12.890000343322754
+        },
+        {
+          "x": 84.23999786376953,
+          "y": 24.979999542236328
+        },
+        {
+          "x": 27.969999313354492,
+          "y": 26.440000534057617
+        }
+      ],
+      "strokeIds": [
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336,
+        337
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "inkWord",
+          "recognizedString": "bug"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "buoy"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "bay"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "boy"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Buy"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "bury"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "busy"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "burg"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "bony"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 16.15999984741211,
+        "topX": 40.09000015258789,
+        "topY": 27.399999618530273,
+        "width": 14.119999885559082
+      },
+      "category": "inkWord",
+      "class": "leaf",
+      "id": 8,
+      "parentId": 7,
+      "recognizedText": "buy",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 40.029998779296875,
+          "y": 27.399999618530273
+        },
+        {
+          "x": 54.16999816894531,
+          "y": 27.329999923706055
+        },
+        {
+          "x": 54.25,
+          "y": 43.52000045776367
+        },
+        {
+          "x": 40.11000061035156,
+          "y": 43.59000015258789
+        }
+      ],
+      "strokeIds": [
+        348,
+        349,
+        350
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "inkWord",
+          "recognizedString": "toey"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "tory"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "tony"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "tody"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "toys"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "toby"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "towy"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "troy"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Toy"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 10.430000305175781,
+        "topX": 61.77000045776367,
+        "topY": 31.09000015258789,
+        "width": 14.359999656677246
+      },
+      "category": "inkWord",
+      "class": "leaf",
+      "id": 9,
+      "parentId": 7,
+      "recognizedText": "toy",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 61.7599983215332,
+          "y": 31.100000381469727
+        },
+        {
+          "x": 76.08000183105469,
+          "y": 31.030000686645508
+        },
+        {
+          "x": 76.12999725341797,
+          "y": 41.4900016784668
+        },
+        {
+          "x": 61.810001373291016,
+          "y": 41.560001373291016
+        }
+      ],
+      "strokeIds": [
+        338,
+        339,
+        340
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "inkWord",
+          "recognizedString": "foo"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "tor"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fot"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "far"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "foe"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fur"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fob"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "For"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "fov"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 10.869999885559082,
+        "topX": 82.19999694824219,
+        "topY": 28.93000030517578,
+        "width": 13.800000190734863
+      },
+      "category": "inkWord",
+      "class": "leaf",
+      "id": 10,
+      "parentId": 7,
+      "recognizedText": "for",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 82.16999816894531,
+          "y": 28.940000534057617
+        },
+        {
+          "x": 95.95999908447266,
+          "y": 28.8799991607666
+        },
+        {
+          "x": 96.0199966430664,
+          "y": 39.7400016784668
+        },
+        {
+          "x": 82.22000122070312,
+          "y": 39.79999923706055
+        }
+      ],
+      "strokeIds": [
+        342,
+        341,
+        343,
+        344
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "inkWord",
+          "recognizedString": "Ryan 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Ryann 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Ryman 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Rylan 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Rayan 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Regan 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Rymans 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Ryland 's"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "Rayah 's"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 17.65999984741211,
+        "topX": 104.11000061035156,
+        "topY": 27.360000610351562,
+        "width": 27.81999969482422
+      },
+      "category": "inkWord",
+      "class": "leaf",
+      "id": 11,
+      "parentId": 7,
+      "recognizedText": "Ryan's",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 104.08999633789062,
+          "y": 27.479999542236328
+        },
+        {
+          "x": 131.8699951171875,
+          "y": 27.34000015258789
+        },
+        {
+          "x": 131.9499969482422,
+          "y": 44.91999816894531
+        },
+        {
+          "x": 104.16999816894531,
+          "y": 45.04999923706055
+        }
+      ],
+      "strokeIds": [
+        345,
+        346,
+        347,
+        351,
+        352
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "inkWord",
+          "recognizedString": "birthda y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "birthday y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "birthdom y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "birthdar y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "birthed y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "birthdo y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "bertha y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "birthla y"
+        },
+        {
+          "category": "inkWord",
+          "recognizedString": "berthed y"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 22.549999237060547,
+        "topX": 140.92999267578125,
+        "topY": 25.5,
+        "width": 32.970001220703125
+      },
+      "category": "inkWord",
+      "class": "leaf",
+      "id": 12,
+      "parentId": 7,
+      "recognizedText": "birthday",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 140.8699951171875,
+          "y": 25.510000228881836
+        },
+        {
+          "x": 173.85000610351562,
+          "y": 25.360000610351562
+        },
+        {
+          "x": 173.9600067138672,
+          "y": 48.0099983215332
+        },
+        {
+          "x": 140.97000122070312,
+          "y": 48.16999816894531
+        }
+      ],
+      "strokeIds": [
+        353,
+        354,
+        356,
+        355,
+        358,
+        357,
+        359,
+        360,
+        361,
+        362
+      ]
+    },
+    {
+      "alternates": [
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan 's birthday"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan 's birthda y"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan's birthda y"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan 's birthday y"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan's birthday y"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan 's birthdom y"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan's birthdom y"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan 's birthdar y"
+        },
+        {
+          "category": "line",
+          "recognizedString": "buy toy for Ryan's birthdar y"
+        }
+      ],
+      "boundingRectangle": {
+        "height": 22.549999237060547,
+        "topX": 40.09000015258789,
+        "topY": 25.5,
+        "width": 133.80999755859375
+      },
+      "category": "line",
+      "childIds": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "class": "container",
+      "id": 7,
+      "parentId": 6,
+      "recognizedText": "buy toy for Ryan's birthday",
+      "rotatedBoundingRectangle": [
+        {
+          "x": 40.029998779296875,
+          "y": 25.989999771118164
+        },
+        {
+          "x": 173.85000610351562,
+          "y": 25.360000610351562
+        },
+        {
+          "x": 173.9600067138672,
+          "y": 48.0099983215332
+        },
+        {
+          "x": 40.130001068115234,
+          "y": 48.650001525878906
+        }
+      ],
+      "strokeIds": [
+        348,
+        349,
+        350,
+        338,
+        339,
+        340,
+        342,
+        341,
+        343,
+        344,
+        345,
+        346,
+        347,
+        351,
+        352,
+        353,
+        354,
+        356,
+        355,
+        358,
+        357,
+        359,
+        360,
+        361,
+        362
+      ]
+    },
+    {
+      "boundingRectangle": {
+        "height": 22.549999237060547,
+        "topX": 40.09000015258789,
+        "topY": 25.5,
+        "width": 133.80999755859375
+      },
+      "category": "paragraph",
+      "childIds": [
+        7
+      ],
+      "class": "container",
+      "id": 6,
+      "parentId": 1,
+      "rotatedBoundingRectangle": [
+        {
+          "x": 40.029998779296875,
+          "y": 25.989999771118164
+        },
+        {
+          "x": 173.85000610351562,
+          "y": 25.360000610351562
+        },
+        {
+          "x": 173.9600067138672,
+          "y": 48.0099983215332
+        },
+        {
+          "x": 40.130001068115234,
+          "y": 48.650001525878906
+        }
+      ],
+      "strokeIds": [
+        348,
+        349,
+        350,
+        338,
+        339,
+        340,
+        342,
+        341,
+        343,
+        344,
+        345,
+        346,
+        347,
+        351,
+        352,
+        353,
+        354,
+        356,
+        355,
+        358,
+        357,
+        359,
+        360,
+        361,
+        362
+      ]
+    },
+    {
+      "boundingRectangle": {
+        "height": 33.810001373291016,
+        "topX": 27.940000534057617,
+        "topY": 14.239999771118164,
+        "width": 145.9600067138672
+      },
+      "category": "writingRegion",
+      "childIds": [
+        2,
+        6
+      ],
+      "class": "container",
+      "id": 1,
+      "parentId": 0,
+      "rotatedBoundingRectangle": [
+        {
+          "x": 27.8799991607666,
+          "y": 14.260000228881836
+        },
+        {
+          "x": 173.7899932861328,
+          "y": 13.5600004196167
+        },
+        {
+          "x": 173.9600067138672,
+          "y": 48.0099983215332
+        },
+        {
+          "x": 28.049999237060547,
+          "y": 48.709999084472656
+        }
+      ],
+      "strokeIds": [
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336,
+        337,
+        348,
+        349,
+        350,
+        338,
+        339,
+        340,
+        342,
+        341,
+        343,
+        344,
+        345,
+        346,
+        347,
+        351,
+        352,
+        353,
+        354,
+        356,
+        355,
+        358,
+        357,
+        359,
+        360,
+        361,
+        362
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript">
+        
+        var sampleJson = "";
+        function openFile(event) {
+            var input = event.target;
+
+            var reader = new FileReader();
+            reader.onload = function(){
+                sampleJson = reader.result.replace(/(\\r\\n|\\n|\\r)/gm, "");
+                sampleJson = JSON.parse(sampleJson);
+                document.getElementById('request').innerHTML = JSON.stringify(sampleJson, null, 2);
+            };
+            reader.readAsText(input.files[0]);
+        };
+
+        function recognizeInk() {
+            var SERVER_ADDRESS = "https://api.cognitive.microsoft.com";
+            var ENDPOINT_URL = SERVER_ADDRESS + "/inkrecognizer/v1.0-preview/recognize";
+            var SUBSCRIPTION_KEY = "YOUR_SUBSCRIPTION_KEY";
+
+            
+            if (SUBSCRIPTION_KEY === "") {
+                window.alert("Please change the subscriptionKey variable by a valid key!");
+                return;
+            }
+            
+
+            function returnFunction(xhttp) {
+                var response = JSON.parse(xhttp.responseText);
+                console.log("Response: %s ", response);
+                document.getElementById('response').innerHTML = JSON.stringify(response, null, 2);
+            }
+
+            function errorFunction() {
+                console.log("Error: %s, Detail: %s", xhttp.status, xhttp.responseText);
+            }
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        returnFunction(xhttp);
+                    } else {
+                        errorFunction(xhttp);
+                    }
+                }
+            };
+            xhttp.open("PUT", ENDPOINT_URL, true);
+            xhttp.setRequestHeader("Ocp-Apim-Subscription-Key", SUBSCRIPTION_KEY);
+            xhttp.setRequestHeader("content-type", "application/json");
+            xhttp.send(JSON.stringify(sampleJson));
+        };
+    </script>
+</head>
+
+<body>
+    <h2>Result</h2>
+    <p>Request:</p>
+    <textarea id="request" style="width:800px;height:300px"></textarea>
+    <p>Response:</p>
+    <textarea id="response" style="width:800px;height:300px"></textarea>
+    <br>
+    <button type="button" onclick="recognizeInk()">Recognize Ink</button>
+    <input type='file' accept='text/plain' onchange='openFile(event)'><br>
+</body>
+
+</html>
