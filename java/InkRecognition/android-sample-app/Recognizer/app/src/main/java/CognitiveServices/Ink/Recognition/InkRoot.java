@@ -12,8 +12,7 @@ import java.util.Hashtable;
 import java.util.Set;
 
 class InkRoot {
-
-    //containers
+    //Using different collections to isolate each type for type specific queries.
     private final Hashtable<Integer, InkRecognitionUnit> recognizedContainers = new Hashtable<>();
     private final ArrayList<InkWord> wordList = new ArrayList<>();
     private final Hashtable<Integer, InkRecognitionUnit> recognizedDrawings = new Hashtable<>();
@@ -33,20 +32,20 @@ class InkRoot {
 
     InkRoot(String json, DisplayMetrics metrics, int httpResponseCode)
     {
-
         try {
             JSONObject jsonResponse = new JSONObject(json);
 
             if (httpResponseCode == HttpURLConnection.HTTP_OK) {
-                JSONArray recognitionUnits = jsonResponse.getJSONArray("recognitionUnits");
+                JSONArray jsonRecognitionUnits = jsonResponse.getJSONArray("recognitionUnits");
                 for (int i = 0;
-                     i < recognitionUnits.length();
+                     i < jsonRecognitionUnits.length() &&
+                     resultStatus != RecognitionResultStatus.FAILED;
                      i++) {
 
-                    String category = recognitionUnits.getJSONObject(i).getString("category");
-                    String unitJSON = recognitionUnits.getJSONObject(i).toString();
-                    int id = recognitionUnits.getJSONObject(i).getInt("id");
-                    //leafs
+                    String category = jsonRecognitionUnits.getJSONObject(i).getString("category");
+                    String unitJSON = jsonRecognitionUnits.getJSONObject(i).toString();
+                    int id = jsonRecognitionUnits.getJSONObject(i).getInt("id");
+                    //Instantiate the recognition units
                     switch (category) {
                         case "inkWord":
                             InkWord word = new InkWord(unitJSON, metrics, this);
@@ -81,6 +80,10 @@ class InkRoot {
                             InkWritingRegion writingRegion = new InkWritingRegion(unitJSON, metrics, this);
                             recognizedContainers.put(id, writingRegion);
                             recognizedUnits.put(id, writingRegion);
+                            break;
+                        default:
+                            recognitionError = new InkRecognitionError("unknown unit");
+                            resultStatus = RecognitionResultStatus.FAILED;
                             break;
                     }
                 }

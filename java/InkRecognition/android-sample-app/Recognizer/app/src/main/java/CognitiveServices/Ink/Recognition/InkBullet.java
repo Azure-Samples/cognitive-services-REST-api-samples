@@ -1,12 +1,10 @@
 package CognitiveServices.Ink.Recognition;
 
 import android.util.DisplayMetrics;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 class InkBullet extends InkRecognitionUnit {
-
 
     public String getText() {
         return text;

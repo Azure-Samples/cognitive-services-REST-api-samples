@@ -35,6 +35,4 @@ class InkWord extends InkRecognitionUnit {
 
         this.text = jsonWord.getString("recognizedText");
     }
-
-
 }
