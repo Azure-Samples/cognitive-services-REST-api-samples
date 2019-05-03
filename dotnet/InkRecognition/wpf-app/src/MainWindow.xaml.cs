@@ -52,7 +52,7 @@ namespace NoteTaker
                 {
                     inkRecognizer.AddStroke(stroke);
                 }
-                var status = await inkRecognizer.AnalyzeAsync();
+                var status = await inkRecognizer.RecognizeAsync();
                 if (status == HttpStatusCode.OK)
                 {
                     var root = inkRecognizer.GetRecognizerRoot();
@@ -63,12 +63,12 @@ namespace NoteTaker
                 }
                 else
                 {
-                    output.Text = $"Http status error: {status}";
+                    output.Text = OutputWriter.PrintError($"Http Status: {status}");
                 }
             }
             catch (Exception ex)
             {
-                output.Text = $"Error: {ex.ToString()}";
+                output.Text = OutputWriter.PrintError(ex.ToString());
             }
         }
 

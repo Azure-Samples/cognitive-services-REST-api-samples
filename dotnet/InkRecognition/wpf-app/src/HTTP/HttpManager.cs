@@ -1,5 +1,4 @@
 ﻿using Contoso.NoteTaker.JSON;
-using Contoso.NoteTaker.JSON.Format;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -23,23 +22,24 @@ namespace Contoso.NoteTaker.Http
 
         public async Task<HttpResponseMessage> PutAsync(string jsonRequest)
         {
-            var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            var httpResponse = await httpClient.PutAsync(destinationUrl, httpContent);
-
-            // Throw exception for malformed/unauthorized http requests
-            if (httpResponse.StatusCode == HttpStatusCode.BadRequest || httpResponse.StatusCode == HttpStatusCode.NotFound || httpResponse.StatusCode == HttpStatusCode.Unauthorized)
+            try
             {
-                var errorJson = await httpResponse.Content.ReadAsStringAsync();
+                var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                var httpResponse = await httpClient.PutAsync(destinationUrl, httpContent);
 
-                var errDetail = JSONProcessor.ParseInkRecognitionError(errorJson);
-                ThrowExceptionForHttpError(errDetail);
+                // Throw exception for malformed/unauthorized http requests
+                if (httpResponse.StatusCode == HttpStatusCode.BadRequest || httpResponse.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    var errorJson = await httpResponse.Content.ReadAsStringAsync();
+                    var errDetail = JSONProcessor.ParseInkRecognitionError(errorJson);
+                    throw new HttpRequestException(errDetail.ToString());
+                }
+                return httpResponse;
             }
-            return httpResponse;
-        }
-
-        private void ThrowExceptionForHttpError(HttpErrorDetails httpError)
-        {
-            throw new HttpRequestException(httpError.ToString());
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }
