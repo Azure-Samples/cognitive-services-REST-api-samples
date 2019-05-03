@@ -19,6 +19,7 @@ namespace NoteTaker
         InkRecognizer inkRecognizer;
         DisplayInformation displayInfo;
         private readonly DispatcherTimer dispatcherTimer;
+        // Time to wait before triggering ink recognition operation
         const double IDLE_WAITING_TIME = 1000;
 
         public MainWindow()
