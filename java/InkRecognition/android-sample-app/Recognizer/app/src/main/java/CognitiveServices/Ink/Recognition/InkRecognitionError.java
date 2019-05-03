@@ -48,9 +48,9 @@ public class InkRecognitionError {
     @NonNull
     public String toString() {
         return "Code: " + errorCode +
-                "Message: " + message +
-                "Target: " + target +
-                "Details:\r" + getErrorDetails();
+               "Message: " + message +
+               "Target: " + target +
+               "Details:\r" + getErrorDetails();
     }
 
     private String getErrorDetails() {

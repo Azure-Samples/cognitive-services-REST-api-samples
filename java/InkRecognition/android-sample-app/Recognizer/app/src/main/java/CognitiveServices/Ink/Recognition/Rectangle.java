@@ -1,30 +1,30 @@
 package CognitiveServices.Ink.Recognition;
 
 public class Rectangle {
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public double getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public double getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    private final double x;
-    private final double y;
-    private final double width;
-    private final double height;
-    Rectangle(double x, double y, double width, double height) {
+    private final float x;
+    private final float y;
+    private final float width;
+    private final float height;
+    Rectangle(float x, float y, float width, float height) {
         this.x = x;
-        this.y=y;
-        this.width =width;
+        this.y = y;
+        this.width = width;
         this.height = height;
     }
 }

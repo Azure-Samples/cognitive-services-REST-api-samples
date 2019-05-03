@@ -20,6 +20,7 @@ public class InkRecognitionUnit {
     private ArrayList<InkPoint> rotatedBoundingBox;
     private final float DOT_PER_INCH;
     private final InkRoot result;
+    public static final float INCH_TO_MM = 25.4f;
 
     public InkRecognitionUnitCategory getCategory() {
         return category;
@@ -68,13 +69,12 @@ public class InkRecognitionUnit {
         return rotatedBoundingBox;
     }
 
-    InkRecognitionUnit(String jSONString, DisplayMetrics metrics, InkRoot result) throws JSONException {
-
+    InkRecognitionUnit(String jsonString, DisplayMetrics metrics, InkRoot result) throws JSONException {
         DOT_PER_INCH = metrics.xdpi;
         this.result = result;
 
         try {
-            JSONObject obj = new JSONObject(jSONString);
+            JSONObject obj = new JSONObject(jsonString);
             this.id = obj.getInt("id");
             this.category = getCategory(obj.getString("category"));
             this.parentId = obj.getInt("parentId");
@@ -104,18 +104,14 @@ public class InkRecognitionUnit {
                     millimetersToPixels((float)boundingRect.getDouble("height")));
 
             //setup rotated bounding box
-            JSONArray rotatedPoints = obj.getJSONArray("rotatedBoundingRectangle");
-
-
+            JSONArray rotatedBoundingRectPoints = obj.getJSONArray("rotatedBoundingRectangle");
             rotatedBoundingBox = new ArrayList<>();
-
             for (int i =0;
-                 i <rotatedPoints.length();
+                 i <rotatedBoundingRectPoints.length();
                  i++) {
-                JSONObject point = rotatedPoints.getJSONObject(i);
+                JSONObject point = rotatedBoundingRectPoints.getJSONObject(i);
                 this.rotatedBoundingBox.add(new InkPoint(millimetersToPixels((float)point.getDouble("x")), millimetersToPixels((float)point.getDouble("y"))));
             }
-
         }
         catch (Exception e) {
             System.out.print("Data Processing Error: " + e.getMessage());
@@ -159,7 +155,7 @@ public class InkRecognitionUnit {
     }
 
     float millimetersToPixels(float milliValue) {
-        return (milliValue/25.4f) * DOT_PER_INCH;
+        return (milliValue/INCH_TO_MM) * DOT_PER_INCH;
     }
 
 }

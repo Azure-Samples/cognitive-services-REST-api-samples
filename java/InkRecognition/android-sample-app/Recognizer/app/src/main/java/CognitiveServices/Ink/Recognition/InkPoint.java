@@ -1,11 +1,11 @@
 package CognitiveServices.Ink.Recognition;
 
 public class InkPoint {
-    final double x;
-    final double y;
+    final float x;
+    final float y;
 
-    InkPoint(double x, double y) {
-        this.y =y;
-        this.x =x;
+    InkPoint(float x, float y) {
+        this.y = y;
+        this.x = x;
     }
 }

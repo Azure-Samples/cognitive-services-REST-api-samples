@@ -15,13 +15,12 @@ public class NoteTaker extends View {
     private final Paint brush = new Paint();
     private InkStroke stroke;
     private final InkRecognizer inkRecognizer;
-    private final float xdpi;
-    private final float ydpi;
     private CountDownTimer analysisTimer = null;
+    private final DisplayMetrics metrics;
 
     public NoteTaker(Context context) {
         super(context);
-        String appKey = "<SUBSCRIPTION_KEY>";
+        String appKey = "66f20985c59d4435931fea039dbf68fe";
         String destinationUrl = "https://api.cognitive.microsoft.com/inkrecognizer/v1.0-preview/recognize";
         inkRecognizer = new InkRecognizer(appKey, destinationUrl, context);
         brush.setAntiAlias(true);
@@ -29,14 +28,16 @@ public class NoteTaker extends View {
         brush.setStyle(Paint.Style.STROKE);
         brush.setStrokeJoin(Paint.Join.ROUND);
         brush.setStrokeWidth(3.0f);
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        xdpi = getResources().getDisplayMetrics().xdpi;
-        ydpi = getResources().getDisplayMetrics().ydpi;
+        this.metrics = getResources().getDisplayMetrics();
         inkRecognizer.setMetrics(metrics);
     }
 
     private void startTimer() {
-        analysisTimer = new CountDownTimer(2000, 1000) {
+        //The next 2 variables are used for the inactivity timer which triggers recognition
+        //after a certain period of inactivity.
+        int milliSeconds = 2000;//Time to wait
+        int countDownInterval = 1000;//interval
+        analysisTimer = new CountDownTimer(milliSeconds, countDownInterval) {
             public void onTick(long millFinish) {
 
             }
@@ -59,18 +60,17 @@ public class NoteTaker extends View {
         float x = event.getX();
         float y = event.getY();
 
-        float dataX = x/xdpi*25.4f;
-        float dataY = y/ydpi*25.4f;
+
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                path.moveTo(x,y);
-                stroke = new InkStroke();
-                stroke.addPoint(dataX,dataY);
+                path.moveTo(x, y);
+                stroke = new InkStroke(metrics);
+                stroke.addPoint(x, y);
                 cancelTimer();
                 return true;
             case MotionEvent.ACTION_MOVE:
-                path.lineTo(x,y);
-                stroke.addPoint(dataX,dataY);
+                path.lineTo(x, y);
+                stroke.addPoint(x, y);
                 break;
             case MotionEvent.ACTION_UP:
                 inkRecognizer.addStroke(stroke);
@@ -81,7 +81,6 @@ public class NoteTaker extends View {
         }
         postInvalidate();
         return false;
-
     }
 
     @Override

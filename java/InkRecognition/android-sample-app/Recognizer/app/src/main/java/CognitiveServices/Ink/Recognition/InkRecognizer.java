@@ -22,7 +22,7 @@ public class InkRecognizer {
     private final ArrayList<InkStroke> strokes = new ArrayList<>();
     private final String app_key;
     private final String url;
-    private InkRoot inkRoot;
+    private InkRoot inkRoot; //the root holds the recognition units reported by the service
     private DisplayMetrics metrics;
     private final boolean displayTree = true;
 
@@ -35,8 +35,6 @@ public class InkRecognizer {
     public void setMetrics(DisplayMetrics metrics) {
         this.metrics = metrics;
     }
-
-
 
     InkRecognizer(String appKey, String destinationUrl, Context context) {
         this.app_key = appKey;
@@ -60,9 +58,8 @@ public class InkRecognizer {
         return inkRoot;
     }
 
-
-    private void buildResult(String jSONData, int httpResponseCode) {
-        this.inkRoot = new InkRoot(jSONData, metrics, httpResponseCode);
+    private void buildResult(String jsonData, int httpResponseCode) {
+        this.inkRoot = new InkRoot(jsonData, metrics, httpResponseCode);
     }
 
     private String getJSONStrokes() throws JSONException {
@@ -75,7 +72,7 @@ public class InkRecognizer {
             InkStroke stroke = strokes.get(i);
             JSONObject jsonStroke = new JSONObject();
             jsonStroke.put("id", stroke.strokeId);
-            jsonStroke.put("language", stroke.language);
+            jsonStroke.put("language", stroke.language); //The language is an optional field which can be used when dealing with multi-language apps.
             if (stroke.kind != StrokeKind.UNKNOWN) {
                 jsonStroke.put("kind", strokeKindToString(stroke.kind));
             }
@@ -98,13 +95,16 @@ public class InkRecognizer {
     }
 
     private String strokeKindToString(StrokeKind kind) {
-        String strokeKind = "UnKnown";
+        String strokeKind;
         switch(kind) {
             case DRAWING:
                 strokeKind = "inkDrawing";
                 break;
             case WRITING:
                 strokeKind = "inkWriting";
+                break;
+            default:
+                strokeKind = "UnKnown";
                 break;
         }
         return strokeKind;
@@ -117,69 +117,68 @@ public class InkRecognizer {
         protected InkRecognizer doInBackground(InkRecognizer... params) {
 
             int responseCode;
+            InkRecognizer inkRecognizer = params[0];
 
             try {
-                URL url = new URL(params[0].url);
+                URL url = new URL(inkRecognizer.url);
                 HttpsURLConnection restConnection = (HttpsURLConnection) url.openConnection();
                 restConnection.setRequestProperty("Content-Type","application/json");
-                restConnection.setRequestProperty("Ocp-Apim-Subscription-Key",params[0].app_key);
+                restConnection.setRequestProperty("Ocp-Apim-Subscription-Key", inkRecognizer.app_key);
                 restConnection.setRequestMethod("PUT");
                 restConnection.setDoOutput(true);
                 OutputStreamWriter jsonStrokesWriter = new OutputStreamWriter(restConnection.getOutputStream());
-                jsonStrokesWriter.write(params[0].getJSONStrokes());
+                jsonStrokesWriter.write(inkRecognizer.getJSONStrokes());
                 jsonStrokesWriter.flush();
                 jsonStrokesWriter.close();
                 responseCode = restConnection.getResponseCode();
                 // read the output from the server
                 if (responseCode == HttpURLConnection.HTTP_OK ||
-                        responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
+                    responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
                     InputStreamReader streamReader = new InputStreamReader(restConnection.getInputStream());
                     BufferedReader reader = new BufferedReader(streamReader);
                     StringBuilder stringBuilder = new StringBuilder();
-
                     String line;
                     while ((line = reader.readLine()) != null) {
                         stringBuilder.append(line).append("\n");
                     }
-
-                    params[0].buildResult(stringBuilder.toString(), responseCode);
-
+                    inkRecognizer.buildResult(stringBuilder.toString(), responseCode);
                 }
                 else {
 
-                    params[0].buildResult("Error Occurred", responseCode);
+                    inkRecognizer.buildResult("Error Occurred", responseCode);
                 }
             }
             catch (Exception e) {
                 e.printStackTrace();
-                params[0].buildResult("Error Occurred", 0);
+                inkRecognizer.buildResult("Error Occurred", 0);
             }
-            return params[0];
+            return inkRecognizer;
         }
 
         @Override
         protected void onPostExecute(InkRecognizer analyzer) {
-            StringBuilder recognisedWords = new StringBuilder();
+            StringBuilder recognizedWords = new StringBuilder();
             InkRoot inkRoot = analyzer.getRecognitionRoot();
             if (inkRoot.getResultStatus() == RecognitionResultStatus.UPDATED) {
                 ArrayList<InkWord> words = inkRoot.getInkWords();
 
                 for (int i = 0; i < words.size(); i++) {
-                    recognisedWords.append(words.get(i).getText());
-                    recognisedWords.append(" ");
+                    recognizedWords.append(words.get(i).getText());
+                    recognizedWords.append(" ");
                 }
+
                 ArrayList<InkDrawing> drawings = inkRoot.getInkDrawings();
-                recognisedWords.append("\r\nRecognized Shapes:\r\n");
+                recognizedWords.append("\r\nRecognized Shapes:\r\n");
                 for (int i = 0; i < drawings.size(); i++) {
-                    recognisedWords.append(drawings.get(i).getShape().toString()).append("\r\n");
+                    recognizedWords.append(drawings.get(i).getShape().toString()).append("\r\n");
                 }
                 if(analyzer.displayTree) {
                     InkRecognitionDetailsLogger.displayAnalysisTree(inkRoot);
                 }
             } else {
-                recognisedWords.append(inkRoot.getRecognitionError().toString());
+                recognizedWords.append(inkRoot.getRecognitionError().toString());
             }
-            Toast toast = Toast.makeText(analyzer.getContext(), recognisedWords.toString(), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(analyzer.getContext(), recognizedWords.toString(), Toast.LENGTH_LONG);
             toast.show();
         }
     }
