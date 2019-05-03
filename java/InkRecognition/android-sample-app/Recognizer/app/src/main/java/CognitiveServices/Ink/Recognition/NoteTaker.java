@@ -20,7 +20,7 @@ public class NoteTaker extends View {
 
     public NoteTaker(Context context) {
         super(context);
-        String appKey = "66f20985c59d4435931fea039dbf68fe";
+        String appKey = "<SUBSCRIPTION KEY HERE>";
         String destinationUrl = "https://api.cognitive.microsoft.com/inkrecognizer/v1.0-preview/recognize";
         inkRecognizer = new InkRecognizer(appKey, destinationUrl, context);
         brush.setAntiAlias(true);
