@@ -1,7 +1,7 @@
 // Service endpoint configurations
 
 SERVER_ADDRESS = "https://api.cognitive.microsoft.com";
-ENDPOINT_URL = SERVER_ADDRESS + "/inkrecognizer/v1.0-preview/recognizer";
+ENDPOINT_URL = SERVER_ADDRESS + "/inkrecognizer/v1.0-preview/recognize";
 SUBSCRIPTION_KEY = "";
 
 // Languages for user to try
