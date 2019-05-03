@@ -11,13 +11,13 @@ products:
 
 ![Build passing](https://img.shields.io/badge/build-passing-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-Ink Recognizer Cognitive Service provides recognition of digital ink. It takes the digital ink stroke data as input and provides a document tree with individual recognition units as output. This project has sample code to demonstrate a few ways developers can take advantage of the service.
+Ink Recognizer Cognitive Service provides recognition of digital ink. It takes the digital ink stroke data as input and provides a document tree with individual recognition units as output. This project has sample code to demonstrate a few ways developers can take advantage of the service. This sample also shows use case for [Xaml Island](https://docs.microsoft.com/en-us/windows/uwp/xaml-platform/xaml-host-controls) on InkCanvas, which import UWP controls into desktop applications.
 
 ## Features
 
 This sample provides the following features:
 
-* Collect ink strokes
+* Collect ink strokes from Xaml Island InkCanvas
 * Create JSON request following InkRecognizer service's schema.
 * Call the InkRecognizer REST API
 * Parse the JSON reponse to build the document tree
