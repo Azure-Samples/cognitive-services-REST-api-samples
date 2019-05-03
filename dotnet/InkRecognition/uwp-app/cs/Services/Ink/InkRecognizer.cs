@@ -17,7 +17,7 @@ namespace Contoso.NoteTaker.Services.Ink
 
         HttpManager httpManager;
 
-        // Use default DPI setting
+        // Default DPI setting
         float dpiX = 96.0f;
         float dpiY = 96.0f;
 
@@ -29,8 +29,8 @@ namespace Contoso.NoteTaker.Services.Ink
 
         public void AddStroke(InkStroke stroke)
         {
-            var iaStroke = new InkRecognizerStroke(stroke, dpiX, dpiY);
-            strokes.Add(iaStroke);
+            var irStroke = new InkRecognizerStroke(stroke, dpiX, dpiY);
+            strokes.Add(irStroke);
         }
 
         public void RemoveStroke(UInt64 strokeId)
@@ -50,7 +50,7 @@ namespace Contoso.NoteTaker.Services.Ink
             // DisplayInfo.RawDpiX and DisplayInfo.RawDpiY returns 0 when monitor doesnt provide physical dimensions 
             // or when user is in clone or multiple-monitor setup. Fallback to default DPI setting in such cases.
             dpiX = (displayInfo.RawDpiX != 0) ? displayInfo.RawDpiX : dpiX;
-            dpiY = (displayInfo.RawDpiX != 0) ? displayInfo.RawDpiY : dpiY;
+            dpiY = (displayInfo.RawDpiY != 0) ? displayInfo.RawDpiY : dpiY;
         }
 
         public InkRecognitionRoot GetRecognizerRoot()

@@ -28,7 +28,7 @@ namespace Contoso.NoteTaker.JSON
             try
             {
                 var responseObj = JsonConvert.DeserializeObject<InkRecognitionResponse>(responseJson,
-                        new InkRecognitionResponseConverter());
+                                                    new InkRecognitionResponseConverter());
                 var result = new InkRecognitionRoot(responseObj);
                 return result;
             }
@@ -40,8 +40,16 @@ namespace Contoso.NoteTaker.JSON
 
         public static HttpErrorDetails ParseInkRecognitionError(string errorJson)
         {
-            var error = JsonConvert.DeserializeObject<HttpErrorDetails>(errorJson);
-            return error;
+            try
+            {
+                var error = JsonConvert.DeserializeObject<HttpErrorDetails>(errorJson);
+                return error;
+            }
+            catch(Exception e)
+            {
+                throw new JsonReaderException(e.Message);
+            }
+            
         }
     }
 }

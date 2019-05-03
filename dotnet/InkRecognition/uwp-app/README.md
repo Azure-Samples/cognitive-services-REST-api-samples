@@ -1,10 +1,9 @@
 ---
 topic: sample
 languages:
-  - csharp
+  - C#
 products:
-  - uwp
-  - windows
+  - WPF
   - azure
 ---
 
@@ -16,39 +15,46 @@ Ink Recognizer Cognitive Service provides recognition of digital ink. It takes t
 
 ## Features
 
-This project framework provides the following features:
+This sample provides the following features:
 
-* Capturing very basic inking input.
-* Creating the JSON payload using the JSON schema used by Ink Recognizer.
-* Calling the Ink Recognizer REST APIs with the JSON payload
-* Parsing the JSON response from the service, build the document tree and parse it.
+* Collect ink strokes
+* Create JSON request with Ink Recognizer Service's schema.
+* Call the Ink Recognizer REST APIs with the JSON payload
+* Parse the JSON response from the service and build the document tree.
 
 ## Contents
 
 | File/folder | Description |
 |-------------|-------------|
-| `src`       | Sample source code. |
+| `cs`       | Sample source code. |
 | `README.md` | This README file. |
 | `LICENSE`   | The license for the sample. |
 
 ## Prerequisites
 
-- Install [Visual Studio] (https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio) 
-- Requires subscription key from [Azure Cognitive Services] (https://docs.microsoft.com/en-us/azure/cognitive-services/authentication) 
+- Install [Visual Studio](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio) 
+- Requires subscription key from [Azure Cognitive Services](https://docs.microsoft.com/en-us/azure/cognitive-services/authentication) 
 
 ## Build the sample
 
 1. Clone or download this sample repository
 2. Start Visual Studio and select **File > Open > Project/Solution**
-3. Replace "[YOUR SUBSCRIPTION KEY]" in NoteTaker.xaml.cs with valid subscription key  
-4. Press Ctrl+Shift+B, or select **Build > Build Solution**
+3. Replace "[YOUR SUBSCRIPTION KEY]" in NoteTaker.xaml.cs with a valid subscription key  
+4. Select **Build > Build Solution**
 
 ## Run the sample
 
-The next steps depend on whether you just want to deploy the sample or you want to both deploy and run it.
+* To debug the sample, select Debug > Start Debugging. To run the sample without debugging, select Debug > Start Without Debugging
+* Write some text / Draw a shape on the inking area
+* After 1 second of inactivity, the ink will be recognized and the result will be displayed at the bottom of the app
 
-### Deploying the sample
-Select Build > Deploy Solution.
+## Resources
 
-### Debugging and running the sample
-To debug the sample and then run it, press F5 or select Debug > Start Debugging. To run the sample without debugging, press Ctrl+F5 or select Debug > Start Without Debugging.
+Additional resources related the project are located below
+
+* [Learn more about Ink Recognizer](http://go.microsoft.com/fwlink/?LinkID=2084782)
+* [Ink Recognizer API Reference](http://go.microsoft.com/fwlink/?LinkID=2085147)
+* [Ink Recognizer JavaScript sample](https://github.com/Azure-Samples/cognitive-services-REST-api-samples/tree/master/javascript/InkRecognition/javascript-app)
+* [Ink Recognizer WPF sample](https://github.com/Azure-Samples/cognitive-services-REST-api-samples/tree/master/dotnet/InkRecognition/wpf-app)
+* [Ink Recognizer Java sample](https://github.com/Azure-Samples/cognitive-services-REST-api-samples/tree/master/java/InkRecognition/android-sample-app)
+* [Ink Recognizer Swift sample](https://github.com/Azure-Samples/cognitive-services-REST-api-samples/tree/master/swift/InkRecognition)

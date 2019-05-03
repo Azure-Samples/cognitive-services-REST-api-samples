@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 using Contoso.NoteTaker.Services.Ink;
 using Windows.Graphics.Display;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,6 +39,8 @@ namespace NoteTaker
             var inkPresenter = inkCanvas.InkPresenter;
             inkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Pen | Windows.UI.Core.CoreInputDeviceTypes.Mouse;
 
+            inkPresenter.StrokeInput.StrokeStarted += InkPresenter_StrokeInputStarted;
+            inkPresenter.StrokeInput.StrokeEnded += InkPresenter_StrokeInputEnded;
             inkPresenter.StrokesCollected += InkPresenter_StrokesCollected;
             inkPresenter.StrokesErased += InkPresenter_StrokesErased;
 
@@ -49,6 +52,40 @@ namespace NoteTaker
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(IDLE_WAITING_TIME);
+        }
+
+        private void InkPresenter_StrokeInputStarted(Windows.UI.Input.Inking.InkStrokeInput sender, PointerEventArgs args)
+        {
+            StopTimer();
+        }
+
+        private void InkPresenter_StrokeInputEnded(Windows.UI.Input.Inking.InkStrokeInput sender, PointerEventArgs args)
+            {
+            StartTimer();
+        }
+
+        private void InkPresenter_StrokesCollected(Windows.UI.Input.Inking.InkPresenter sender, Windows.UI.Input.Inking.InkStrokesCollectedEventArgs args)
+        {
+            StopTimer();
+
+            foreach (var stroke in args.Strokes)
+            {
+                inkRecognizer.AddStroke(stroke);
+            }
+
+            StartTimer();
+        }
+
+        private void InkPresenter_StrokesErased(Windows.UI.Input.Inking.InkPresenter sender, Windows.UI.Input.Inking.InkStrokesErasedEventArgs args)
+        {
+            StopTimer();
+
+            foreach (var stroke in args.Strokes)
+            {
+                inkRecognizer.RemoveStroke(stroke.Id);
+            }
+
+            StartTimer();
         }
 
         private async void DispatcherTimer_Tick(object sender, object e)
@@ -75,29 +112,5 @@ namespace NoteTaker
 
         public void StartTimer() => dispatcherTimer.Start();
         public void StopTimer() => dispatcherTimer.Stop();
-
-        private void InkPresenter_StrokesCollected(Windows.UI.Input.Inking.InkPresenter sender, Windows.UI.Input.Inking.InkStrokesCollectedEventArgs args)
-        {
-            StopTimer();
-
-            foreach(var stroke in args.Strokes)
-            {
-                inkRecognizer.AddStroke(stroke);
-            }
-
-            StartTimer();
-        }
-
-        private void InkPresenter_StrokesErased(Windows.UI.Input.Inking.InkPresenter sender, Windows.UI.Input.Inking.InkStrokesErasedEventArgs args)
-        {
-            StopTimer();
-
-            foreach (var stroke in args.Strokes)
-            {
-                inkRecognizer.RemoveStroke(stroke.Id);
-            }
-
-            StartTimer();
-        }
     }
 }

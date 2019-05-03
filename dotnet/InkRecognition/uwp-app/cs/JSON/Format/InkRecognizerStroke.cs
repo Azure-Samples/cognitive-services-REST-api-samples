@@ -1,10 +1,9 @@
-﻿
-using Contoso.NoteTaker.Helpers;
-using Contoso.NoteTaker.JSON.Converter;
+﻿using Contoso.NoteTaker.JSON.Converter;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Windows.Foundation;
 using Windows.UI.Input.Inking;
 
 namespace Contoso.NoteTaker.JSON.Format
@@ -12,10 +11,10 @@ namespace Contoso.NoteTaker.JSON.Format
     public class InkRecognizerStroke
     {
         [JsonIgnore]
-        private InkStroke InkStroke { get; set; }
+        private InkStroke inkStrokeInternal { get; set; }
 
         [JsonProperty(PropertyName = "id")]
-        public UInt64 Id { get { return InkStroke.Id; } }
+        public UInt64 Id { get { return inkStrokeInternal.Id; } }
 
         [JsonProperty(PropertyName = "language", NullValueHandling = NullValueHandling.Ignore)]
         public string Language { get; set; } = null;
@@ -26,20 +25,31 @@ namespace Contoso.NoteTaker.JSON.Format
         [JsonProperty(PropertyName = "points"), JsonConverter(typeof(InkPointsToStringConverter))]
         public IReadOnlyList<InkPoint> Points { get; protected set; }
 
-        [JsonProperty(PropertyName = "drawingAttributes")]
-        public InkDrawingAttributes DrawingAttributes { get { return InkStroke.DrawingAttributes; } }
-
         public InkRecognizerStroke(InkStroke stroke, float DpiX, float DpiY)
         {
-            InkStroke = stroke;
+            inkStrokeInternal = stroke;
 
-            var pointsInPixels = GetInkPoints();
-            Points = InkPointHelper.ConvertPixelsToMillimeters(pointsInPixels, DpiX, DpiY).AsReadOnly();
+            var pointsInPixels = inkStrokeInternal.GetInkPoints();
+            Points = ConvertPixelsToMillimeters(pointsInPixels, DpiX, DpiY).AsReadOnly();
         }
 
-        public IReadOnlyList<InkPoint> GetInkPoints()
+        private List<InkPoint> ConvertPixelsToMillimeters(IReadOnlyList<InkPoint> pointsInPixels, float DpiX, float DpiY)
         {
-            return InkStroke.GetInkPoints();
+            var transformedInkPoints = new List<InkPoint>();
+            const float inchToMillimeterFactor = 25.4f;
+
+
+            foreach (var point in pointsInPixels)
+            {
+                var transformedX = (point.Position.X / DpiX) * inchToMillimeterFactor;
+                var transformedY = (point.Position.Y / DpiY) * inchToMillimeterFactor;
+                var transformedPoint = new Point(transformedX, transformedY);
+                var transformedInkPoint = new InkPoint(transformedPoint, point.Pressure);
+
+                transformedInkPoints.Add(transformedInkPoint);
+            }
+
+            return transformedInkPoints;
         }
     }
 
