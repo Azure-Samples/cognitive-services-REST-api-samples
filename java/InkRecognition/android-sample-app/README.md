@@ -51,7 +51,7 @@ Android Studio 3.2 on Windows 10/macOS El-capitan
 1. Connect to a virtual device in Android studio
 2. Build and run the project
 3. Write something on the screen of the virtual device once it is loaded.
-4. After 2 secodns of inactivity, the ink will be recognized and the result will be visible in a toast control.
+4. After 2 seconds of inactivity, the ink will be recognized and the result will be visible in a toast control.
 
 ## Resources
 
