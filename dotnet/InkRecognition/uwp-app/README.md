@@ -3,7 +3,7 @@ topic: sample
 languages:
   - C#
 products:
-  - WPF
+  - UWP
   - azure
 ---
 
