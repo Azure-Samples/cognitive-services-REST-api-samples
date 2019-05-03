@@ -5,15 +5,15 @@ namespace Contoso.NoteTaker.JSON.Format
     public class Rectangle
     {
         [JsonProperty(PropertyName = "topX")]
-        public float topX { get; set; }
+        public float TopX { get; set; }
 
         [JsonProperty(PropertyName = "topY")]
-        public float topY { get; set; }
+        public float TopY { get; set; }
 
         [JsonProperty(PropertyName = "width")]
-        public float width { get; set; }
+        public float Width { get; set; }
 
         [JsonProperty(PropertyName = "height")]
-        public float height { get; set; }
+        public float Height { get; set; }
     }
 }

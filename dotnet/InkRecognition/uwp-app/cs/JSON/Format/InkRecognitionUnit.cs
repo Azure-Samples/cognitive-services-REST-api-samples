@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Contoso.NoteTaker.JSON.Converter;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Windows.Foundation;
-using System;
 
 namespace Contoso.NoteTaker.JSON.Format
 {

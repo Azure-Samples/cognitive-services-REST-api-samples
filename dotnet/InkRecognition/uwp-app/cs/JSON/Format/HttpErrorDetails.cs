@@ -19,20 +19,9 @@ namespace Contoso.NoteTaker.JSON.Format
         public override string ToString()
         {
             string msg = "";
-            if (ErrorCode != null)
-            {
-                msg += "Http Error code: " + ErrorCode;
-            }
-
-            if (Target != null)
-            {
-                msg += " Target: " + Target;
-            }
-
-            if (Message != null)
-            {
-                msg += " Message : " + Message;
-            }
+            msg += (ErrorCode != null) ? " Http Error code : " + ErrorCode : "";
+            msg += (Target != null) ? " Target : " + Target : "";
+            msg += (Message != null) ? " Message : " + Message : "";
 
             if (Details != null)
             {

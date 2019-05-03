@@ -15,6 +15,7 @@ namespace Contoso.NoteTaker.JSON.Converter
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            // Since CanWrite flag is false, this function will not be called
             throw new NotImplementedException();
         }
 

@@ -5,13 +5,13 @@ namespace Contoso.NoteTaker.JSON.Format
     public enum RecognitionUnitKind
     {
         [EnumMember(Value = "writingRegion")]
-        InkWritingRegion,
+        WritingRegion,
 
         [EnumMember(Value = "paragraph")]
-        InkParagraph,
+        Paragraph,
 
         [EnumMember(Value = "line")]
-        InkLine,
+        Line,
 
         [EnumMember(Value = "inkWord")]
         InkWord,
@@ -20,7 +20,7 @@ namespace Contoso.NoteTaker.JSON.Format
         InkDrawing,
 
         [EnumMember(Value = "listItem")]
-        InkListItem,
+        ListItem,
 
         [EnumMember(Value = "inkBullet")]
         InkBullet,

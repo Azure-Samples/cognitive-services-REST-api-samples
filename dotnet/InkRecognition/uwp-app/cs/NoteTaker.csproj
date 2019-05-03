@@ -116,7 +116,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Helpers\InkPointHelper.cs" />
     <Compile Include="JSON\Converter\InkRecognitionResponseConverter.cs" />
     <Compile Include="JSON\Converter\InkPointsToStringConverter.cs" />
     <Compile Include="JSON\Format\Alternates.cs" />

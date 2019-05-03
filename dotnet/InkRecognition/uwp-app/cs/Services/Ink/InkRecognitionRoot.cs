@@ -23,7 +23,7 @@ namespace Contoso.NoteTaker.Services.Ink
             {
                 switch (recoUnit.Kind)
                 {
-                    case RecognitionUnitKind.InkLine:
+                    case RecognitionUnitKind.Line:
                         var line = recoUnit as InkLine;
                         recognizedLines.Add(recoUnit.Id, line);
                         break;
@@ -53,17 +53,15 @@ namespace Contoso.NoteTaker.Services.Ink
 
         public IEnumerable<InkLine> GetLines()
         {
-            var lines = recognizedLines.Values.ToList().AsReadOnly();
-            return lines;
+            return recognizedLines.Values.ToList().AsReadOnly();
         }
 
         public IEnumerable<InkDrawing> GetShapes()
         {
-            var shapes = recognizedDrawings.Values.ToList().AsReadOnly();
-            return shapes;
+            return recognizedDrawings.Values.ToList().AsReadOnly();
         }
 
-        public IEnumerable<InkRecognitionUnit> GetChildNodesOf(UInt64 id)
+        public IEnumerable<InkRecognitionUnit> GetChildNodesById(UInt64 id)
         {
             if (childrenOfRecognizedUnits.ContainsKey(id))
             {

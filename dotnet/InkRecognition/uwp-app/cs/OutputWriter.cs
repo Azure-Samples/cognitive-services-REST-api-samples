@@ -24,9 +24,7 @@ namespace NoteTaker
         public static string Print(InkRecognitionRoot root)
         {
             var output = new StringBuilder();
-            // Print lines
             output.Append(PrintLines(root));
-            // Print shapes
             output.Append(PrintShapes(root));
 
             return output.ToString();
@@ -49,9 +47,9 @@ namespace NoteTaker
                         recognizedText.Append(word.RecognizedText).Append(" ");
                         break;
 
-                    case RecognitionUnitKind.InkLine:
+                    case RecognitionUnitKind.Line:
                         var line = recoUnit as InkLine;
-                        var lineChildren = root.GetChildNodesOf(line.Id).ToList();
+                        var lineChildren = root.GetChildNodesById(line.Id).ToList();
                         recognizedText.Append(PrintLineChildren(root, lineChildren)).AppendLine();
                         break;
 
