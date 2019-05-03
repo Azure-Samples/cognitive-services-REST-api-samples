@@ -17,7 +17,7 @@ namespace Contoso.NoteTaker.Services.Ink
 
         HttpManager httpManager;
 
-        // Default DPI setting
+        // Default DPI setting to use when device displayInfo is not set
         float dpiX = 96.0f;
         float dpiY = 96.0f;
 
