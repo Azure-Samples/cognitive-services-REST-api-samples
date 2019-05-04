@@ -28,14 +28,20 @@ public class InkRecognitionError {
 
     InkRecognitionError(JSONObject jsonResponse) {
         try {
-            errorCode = jsonResponse.getString("code");
-            message = jsonResponse.getString("message");
-            target = jsonResponse.getString("target");
-            JSONArray jsonDetails = jsonResponse.getJSONArray("details");
-            for (int i = 0;
-                 i < jsonDetails.length();
-                 i++) {
-                 details.add(new InkRecognitionError(jsonDetails.getJSONObject(i)));
+            if (jsonResponse.has("code")) {
+                errorCode = jsonResponse.getString("code");
+                message = jsonResponse.getString("message");
+                target = jsonResponse.getString("target");
+                JSONArray jsonDetails = jsonResponse.getJSONArray("details");
+                for (int i = 0;
+                     i < jsonDetails.length();
+                     i++) {
+                    details.add(new InkRecognitionError(jsonDetails.getJSONObject(i)));
+                }
+            } else {
+                errorCode = "RequestError";
+                message = jsonResponse.getJSONObject("error").getString("message");
+                target = "Request";
             }
         }
         catch (JSONException e) {

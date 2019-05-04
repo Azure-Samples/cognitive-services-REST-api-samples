@@ -76,8 +76,10 @@ class InkRecognitionDetailsLogger {
 
     private static void displayInkDrawingProperties(InkDrawing drawing) {
 
-        Log.d(TAG, "center: " + drawing.getCenter().x + " " +
-                drawing.getCenter().y);
+        if (drawing.getCenter() != null) {
+            Log.d(TAG, "center: " + drawing.getCenter().x + " " +
+                    drawing.getCenter().y);
+        }
         Log.d(TAG, "rotated angle: "+ drawing.getRotatedAngle());
         Log.d(TAG, "confidence: "+ drawing.getConfidence());
         for (Shape alternate : drawing.getAlternates()) {
