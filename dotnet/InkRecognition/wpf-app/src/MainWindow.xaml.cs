@@ -25,7 +25,7 @@ namespace NoteTaker
         public MainWindow()
         {
             InitializeComponent();
-
+            // Replace the subscriptionKey string value with your valid subscription key
             const string subscriptionKey = "[YOUR SUBSCRIPTION KEY]";
             const string endpoint = "https://api.cognitive.microsoft.com";
             const string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";

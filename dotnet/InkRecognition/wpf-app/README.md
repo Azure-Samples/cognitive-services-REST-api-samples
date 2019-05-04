@@ -7,7 +7,7 @@ products:
   - azure
 ---
 
-# Ink Recogizer Cognitive Service C# WPF Sample
+# Ink Recognizer Cognitive Service C# WPF Sample
 
 ![Build passing](https://img.shields.io/badge/build-passing-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -54,8 +54,8 @@ This sample provides the following features:
 ### Run the sample
 
 * To debug the sample and then run it, select **Debug > Start Debugging**. To run the sample without debugging, select **Debug > Start Without Debugging**.
-* Write down something one the upper rectangle of the app
-* After one second of inactivity, the ink will be recognized and the result will be visible in the lower rectangle of the app
+* Write down something on the upper region of the app
+* After one second of inactivity, the ink will be recognized and the result will be visible in the lower region of the app
 
 ## Resources
 
