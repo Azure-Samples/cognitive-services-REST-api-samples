@@ -24,7 +24,7 @@
 		CF7B3D9C2250112500CBE1FC /* InkParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7B3D8E2250112400CBE1FC /* InkParagraph.swift */; };
 		CF7B3D9D2250112500CBE1FC /* InkListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7B3D8F2250112400CBE1FC /* InkListItem.swift */; };
 		CF7B3D9E2250112500CBE1FC /* InkRecognitionUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7B3D902250112400CBE1FC /* InkRecognitionUnit.swift */; };
-		CF7B3DA12250116E00CBE1FC /* InkRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7B3DA02250116E00CBE1FC /* InkRenderer.swift */; };
+		CF7B3DA12250116E00CBE1FC /* InkRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7B3DA02250116E00CBE1FC /* InkRendererView.swift */; };
 		CF7B3DA3225011F100CBE1FC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7B3DA2225011F100CBE1FC /* Line.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,7 @@
 		CF7B3D8E2250112400CBE1FC /* InkParagraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InkParagraph.swift; sourceTree = "<group>"; };
 		CF7B3D8F2250112400CBE1FC /* InkListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InkListItem.swift; sourceTree = "<group>"; };
 		CF7B3D902250112400CBE1FC /* InkRecognitionUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InkRecognitionUnit.swift; sourceTree = "<group>"; };
-		CF7B3DA02250116E00CBE1FC /* InkRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InkRenderer.swift; sourceTree = "<group>"; };
+		CF7B3DA02250116E00CBE1FC /* InkRendererView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InkRendererView.swift; sourceTree = "<group>"; };
 		CF7B3DA2225011F100CBE1FC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				CF7B3DA2225011F100CBE1FC /* Line.swift */,
-				CF7B3DA02250116E00CBE1FC /* InkRenderer.swift */,
+				CF7B3DA02250116E00CBE1FC /* InkRendererView.swift */,
 				CF7B3D852250112400CBE1FC /* InkRecognizer.swift */,
 				CF7B3D842250112400CBE1FC /* InkBullet.swift */,
 				CF7B3D8C2250112400CBE1FC /* InkDrawing.swift */,
@@ -186,7 +186,7 @@
 				CF7B3D9B2250112500CBE1FC /* InkPoint.swift in Sources */,
 				CF7B3D9A2250112500CBE1FC /* InkDrawing.swift in Sources */,
 				CF7B3D952250112500CBE1FC /* InkRoot.swift in Sources */,
-				CF7B3DA12250116E00CBE1FC /* InkRenderer.swift in Sources */,
+				CF7B3DA12250116E00CBE1FC /* InkRendererView.swift in Sources */,
 				CF7B3D9E2250112500CBE1FC /* InkRecognitionUnit.swift in Sources */,
 				CF7B3D982250112500CBE1FC /* InkWritingRegion.swift in Sources */,
 				CF7B3D962250112500CBE1FC /* InkLine.swift in Sources */,

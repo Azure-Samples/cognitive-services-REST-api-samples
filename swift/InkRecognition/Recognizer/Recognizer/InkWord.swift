@@ -10,8 +10,9 @@ class InkWord : InkRecognitionUnit {
     
     @objc
     override init(json : [String: Any]) {
+        print(json)
         self.text = json["recognizedText"] as? String ?? ""
-        self.alternates = json["alternates"] as! [[String: Any]] 
+        self.alternates = json["alternates"] as! [[String: Any]]
         super.init(json:json)
     }
     
@@ -25,3 +26,4 @@ class InkWord : InkRecognitionUnit {
         return wordAlternates
     }
 }
+

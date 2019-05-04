@@ -28,3 +28,4 @@ class InkLine : InkRecognitionUnit {
         return wordAlternates
     }
 }
+

@@ -1,36 +1,52 @@
 
-
 import Foundation
 
 @objc
 enum RecognitionResultStatus : Int {
-    case UNCHANGED,
-    UPDATED,
-    FAILED
+    case unchanged,
+    updated,
+    failed
 }
 
 @objc
 class InkRecognitionError : NSObject {
-    var code : String!
-    var message : String!
-    var target : String!
+    var code : String = ""
+    var message : String  = ""
+    var target : String = ""
     var details = [InkRecognitionError]()
-
+    
     @objc
-    init(jsonString: [String: Any]) {
-        code = jsonString["code"] as? String ?? ""
-        message = jsonString["message"] as? String ?? ""
-        target = jsonString["target"] as? String ?? ""
-        if let detailsList = jsonString["details"] as? [[String: Any]] {
-            for detailUnit in detailsList {
-               details.append(InkRecognitionError(jsonString: detailUnit))
+    init(jsonString: [String: Any], isAccessError : Bool) {
+        if !isAccessError {
+            code = jsonString["code"] as? String ?? ""
+            message = jsonString["message"] as? String ?? ""
+            target = jsonString["target"] as? String ?? ""
+            if let detailsList = jsonString["details"] as? [[String: Any]] {
+                for detailUnit in detailsList {
+                    details.append(InkRecognitionError(jsonString: detailUnit, isAccessError: false))
+                }
             }
+        } else {
+            //Access errors have a slightly different JSON format
+            code = "AccessDenied"
+            if let errorDetail = jsonString["error"] as? [String: Any] {
+                message = errorDetail["message"] as? String ?? ""
+            }
+            target = "Request"
         }
     }
     
     @objc
+    init(error: String)
+    {
+        code = "ServerError"
+        message = error
+        target = "Request"
+    }
+    
+    @objc
     public func toString() -> String {
-        return String("Code: " + code + "Message: " + message + "Target: " + target + "Details:\r" + getErrorDetails())
+        return String("Code: \(code) \nMessage: \(message) Target: \(target) \nDetails:\n" + getErrorDetails())
     }
     
     @objc
@@ -53,16 +69,20 @@ class InkRoot : NSObject {
     var recognitionUnits = [Int: InkRecognitionUnit]()
     var orderedWords : [String] = []
     var errorStore : InkRecognitionError!
-    var resultStatus: RecognitionResultStatus = RecognitionResultStatus.UNCHANGED
-
+    var resultStatus: RecognitionResultStatus = RecognitionResultStatus.unchanged
+    
     @objc
     init(jsonString: [String: Any], statusCode: Int) {
         resultJSON = jsonString
         
         
         if statusCode >= 400 {
-            errorStore = InkRecognitionError(jsonString: resultJSON)
-            resultStatus = RecognitionResultStatus.FAILED
+            var accessError = false
+            if statusCode == 401 {
+                accessError = true;
+            }
+            errorStore = InkRecognitionError(jsonString: resultJSON, isAccessError: accessError)
+            resultStatus = RecognitionResultStatus.failed
             return
         }
         
@@ -87,6 +107,10 @@ class InkRoot : NSObject {
             case "inkBullet":
                 let inkBullet = InkBullet(json: jsonUnit)
                 recognitionUnits[index] = inkBullet
+            case "listItem":
+                let inkListItem = InkListItem(json: jsonUnit)
+                recognizedContainers[index] = inkListItem
+                recognitionUnits[index] = inkListItem
             case "paragraph":
                 let inkParagraph = InkParagraph(json: jsonUnit)
                 recognizedContainers[index] = inkParagraph
@@ -96,10 +120,12 @@ class InkRoot : NSObject {
                 recognizedContainers[index] = inkWritingRegion
                 recognitionUnits[index] = inkWritingRegion
             default:
-                _ = "";
+                errorStore = InkRecognitionError(error: "unknown category")
+                resultStatus = RecognitionResultStatus.failed
+                return
             }
         }
-        resultStatus = RecognitionResultStatus.UNCHANGED        
+        resultStatus = RecognitionResultStatus.updated
     }
     
     @objc
@@ -113,11 +139,7 @@ class InkRoot : NSObject {
     
     @objc
     public func getWords() ->[String] {
-        var words = [String]()
-        for word in orderedWords {
-            words.append(word)
-        }
-        return words        
+        return orderedWords
     }
     
     @objc
