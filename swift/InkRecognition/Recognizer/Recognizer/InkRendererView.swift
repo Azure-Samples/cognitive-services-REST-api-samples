@@ -2,22 +2,21 @@
 import Foundation
 import UIKit
 
-class InkRenderer : UIView {
+class InkRendererView : UIView {
     
     var lines : [Line] = []
     var lastPoint: CGPoint!
     var swiped = false
-    var red = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+    var color = UIColor(red: 0.30, green: 0.40, blue: 0.0, alpha: 1.0)
     var penColor : CGColor!
     var inkRecognizer : InkRecognizer
     var inkStroke : InkStroke? = InkStroke(language: "en-US")
     var timer : Timer!
     
     required init(coder aDecoder : NSCoder) {
-        self.inkRecognizer = InkRecognizer(url: "https://api.cognitive.microsoft.com/inkrecognizer/v1.0-preview/recognize",
-            appKey: "[SUBSCRIPTION KEY HERE]")
+        self.inkRecognizer = InkRecognizer(url: "https://api.cognitive.microsoft.com/inkrecognizer/v1.0-preview/recognize", appKey: "<SUBSCRIPTION KEY HERE>")
         super.init(coder: aDecoder)!
-        penColor = red.cgColor
+        penColor = color.cgColor
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -29,7 +28,7 @@ class InkRenderer : UIView {
         }
         swiped = false
         lastPoint = touch.location(in: self)
-        if inkStroke == nil{
+        if inkStroke == nil {
             inkStroke = InkStroke(language: "en-US")
         }
         inkStroke!.addPoint(point: InkPoint(point: lastPoint))
@@ -38,21 +37,18 @@ class InkRenderer : UIView {
     
     func parentViewController() -> UIViewController {
         var responder: UIResponder? = self
-        while !(responder is UIViewController) {
+        while responder != nil && !(responder is UIViewController) {
             responder = responder?.next
-            if responder == nil {
-                break
-            }
         }
-        return (responder as? UIViewController)!
+        return responder as! UIViewController
     }
     
     func displayResults(words: String) {
         let controller = parentViewController()
-        let viewContrl = controller as! ViewController
-        viewContrl.recognitionResult.lineBreakMode = NSLineBreakMode.byWordWrapping
-        viewContrl.recognitionResult.numberOfLines = 0;
-        viewContrl.recognitionResult.text = words
+        let viewController = controller as! ViewController
+        viewController.recognitionResult.lineBreakMode = NSLineBreakMode.byWordWrapping
+        viewController.recognitionResult.numberOfLines = 0;
+        viewController.recognitionResult.text = words
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,7 +58,6 @@ class InkRenderer : UIView {
         swiped = true
         let currentPoint = touch.location(in: self)
         lines.append(Line(start: lastPoint, end: currentPoint))
-        
         lastPoint = currentPoint
         inkStroke!.addPoint(point: InkPoint(point: lastPoint))
         self.setNeedsDisplay()
@@ -74,10 +69,11 @@ class InkRenderer : UIView {
         inkStroke!.addPoint(point: InkPoint(point: currentPoint))
         inkRecognizer.addStroke(stroke: inkStroke!)
         inkStroke = nil
-        timer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) {
+        //Once a stroke is collected, recognition is triggered after 2 seconds of inactivity.
+        timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self]
             timer in
-            self.inkRecognizer.recognize(view: self)
-        }        
+            self?.inkRecognizer.recognize(view:  self!)
+        }
     }
     
     override func draw(_ rect: CGRect) {
@@ -86,7 +82,6 @@ class InkRenderer : UIView {
         for line in lines {
             context.move(to: line.start)
             context.addLine(to: line.end)
-            
         }
         context.setLineCap(CGLineCap.round)
         context.setStrokeColor(penColor)

@@ -20,7 +20,7 @@ class InkRecognizer : NSObject {
     var appKey: String = ""
     var url:String = ""
     var inkRoot: InkRoot!
-    var uiVIew: InkRenderer!
+    weak var inkView: InkRendererView!
     
     @objc
     init (url: String, appKey: String) {
@@ -30,18 +30,21 @@ class InkRecognizer : NSObject {
     
     @objc
     public func setMetrics() {
-      //see what needs to be done with ths
+        //These values are for the iphone XR. You can have a data structure
+        //to hold the values for the target devices you want to support
+        
     }
     
     @objc
-    public func recognize (view: UIView) {
-        self.uiVIew = view as? InkRenderer
+    public func recognize (view: InkRendererView) {
+        self.inkView = view
         analyzeInk();
     }
     
     private func displayResults() {
         var recognizedWords  = String()
-        if inkRoot.resultStatus == RecognitionResultStatus.UPDATED || inkRoot.resultStatus == RecognitionResultStatus.UNCHANGED {
+        
+        if inkRoot.resultStatus == RecognitionResultStatus.updated || inkRoot.resultStatus == RecognitionResultStatus.unchanged {
             let words = inkRoot.getWords()
             
             for word in words {
@@ -51,21 +54,21 @@ class InkRecognizer : NSObject {
             }
             
             let shapes = inkRoot.getDrawings()
-            recognizedWords.append(" \r")
-            recognizedWords.append("Recognized Shape: \r")
+            recognizedWords.append(" \n")
+            recognizedWords.append("Recognized Shape: \n")
             for shape in shapes {
                 if  shape.shapeName != nil {
                     recognizedWords.append(shape.shapeName)
-                    recognizedWords.append("\r")
+                    recognizedWords.append("\n")
                 }
             }
-        } else if inkRoot.resultStatus == RecognitionResultStatus.FAILED {
+        } else if inkRoot.resultStatus == RecognitionResultStatus.failed {
             recognizedWords.append(inkRoot.errorStore.toString())
         } else {
             return
         }
-        self.uiVIew.displayResults(words: recognizedWords)
-    }    
+        self.inkView.displayResults(words: recognizedWords)
+    }
     
     @objc
     public func addStroke(stroke: InkStroke) {
@@ -74,49 +77,34 @@ class InkRecognizer : NSObject {
     }
     
     @objc
-    public func buildResults(jsonData: [String: Any], statusCode: Int) {
+    public func createRecognitionUnits(jsonData: [String: Any], statusCode: Int) {
         inkRoot = InkRoot(jsonString: jsonData, statusCode: statusCode)
     }
     
     @objc
-    public func removeStroke(id: Int) {
-        let index: Int = strokeIdStore[id] ?? 0
-        
-        strokes.remove(at: index)
-    }
-    
-    @objc
     public func getJSONStrokes() -> String {
+        //This function uses the JSON encoder to encode the strokes into json taking advantage of the encodable protocol
         let jsonStrokes = JSONEncoder()
-        do {
-            let inputStrokes = try jsonStrokes.encode(InputInkStrokes(language:"en-US", unit:"mm"))
-            var strJSONStrokes = try JSONSerialization.jsonObject(with: inputStrokes, options: .mutableContainers) as! [String:Any]
-            var strokesJSON = [[String:Any]]()
-            let jsonEncoder = JSONEncoder()
-            for stroke in strokes {
-                do {
-                    let oneStroke = try JSONSerialization.jsonObject(with:jsonEncoder.encode(stroke), options: .mutableContainers) as! [String: Any]
-                    strokesJSON.append(oneStroke)
-                } catch {
-                    
-                }
-            }
-            strJSONStrokes["strokes"] = strokesJSON
-            let data = try JSONSerialization.data(withJSONObject: strJSONStrokes)
-            return String(data: data, encoding: String.Encoding.utf8) ?? ""
+        
+        guard let inputStrokes = try? jsonStrokes.encode(InputInkStrokes(language:"en-US", unit:"mm")) else { return ""}
+        guard var strJSONStrokes = try? JSONSerialization.jsonObject(with: inputStrokes, options: .mutableContainers) as! [String:Any] else {return ""}
+        var strokesJSON = [[String:Any]]()
+        let jsonEncoder = JSONEncoder()
+        for stroke in strokes {
+            guard let oneStroke = try? JSONSerialization.jsonObject(with:jsonEncoder.encode(stroke), options: .mutableContainers) as! [String: Any] else {return ""}
+            strokesJSON.append(oneStroke)
         }
-        catch {
-            
-        }
-        return "";
+        strJSONStrokes["strokes"] = strokesJSON
+        guard let data = try? JSONSerialization.data(withJSONObject: strJSONStrokes) else {return ""}
+        return String(data: data, encoding: String.Encoding.utf8) ?? ""
     }
     
     private func strokeKindToString(kind: StrokeKind) -> String {
         var strokeKind : String = "Unknown"
         switch kind {
-        case StrokeKind.DRAWING:
+        case StrokeKind.drawing:
             strokeKind = "inkDrawing"
-        case StrokeKind.WRITING:
+        case StrokeKind.writing:
             strokeKind = "inkWriting"
         default:
             strokeKind = "Unknown"
@@ -130,16 +118,16 @@ class InkRecognizer : NSObject {
     }
     
     private func analyzeInk() {
-        let url = URL(string: self.url) 
+        let url = URL(string: self.url)
         var request = URLRequest(url: url! as URL)
         request.setValue("kong", forHTTPHeaderField: "apim-subscription-id")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(self.appKey, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
-        
         request.httpMethod = "PUT"
+        
         let jsonStrokes = getJSONStrokes()
         let jsonPayload = jsonStrokes.data(using: String.Encoding.utf8)
-                
+        
         let dataTask = URLSession.shared.uploadTask(with: request, from: jsonPayload) { data, response, error  in
             if let error = error {
                 
@@ -151,19 +139,15 @@ class InkRecognizer : NSObject {
                     print ("server error")
                     return
             }
-            
-            do {
-            guard let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any] else {return}
+            guard let json = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any] else {return}
+            if let json = json {
                 print(json)
-                self.buildResults(jsonData: json, statusCode: response.statusCode)
+                self.createRecognitionUnits(jsonData: json, statusCode: response.statusCode)
                 DispatchQueue.main.async { [weak self] in
                     self?.displayResults()
                 }
-            } catch _ {
-                
             }
         }
         dataTask.resume()
-        
     }
 }

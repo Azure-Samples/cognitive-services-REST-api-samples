@@ -1,31 +1,30 @@
 
-
 import Foundation
-
+import UIKit
 @objc
 public enum InkRecognitionUnitCategory: Int {
-    case UNKNOWN,
-    INKWORD,
-    INKDRAWING,
-    INKBULLET,
-    LISTITEM,
-    PARAGRAPH,
-    LINE,
-    WRITINGREGION
+    case unknown,
+    inkWord,
+    inkDrawing,
+    inkBullet,
+    listItem,
+    paragraph,
+    line,
+    writingRegion
 }
 
 @objc
 class InkBoundingRectangle : NSObject, Decodable {
-    var topX : Double = 0
-    var topY : Double = 0
-    var width : Double = 0
-    var height : Double = 0
+    var topX : CGFloat = 0
+    var topY : CGFloat = 0
+    var width : CGFloat = 0
+    var height : CGFloat = 0
     
-    init(x: Double, y: Double, width: Double, height: Double) {
-        self.topX = x
-        self.topY = y
-        self.width = width
-        self.height = height
+    init(x: Float, y: Float, width: Float, height: Float) {
+        self.topX = InkPoint.millimeterToCGFloat(mmPosition: x)
+        self.topY = InkPoint.millimeterToCGFloat(mmPosition: y)
+        self.width = InkPoint.millimeterToCGFloat(mmPosition: width)
+        self.height = InkPoint.millimeterToCGFloat(mmPosition: height)
     }
 }
 
@@ -33,7 +32,7 @@ class InkBoundingRectangle : NSObject, Decodable {
 class InkRecognitionUnit  : NSObject {
     private var categoryString : String
     private var boundingRectangle : InkBoundingRectangle!
-    private var rotatedBoundingRectangle = [InkPoint]()
+    private var rotatedBoundingRectangle = [CGPoint]()
     private var childIds = [Int]();
     private var parentId = -1
     private var strokeIds : [Int]
@@ -43,27 +42,29 @@ class InkRecognitionUnit  : NSObject {
     
     @objc
     public var category : InkRecognitionUnitCategory {
-        get{
+        get {
             var recognitionCategory: InkRecognitionUnitCategory
-            switch(self.categoryString) {
+            switch (self.categoryString) {
             case "inkWord":
-                recognitionCategory = InkRecognitionUnitCategory.INKWORD
+                recognitionCategory = InkRecognitionUnitCategory.inkWord
             case "inkDrawing":
-                recognitionCategory = InkRecognitionUnitCategory.INKDRAWING
+                recognitionCategory = InkRecognitionUnitCategory.inkDrawing
             case "inkBullet":
-                recognitionCategory = InkRecognitionUnitCategory.INKBULLET
+                recognitionCategory = InkRecognitionUnitCategory.inkBullet
             case "line":
-                recognitionCategory = InkRecognitionUnitCategory.LINE
+                recognitionCategory = InkRecognitionUnitCategory.line
+            case "listItem":
+                recognitionCategory = InkRecognitionUnitCategory.listItem
             case "paragraph":
-                recognitionCategory = InkRecognitionUnitCategory.PARAGRAPH
+                recognitionCategory = InkRecognitionUnitCategory.paragraph
             case "writingRegion":
-                recognitionCategory = InkRecognitionUnitCategory.WRITINGREGION
+                recognitionCategory = InkRecognitionUnitCategory.writingRegion
             default:
-                recognitionCategory = InkRecognitionUnitCategory.UNKNOWN
+                recognitionCategory = InkRecognitionUnitCategory.unknown
             }
             return recognitionCategory;
         }
-    }    
+    }
     
     @objc
     public var children : [InkRecognitionUnit] {
@@ -81,8 +82,8 @@ class InkRecognitionUnit  : NSObject {
     }
     
     @objc
-    public var rotatedBoundingBox :[InkPoint] {
-        return self.rotatedBoundingRectangle        
+    public var rotatedBoundingBox: [CGPoint] {
+        return self.rotatedBoundingRectangle
     }
     
     @objc
@@ -97,14 +98,16 @@ class InkRecognitionUnit  : NSObject {
         self.strokeIds = json["strokeIds"] as! [Int]
         
         let jsonBoundingRect = json["boundingRectangle"] as! [String: Any]
-        self.boundingRectangle = InkBoundingRectangle(x: jsonBoundingRect["topX"] as! Double, y: jsonBoundingRect["topY"] as!Double,width: jsonBoundingRect["width"] as! Double,height: jsonBoundingRect["height"] as! Double)
+        self.boundingRectangle = InkBoundingRectangle(x: jsonBoundingRect["topX"] as! Float, y: jsonBoundingRect["topY"] as!Float,width: jsonBoundingRect["width"] as! Float,height: jsonBoundingRect["height"] as! Float)
         
         let jsonRotatedRectPoints = json["rotatedBoundingRectangle"] as! [[String: Any]]
         
         for point in jsonRotatedRectPoints {
-            let xValue = point["x"] as! Double
-            let yValue = point["y"] as! Double
-            self.rotatedBoundingRectangle.append( InkPoint(x: xValue, y: yValue))
+            let xValue = point["x"] as! Float
+            let yValue = point["y"] as! Float
+            let pointX = InkPoint.millimeterToCGFloat(mmPosition: xValue)
+            let pointY = InkPoint.millimeterToCGFloat(mmPosition: yValue)
+            self.rotatedBoundingRectangle.append(CGPoint(x: pointX, y: pointY))
         }
     }
 }

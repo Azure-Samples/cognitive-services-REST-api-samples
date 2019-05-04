@@ -3,9 +3,9 @@ import Foundation
 
 @objc
 enum StrokeKind : Int {
-    case DRAWING,
-    WRITING,
-    UNKNOWN
+    case drawing,
+    writing,
+    unknown
 }
 
 @objc
@@ -19,7 +19,7 @@ class InkStroke : NSObject, Encodable {
     var strKind : String = "unknown"
     
     
-    enum CodingKeys : String, CodingKey {
+    enum CodingKeys : CodingKey {
         case language
         case id
         case points
@@ -27,18 +27,17 @@ class InkStroke : NSObject, Encodable {
     }
     
     @objc
-    init( language: String, kind: StrokeKind = StrokeKind.UNKNOWN) {
+    init( language: String, kind: StrokeKind = StrokeKind.unknown) {
         id = InkStroke.getNextNumber()
         self.language = language
         self.kind = kind
         switch kind {
-        case StrokeKind.DRAWING:
+        case StrokeKind.drawing:
             strKind = "inkDrawing"
-        case StrokeKind.WRITING:
+        case StrokeKind.writing:
             strKind = "inkWriting"
         default:
             print("kind is unknown")
-            break
         }
     }
     
@@ -46,9 +45,9 @@ class InkStroke : NSObject, Encodable {
     func addPoint(point: InkPoint) {
         inkPoints.append(point)
         if points == "" {
-            points.append(String(point.x) + "," + String(point.y))
+            points.append(String(Float(point.x)) + "," + String(Float(point.y)))
         } else {
-            points.append("," + String(point.x) + "," + String(point.y))
+            points.append("," + String(Float(point.x)) + "," + String(Float(point.y)))
         }
     }
     

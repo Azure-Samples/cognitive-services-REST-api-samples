@@ -4,85 +4,85 @@ import Foundation
 
 @objc
 public enum Shape  : Int {
-    case DRAWING,
-    SQUARE,
-    RECTANGLE,
-    CIRCLE,
-    ELLIPSE,
-    TRIANGLE,
-    ISOSCELESTRIANGLE,
-    EQUILATERALTRIANGLE,
-    RIGHTTRIANGLE,
-    QUADRILATERAL,
-    DIAMOND,
-    TRAPEZOID,
-    PARALLELOGRAM,
-    PENTAGON,
-    HEXAGON,
-    BLOCKARROW,
-    HEART,
-    STARSIMPLE,
-    STARCROSSED,
-    CLOUD,
-    LINE,
-    CURVE,
-    POLYLINE
+    case drawing,
+    square,
+    rectangle,
+    circle,
+    ellipse,
+    triangle,
+    isoscelesTriangle,
+    equilateralTriangle,
+    rightTriangle,
+    quadrilateral,
+    diamond,
+    trapezoid,
+    parallelogram,
+    pentagon,
+    hexagon,
+    blockArrow,
+    heart,
+    starSimple,
+    starcrossed,
+    cloud,
+    line,
+    curve,
+    polyline
 }
 
 @objc
 class InkDrawing : InkRecognitionUnit {
     
     private var center: InkPoint!
-    private var confidence: Double!
+    private var confidence: Float!
     var shape:Shape!
     var shapeName : String!
-    var rotationAngle: Double!
+    var rotationAngle: Float!
     var alternates = [Shape]()
     var points = [InkPoint]()
-    let supportedShapes = ["drawing": Shape.DRAWING,
-                          "circle": Shape.CIRCLE,
-                          "square": Shape.SQUARE,
-                          "rectangle": Shape.RECTANGLE,
-                          "triangle": Shape.TRIANGLE,
-                          "ellipse": Shape.ELLIPSE,
-                          "isoscelesTriangle": Shape.ISOSCELESTRIANGLE,
-                          "equilateralTriangle": Shape.EQUILATERALTRIANGLE,
-                          "rightTriangle": Shape.RIGHTTRIANGLE,
-                          "quadrilateral": Shape.QUADRILATERAL,
-                          "diamond": Shape.DIAMOND,
-                          "trapezoid": Shape.TRAPEZOID,
-                          "parallelogram": Shape.PARALLELOGRAM,
-                          "pentagon": Shape.PENTAGON,
-                          "hexagon": Shape.HEXAGON,
-                          "blockArrow": Shape.BLOCKARROW,
-                          "heart": Shape.HEART,
-                          "starSimple": Shape.STARSIMPLE,
-                          "starCrossed": Shape.STARCROSSED,
-                          "cloud": Shape.CLOUD,
-                          "line": Shape.LINE,
-                          "curve": Shape.CURVE,
-                          "polyline": Shape.POLYLINE]
+    let supportedShapes = ["drawing": Shape.drawing,
+                           "circle": Shape.circle,
+                           "square": Shape.square,
+                           "rectangle": Shape.rectangle,
+                           "triangle": Shape.triangle,
+                           "ellipse": Shape.ellipse,
+                           "isoscelesTriangle": Shape.isoscelesTriangle,
+                           "equilateralTriangle": Shape.equilateralTriangle,
+                           "rightTriangle": Shape.rightTriangle,
+                           "quadrilateral": Shape.quadrilateral,
+                           "diamond": Shape.diamond,
+                           "trapezoid": Shape.trapezoid,
+                           "parallelogram": Shape.parallelogram,
+                           "pentagon": Shape.pentagon,
+                           "hexagon": Shape.hexagon,
+                           "blockArrow": Shape.blockArrow,
+                           "heart": Shape.heart,
+                           "starSimple": Shape.starSimple,
+                           "starCrossed": Shape.starcrossed,
+                           "cloud": Shape.cloud,
+                           "line": Shape.line,
+                           "curve": Shape.curve,
+                           "polyline": Shape.polyline]
     
     @objc
     override init(json : [String: Any]) {
         super.init(json: json)
         
-        let jsonCenter = json["center"] as? [String: Any]
-        let xValue = jsonCenter!["x"] as! Double
-        let yValue = jsonCenter!["y"] as! Double
+        let jsonCenter = json["center"] as! [String: Any]
+        let xValue = jsonCenter["x"] as! Float
+        let yValue = jsonCenter["y"] as! Float
         self.center = InkPoint(x: xValue, y: yValue)
         //extract the "beautified" points. These can be used to draw a more strucutured version of the shape.
         if let shapePoints = json["points"] as? [[String:Any]] {
             for shapePoint in shapePoints {
-                let x = shapePoint["x"] as! Double
-                let y = shapePoint["y"] as! Double
+                let x = shapePoint["x"] as! Float
+                let y = shapePoint["y"] as! Float
                 self.points.append(InkPoint(x: x, y: y));
             }
         }
-        self.rotationAngle = json["rotationAngle"] as? Double ?? 0.0
-        self.shapeName = (json["recognizedObject"] as! String) 
+        self.rotationAngle = json["rotationAngle"] as? Float ?? 0.0
+        self.shapeName = (json["recognizedObject"] as! String)
         self.shape = stringToShape(shape: shapeName)
-        self.confidence = json["confidence"] as? Double
+        self.confidence = json["confidence"] as? Float
         if let alternates = json["alternates"] as? [[String: Any]] {
             for alternate in alternates {
                 let alternateName = alternate["recognizedObject"] as! String
@@ -95,6 +95,6 @@ class InkDrawing : InkRecognitionUnit {
         if let concreteShape  = supportedShapes[shape] {
             return concreteShape
         }
-        return Shape.DRAWING        
+        return Shape.drawing
     }
 }
