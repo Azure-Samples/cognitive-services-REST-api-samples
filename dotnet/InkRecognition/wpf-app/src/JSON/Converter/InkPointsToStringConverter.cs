@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Contoso.NoteTaker.Helpers;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Input.Inking;
+using System.Linq;
+using System.Reflection;
 
 namespace Contoso.NoteTaker.JSON.Converter
 {
@@ -10,11 +11,12 @@ namespace Contoso.NoteTaker.JSON.Converter
     {
         public override bool CanConvert(Type objectType)
         {
-            throw new NotImplementedException();
+            return typeof(IReadOnlyList<InkPoint>).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            // Since CanRead flag is false, this function will not be called
             throw new NotImplementedException();
         }
 
@@ -23,7 +25,10 @@ namespace Contoso.NoteTaker.JSON.Converter
             var points = value as IReadOnlyList<InkPoint>;
             if (points != null)
             {
-                var pointsStr = InkPointHelper.InkPointsToString(points);
+                var pointsStr = string.Join(",",
+                                    points.Select(p => Convert.ToSingle(p.Position.X) + "," +
+                                                        Convert.ToSingle(p.Position.Y))
+                                );
                 serializer.Serialize(writer, pointsStr);
             }
             else

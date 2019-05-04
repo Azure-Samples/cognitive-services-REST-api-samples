@@ -19,12 +19,13 @@ namespace NoteTaker
         InkRecognizer inkRecognizer;
         DisplayInformation displayInfo;
         private readonly DispatcherTimer dispatcherTimer;
+        // Time to wait before triggering ink recognition operation
         const double IDLE_WAITING_TIME = 1000;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            // Replace the subscriptionKey string value with your valid subscription key
             const string subscriptionKey = "[YOUR SUBSCRIPTION KEY]";
             const string endpoint = "https://api.cognitive.microsoft.com";
             const string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
@@ -52,7 +53,7 @@ namespace NoteTaker
                 {
                     inkRecognizer.AddStroke(stroke);
                 }
-                var status = await inkRecognizer.AnalyzeAsync();
+                var status = await inkRecognizer.RecognizeAsync();
                 if (status == HttpStatusCode.OK)
                 {
                     var root = inkRecognizer.GetRecognizerRoot();
@@ -63,12 +64,12 @@ namespace NoteTaker
                 }
                 else
                 {
-                    output.Text = $"Http status error: {status}";
+                    output.Text = OutputWriter.PrintError($"Http Status: {status}");
                 }
             }
             catch (Exception ex)
             {
-                output.Text = $"Error: {ex.ToString()}";
+                output.Text = OutputWriter.PrintError(ex.ToString());
             }
         }
 
