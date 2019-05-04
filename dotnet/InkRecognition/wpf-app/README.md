@@ -35,6 +35,7 @@ This sample provides the following features:
 ### Prerequisites
 
 * [Visual Studio](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio)
+* [.Net Framework >= 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework)
 * Windows SDK Version >= 10.0.18362. You can install it from Visual Studio Installer under **Indivial components** tab, or download from [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
   * If you install the Windows SDK into a customized path, please edit **src\NoteTaker.csproj** to change the HintPath of **Windows.winmd** to the correct path
 * Nuget Packages
