@@ -111,11 +111,10 @@ class InkRoot {
 
     public ArrayList<InkParagraph> getParagraphs()  {
         ArrayList<InkParagraph> paragraphs = new ArrayList<>();
-        Set<Integer> keys = recognizedContainers.keySet();
-        for (Integer key: keys) {
-            //noinspection ConstantConditions
-            if (recognizedContainers.get(key).getCategory() == InkRecognitionUnitCategory.INK_PARAGRAPH) {
-                paragraphs.add((InkParagraph)recognizedContainers.get(key));
+        for (Integer key : recognizedContainers.keySet()) {
+            InkRecognitionUnit entryValue = recognizedContainers.get(key);
+            if (entryValue.getCategory() == InkRecognitionUnitCategory.INK_PARAGRAPH) {
+                paragraphs.add((InkParagraph)entryValue);
             }
         }
         return paragraphs;

@@ -135,17 +135,15 @@ public class InkRecognizer {
                 if (responseCode == HttpURLConnection.HTTP_OK ||
                     responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
                     InputStreamReader streamReader = new InputStreamReader(restConnection.getInputStream());
-                    BufferedReader reader = new BufferedReader(streamReader);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    inkRecognizer.buildResult(stringBuilder.toString(), responseCode);
+                    inkRecognizer.buildResult(getResponseString(streamReader), responseCode);
                 }
                 else {
-
-                    inkRecognizer.buildResult("Error Occurred", responseCode);
+                    String responseError = "{}";
+                    if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                        InputStreamReader streamReader = new InputStreamReader(restConnection.getErrorStream());
+                        responseError = getResponseString(streamReader);
+                    }
+                    inkRecognizer.buildResult(responseError, responseCode);
                 }
             }
             catch (Exception e) {
@@ -153,6 +151,17 @@ public class InkRecognizer {
                 inkRecognizer.buildResult("Error Occurred", 0);
             }
             return inkRecognizer;
+        }
+
+        private String getResponseString(InputStreamReader streamReader) throws Exception
+        {
+            BufferedReader reader = new BufferedReader(streamReader);
+            StringBuilder responseBody = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                responseBody.append(line).append("\n");
+            }
+            return responseBody.toString();
         }
 
         @Override
