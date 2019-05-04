@@ -1,7 +1,7 @@
 ---
 topic: sample
 languages:
-  - csharp
+  - C#
 products:
   - WPF
   - azure
@@ -34,7 +34,6 @@ This sample provides the following features:
 
 ### Prerequisites
 
-* Windows Build 1903 or higher
 * [Visual Studio](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio)
 * Windows SDK Version >= 10.0.18362. You can install it from Visual Studio Installer under **Indivial components** tab, or download from [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
   * If you install the Windows SDK into a customized path, please edit **src\NoteTaker.csproj** to change the HintPath of **Windows.winmd** to the correct path
@@ -42,7 +41,8 @@ This sample provides the following features:
   * [Newtonsoft.JSON](https://www.newtonsoft.com/json)
   * [Microsoft.Net.Http](https://www.nuget.org/packages/Microsoft.Net.Http/)
   * [Xaml Island for WPF](https://www.nuget.org/packages/Microsoft.Toolkit.Wpf.UI.Controls)
-* Requires subscription key from [Azure Cognitive Services](https://docs.microsoft.com/en-us/azure/cognitive-services/authentication)
+* Subscription key from [Azure Cognitive Services](https://docs.microsoft.com/en-us/azure/cognitive-services/authentication)
+* Windows Build 1903 or higher is required for Xaml island features
 
 ### Build the Sample
 
