@@ -1,6 +1,7 @@
 
 import Foundation
 import UIKit
+
 @objc
 public enum InkRecognitionUnitCategory: Int {
     case unknown,
@@ -14,34 +15,34 @@ public enum InkRecognitionUnitCategory: Int {
 }
 
 @objc
-class InkBoundingRectangle : NSObject, Decodable {
-    var topX : CGFloat = 0
-    var topY : CGFloat = 0
-    var width : CGFloat = 0
-    var height : CGFloat = 0
+class InkBoundingRectangle: NSObject, Decodable {
+    var topX: CGFloat = 0
+    var topY: CGFloat = 0
+    var width: CGFloat = 0
+    var height: CGFloat = 0
     
     init(x: Float, y: Float, width: Float, height: Float) {
-        self.topX = InkPoint.millimeterToCGFloat(mmPosition: x)
-        self.topY = InkPoint.millimeterToCGFloat(mmPosition: y)
-        self.width = InkPoint.millimeterToCGFloat(mmPosition: width)
-        self.height = InkPoint.millimeterToCGFloat(mmPosition: height)
+        self.topX = InkPoint.millimeterToCGFloat(mmValue: x)
+        self.topY = InkPoint.millimeterToCGFloat(mmValue: y)
+        self.width = InkPoint.millimeterToCGFloat(mmValue: width)
+        self.height = InkPoint.millimeterToCGFloat(mmValue: height)
     }
 }
 
 @objc
-class InkRecognitionUnit  : NSObject {
-    private var categoryString : String
-    private var boundingRectangle : InkBoundingRectangle!
+class InkRecognitionUnit: NSObject {
+    private var categoryString: String
+    private var boundingRectangle: InkBoundingRectangle!
     private var rotatedBoundingRectangle = [CGPoint]()
     private var childIds = [Int]();
     private var parentId = -1
-    private var strokeIds : [Int]
-    public var id : Int = 0
-    private var dotsPerInch : Float = 0.0
+    private var strokeIds: [Int]
+    public var id: Int = 0
+    private var dotsPerInch: Float = 0.0
     private var result: InkRoot!
     
     @objc
-    public var category : InkRecognitionUnitCategory {
+    public var category: InkRecognitionUnitCategory {
         get {
             var recognitionCategory: InkRecognitionUnitCategory
             switch (self.categoryString) {
@@ -67,7 +68,7 @@ class InkRecognitionUnit  : NSObject {
     }
     
     @objc
-    public var children : [InkRecognitionUnit] {
+    public var children: [InkRecognitionUnit] {
         return result.getNodes(ids: childIds)
     }
     
@@ -87,7 +88,7 @@ class InkRecognitionUnit  : NSObject {
     }
     
     @objc
-    init(json:[String: Any]) {
+    init(json: [String: Any]) {
         self.id = json["id"] as! Int
         self.parentId = json["parentId"] as! Int
         
@@ -101,13 +102,11 @@ class InkRecognitionUnit  : NSObject {
         self.boundingRectangle = InkBoundingRectangle(x: jsonBoundingRect["topX"] as! Float, y: jsonBoundingRect["topY"] as!Float,width: jsonBoundingRect["width"] as! Float,height: jsonBoundingRect["height"] as! Float)
         
         let jsonRotatedRectPoints = json["rotatedBoundingRectangle"] as! [[String: Any]]
-        
+        //Get the array of points for the rotated bounding rectangle and convert the millimeter values to CGFloats
         for point in jsonRotatedRectPoints {
-            let xValue = point["x"] as! Float
-            let yValue = point["y"] as! Float
-            let pointX = InkPoint.millimeterToCGFloat(mmPosition: xValue)
-            let pointY = InkPoint.millimeterToCGFloat(mmPosition: yValue)
-            self.rotatedBoundingRectangle.append(CGPoint(x: pointX, y: pointY))
+            let x = point["x"] as! Float
+            let y = point["y"] as! Float
+            self.rotatedBoundingRectangle.append(CGPoint(x: InkPoint.millimeterToCGFloat(mmValue: x), y: InkPoint.millimeterToCGFloat(mmValue: y)))
         }
     }
 }

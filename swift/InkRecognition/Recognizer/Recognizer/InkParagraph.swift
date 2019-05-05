@@ -2,6 +2,6 @@
 import Foundation
 
 @objc
-class InkParagraph : InkRecognitionUnit {    
+class InkParagraph: InkRecognitionUnit {    
     
 }

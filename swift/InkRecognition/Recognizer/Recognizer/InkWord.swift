@@ -3,13 +3,13 @@
 import Foundation
 
 @objc
-class InkWord : InkRecognitionUnit {
+class InkWord: InkRecognitionUnit {
     
     var alternates = [[String: Any]]()
-    var text:String!
+    var text: String!
     
     @objc
-    override init(json : [String: Any]) {
+    override init(json: [String: Any]) {
         print(json)
         self.text = json["recognizedText"] as? String ?? ""
         self.alternates = json["alternates"] as! [[String: Any]]

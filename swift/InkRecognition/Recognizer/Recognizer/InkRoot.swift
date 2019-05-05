@@ -2,21 +2,21 @@
 import Foundation
 
 @objc
-enum RecognitionResultStatus : Int {
+enum RecognitionResultStatus: Int {
     case unchanged,
     updated,
     failed
 }
 
 @objc
-class InkRecognitionError : NSObject {
-    var code : String = ""
-    var message : String  = ""
-    var target : String = ""
+class InkRecognitionError: NSObject {
+    var code: String = ""
+    var message: String  = ""
+    var target: String = ""
     var details = [InkRecognitionError]()
     
     @objc
-    init(jsonString: [String: Any], isAccessError : Bool) {
+    init(jsonString: [String: Any], isAccessError: Bool) {
         if !isAccessError {
             code = jsonString["code"] as? String ?? ""
             message = jsonString["message"] as? String ?? ""
@@ -46,7 +46,7 @@ class InkRecognitionError : NSObject {
     
     @objc
     public func toString() -> String {
-        return String("Code: \(code) \nMessage: \(message) Target: \(target) \nDetails:\n" + getErrorDetails())
+        return String("Code: \(code) \nMessage: \(message) \nTarget: \(target) \nDetails:\n" + getErrorDetails())
     }
     
     @objc
@@ -60,15 +60,15 @@ class InkRecognitionError : NSObject {
 }
 
 @objc
-class InkRoot : NSObject {
+class InkRoot: NSObject {
     
-    var resultJSON : [String: Any]
+    var resultJSON: [String: Any]
     var recognizedContainers = [Int: InkRecognitionUnit]()
     var recognizedWords = [Int: InkWord]()
-    var recognizedDrawings = [Int: InkDrawing]()
+    var recognizedDrawings = [InkDrawing]()
     var recognitionUnits = [Int: InkRecognitionUnit]()
-    var orderedWords : [String] = []
-    var errorStore : InkRecognitionError!
+    var orderedWords: [String] = []
+    var errorStore: InkRecognitionError!
     var resultStatus: RecognitionResultStatus = RecognitionResultStatus.unchanged
     
     @objc
@@ -97,9 +97,9 @@ class InkRoot : NSObject {
                 recognitionUnits[index] = inkWord
                 orderedWords.append(inkWord.text)
             case "inkDrawing":
-                let inkShape = InkDrawing(json: jsonUnit)
-                recognizedDrawings[index] = inkShape
-                recognitionUnits[index] = inkShape
+                let inkDrawing = InkDrawing(json: jsonUnit)
+                recognizedDrawings.append(inkDrawing)
+                recognitionUnits[index] = inkDrawing
             case "line":
                 let inkLine = InkLine(json: jsonUnit)
                 recognizedContainers[index] = inkLine
@@ -169,11 +169,7 @@ class InkRoot : NSObject {
     }
     
     @objc
-    public func getDrawings() -> [InkDrawing] {
-        var shapes = [InkDrawing]()
-        recognizedDrawings.values.forEach {value in
-            shapes.append(value)
-        }
-        return shapes
+    public func getDrawings() -> [InkDrawing] {        
+        return recognizedDrawings
     }
 }
