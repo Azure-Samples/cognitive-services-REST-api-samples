@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 
 @objc
-class InkPoint : NSObject, Decodable {
+class InkPoint: NSObject, Decodable {
     var x: Float = 0;
     var y: Float = 0;
     

@@ -2,14 +2,14 @@
 import Foundation
 
 @objc
-enum RecognitionResultStatus : Int {
+enum RecognitionResultStatus: Int {
     case unchanged,
     updated,
     failed
 }
 
 @objc
-class InkRecognitionError : NSObject {
+class InkRecognitionError: NSObject {
     var code: String = ""
     var message: String  = ""
     var target: String = ""

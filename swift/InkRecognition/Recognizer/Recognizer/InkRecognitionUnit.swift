@@ -15,7 +15,7 @@ public enum InkRecognitionUnitCategory: Int {
 }
 
 @objc
-class InkBoundingRectangle : NSObject, Decodable {
+class InkBoundingRectangle: NSObject, Decodable {
     var topX: CGFloat = 0
     var topY: CGFloat = 0
     var width: CGFloat = 0

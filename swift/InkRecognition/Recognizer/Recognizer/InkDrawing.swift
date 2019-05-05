@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 
 @objc
-public enum Shape  : Int {
+public enum Shape: Int {
     case drawing,
     square,
     rectangle,
