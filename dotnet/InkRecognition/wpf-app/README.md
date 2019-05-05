@@ -11,16 +11,16 @@ products:
 
 ![Build passing](https://img.shields.io/badge/build-passing-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-Ink Recognizer Cognitive Service provides recognition of digital ink. It takes the digital ink stroke data as input and provides a document tree with individual recognition units as output. This project has sample code to demonstrate a few ways developers can take advantage of the service. This sample also shows use case for [Xaml Island](https://docs.microsoft.com/en-us/windows/uwp/xaml-platform/xaml-host-controls) on InkCanvas, which import UWP controls into desktop applications.
+Ink Recognizer Cognitive Service provides recognition of digital ink. It takes the digital ink stroke data as input and provides a document tree with individual recognition units as output. This project has sample code to demonstrate a few ways developers can take advantage of the service. This sample also shows a use case for [Xaml Island](https://docs.microsoft.com/en-us/windows/uwp/xaml-platform/xaml-host-controls) on InkCanvas, which import UWP controls into desktop applications.
 
 ## Features
 
 This sample provides the following features:
 
-* Collect ink strokes from Xaml Island InkCanvas
-* Create JSON request following InkRecognizer service's schema.
-* Call the InkRecognizer REST API
-* Parse the JSON reponse to build the document tree
+* Collecting ink strokes from Xaml Island InkCanvas
+* Creating JSON request following InkRecognizer service's schema.
+* Calling the InkRecognizer REST API
+* Parsing the JSON reponse to build the document tree
 
 ## Contents
 
@@ -54,7 +54,7 @@ This sample provides the following features:
 
 ### Run the sample
 
-* To debug the sample and then run it, select **Debug > Start Debugging**. To run the sample without debugging, select **Debug > Start Without Debugging**.
+* To debug the sample, select **Debug > Start Debugging**. To run the sample without debugging, select **Debug > Start Without Debugging**.
 * Write down something on the upper region of the app
 * After one second of inactivity, the ink will be recognized and the result will be visible in the lower region of the app
 
