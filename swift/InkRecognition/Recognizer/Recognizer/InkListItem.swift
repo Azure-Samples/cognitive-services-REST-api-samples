@@ -2,6 +2,6 @@
 import Foundation
 
 @objc
-class InkListItem : InkRecognitionUnit {    
+class InkListItem: InkRecognitionUnit {    
     
 }

@@ -2,24 +2,24 @@
 import Foundation
 
 @objc
-enum StrokeKind : Int {
+enum StrokeKind: Int {
     case drawing,
     writing,
     unknown
 }
 
 @objc
-class InkStroke : NSObject, Encodable {
+class InkStroke: NSObject, Encodable {
     var language: String = "en-US"
     var id: Int!
     var kind: StrokeKind
     var inkPoints = [InkPoint]()
-    var points : String = ""
-    static var num :Int = 0
-    var strKind : String = "unknown"
+    var points: String = ""
+    static var num: Int = 0
+    var strKind: String = "unknown"
     
     
-    enum CodingKeys : CodingKey {
+    enum CodingKeys: CodingKey {
         case language
         case id
         case points
@@ -49,11 +49,6 @@ class InkStroke : NSObject, Encodable {
         } else {
             points.append("," + String(Float(point.x)) + "," + String(Float(point.y)))
         }
-    }
-    
-    @objc
-    func removePoint(index: Int) {
-        inkPoints.remove(at: index)
     }
     
     func encode(to encoder: Encoder) throws {

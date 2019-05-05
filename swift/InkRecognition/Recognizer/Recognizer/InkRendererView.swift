@@ -2,16 +2,16 @@
 import Foundation
 import UIKit
 
-class InkRendererView : UIView {
+class InkRendererView: UIView {
     
-    var lines : [Line] = []
+    var lines: [Line] = []
     var lastPoint: CGPoint!
     var swiped = false
     var color = UIColor(red: 0.30, green: 0.40, blue: 0.0, alpha: 1.0)
-    var penColor : CGColor!
-    var inkRecognizer : InkRecognizer
-    var inkStroke : InkStroke? = InkStroke(language: "en-US")
-    var timer : Timer!
+    var penColor: CGColor!
+    var inkRecognizer: InkRecognizer
+    var inkStroke: InkStroke? = InkStroke(language: "en-US")
+    var timer: Timer!
     
     required init(coder aDecoder : NSCoder) {
         self.inkRecognizer = InkRecognizer(url: "https://api.cognitive.microsoft.com/inkrecognizer/v1.0-preview/recognize", appKey: "<SUBSCRIPTION KEY HERE>")

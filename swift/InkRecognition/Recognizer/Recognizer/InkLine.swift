@@ -1,20 +1,20 @@
 
 import Foundation
 @objc
-class InkLine : InkRecognitionUnit {
+class InkLine: InkRecognitionUnit {
     
     var alternates = [[String:Any]]()
     var indentLevel = 0.0
-    var text:String!
+    var text: String!
     
     @objc
-    override init(json : [String: Any])
+    override init(json: [String: Any])
     {
         self.text = json["recognizedText"] as? String ?? ""
         if let alternates = json["alternates"] as? [[String: Any]] {
             self.alternates = alternates
         }
-        super.init(json:json)
+        super.init(json: json)
     }
     
     @objc

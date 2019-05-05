@@ -2,9 +2,9 @@
 import Foundation
 
 @objc
-class InkBullet : InkRecognitionUnit {
+class InkBullet: InkRecognitionUnit {
     
-    var text:String!
+    var text: String!
     
     @objc
     override init(json : [String:Any]) {

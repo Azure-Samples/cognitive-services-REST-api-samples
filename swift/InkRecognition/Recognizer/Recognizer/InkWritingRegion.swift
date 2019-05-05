@@ -2,6 +2,6 @@
 
 import Foundation
 @objc
-class InkWritingRegion : InkRecognitionUnit {    
+class InkWritingRegion: InkRecognitionUnit {
     
 }

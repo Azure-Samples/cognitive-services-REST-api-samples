@@ -18,7 +18,7 @@ class InkRecognizer : NSObject {
     var strokeIdStore = [Int: Int]()
     var strokes = [InkStroke]()
     var appKey: String = ""
-    var url:String = ""
+    var url: String = ""
     var inkRoot: InkRoot!
     weak var inkView: InkRendererView!
     
@@ -26,13 +26,6 @@ class InkRecognizer : NSObject {
     init (url: String, appKey: String) {
         self.appKey = appKey
         self.url = url
-    }
-    
-    @objc
-    public func setMetrics() {
-        //These values are for the iphone XR. You can have a data structure
-        //to hold the values for the target devices you want to support
-        
     }
     
     @objc

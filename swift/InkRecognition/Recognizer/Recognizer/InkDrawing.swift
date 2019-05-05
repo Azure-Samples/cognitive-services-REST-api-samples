@@ -1,6 +1,7 @@
 
 
 import Foundation
+import UIKit
 
 @objc
 public enum Shape  : Int {
@@ -30,15 +31,15 @@ public enum Shape  : Int {
 }
 
 @objc
-class InkDrawing : InkRecognitionUnit {
+class InkDrawing: InkRecognitionUnit {
     
     private var center: InkPoint!
     private var confidence: Float!
-    var shape:Shape!
-    var shapeName : String!
+    var shape: Shape!
+    var shapeName: String!
     var rotationAngle: Float!
     var alternates = [Shape]()
-    var points = [InkPoint]()
+    var points = [CGPoint]()
     let supportedShapes = ["drawing": Shape.drawing,
                            "circle": Shape.circle,
                            "square": Shape.square,
@@ -64,7 +65,7 @@ class InkDrawing : InkRecognitionUnit {
                            "polyline": Shape.polyline]
     
     @objc
-    override init(json : [String: Any]) {
+    override init(json: [String: Any]) {
         super.init(json: json)
         
         let jsonCenter = json["center"] as! [String: Any]
@@ -76,7 +77,7 @@ class InkDrawing : InkRecognitionUnit {
             for shapePoint in shapePoints {
                 let x = shapePoint["x"] as! Float
                 let y = shapePoint["y"] as! Float
-                self.points.append(InkPoint(x: x, y: y));
+                self.points.append(CGPoint(x: InkPoint.millimeterToCGFloat(mmValue: x), y: InkPoint.millimeterToCGFloat(mmValue: y)));
             }
         }
         self.rotationAngle = json["rotationAngle"] as? Float ?? 0.0
