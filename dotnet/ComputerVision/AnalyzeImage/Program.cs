@@ -1,146 +1,151 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-
-namespace AnalyzeImage
+﻿namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage
 {
-    static class AnalyzeImage
+    using Newtonsoft.Json.Linq;
+    using System;
+    using System.IO;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
+
+    public static class Program
     {
-        private const string subscriptionKey = "<your training key here>"; //Replace with your Cognitive Service subscription key here. The < and > must be removed too.
+        public const string subscriptionKey = "<your training key here>"; //Insert your Cognitive Services subscription key here
+        public const string endpoint = "https://westus.api.cognitive.microsoft.com"; // You must use the same Azure region that you generated your subscription keys for.  Free trial subscription keys are generated in the westus region. 
 
-        // You must use the same Azure region that you generated your subscription keys for.  Free trial subscription keys are generated in the westus region. 
-        const string uriBase = "https://westus.api.cognitive.microsoft.com/vision/v2.0/analyze";
-
-        static void Main()
+        static void Main(string[] args)
         {
-            Console.WriteLine("Images being analyzed:");
-
-            string imageFilePath = @"Images\faces.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any image on your machine.
-            string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/landmark.jpg";
-
-            var t1 = AnalyzeFromStreamAsync(imageFilePath);
-            var t2 = AnalyzeFromUrlAsync(remoteImageUrl);
-
-            Task.WhenAll(t1, t2).Wait(5000);
-            Console.WriteLine("Press ENTER to exit");
+            AnalyzeImageSample.RunAsync(endpoint, subscriptionKey).Wait(6000);
+            Console.WriteLine("\nPress ENTER to exit.");
             Console.ReadLine();
         }
 
-        static async Task AnalyzeFromStreamAsync(string imageFilePath)
+        public class AnalyzeImageSample
         {
-            if (!File.Exists(imageFilePath))
+            public const string uriBase = "https://westus.api.cognitive.microsoft.com/vision/v2.0/analyze";
+            public static async Task RunAsync(string endpoint, string subscriptionKey)
             {
-                Console.WriteLine("Invalid file path");
-                return;
+                Console.WriteLine("Images being analyzed:");
+
+                string imageFilePath = @"Images\faces.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any image on your machine.
+                string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/landmark.jpg";
+
+                await AnalyzeFromUrlAsync(remoteImageUrl);
+                await AnalyzeFromStreamAsync(imageFilePath);
             }
 
-            try
+            static async Task AnalyzeFromStreamAsync(string imageFilePath)
             {
-                HttpClient client = new HttpClient();
-
-                // Request headers.
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-
-                // Request parameters. A third optional parameter is "details".
-                // Comment parameters that aren't required
-                string requestParameters = "visualFeatures=" +
-                    "Categories," +
-                    "Description," +
-                    "Color, " +
-                    "Tags, " +
-                    "Faces, " +
-                    "ImageType, " +
-                    "Adult , " +
-                    "Brands , " +
-                    "Objects"
-                    ;
-
-                // Assemble the URI for the REST API method.
-                string uri = uriBase + "?" + requestParameters;
-
-                // Read the contents of the specified local image
-                // into a byte array.
-                byte[] byteData = GetImageAsByteArray(imageFilePath);
-
-                // Add the byte array as an octet stream to the request body.
-                using (ByteArrayContent content = new ByteArrayContent(byteData))
+                if (!File.Exists(imageFilePath))
                 {
-                    // This example uses the "application/octet-stream" content type.
-                    // The other content types you can use are "application/json" and "multipart/form-data".
-                    content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                    // Asynchronously call the REST API method.
-                    HttpResponseMessage response = await client.PostAsync(uri, content);
-                    // Asynchronously get the JSON response.
-                    string contentString = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Invalid file path");
+                    return;
+                }
 
-                    // Display the JSON response.
-                    Console.WriteLine("\nResponse:\n\n{0}\n", JToken.Parse(contentString).ToString());
+                try
+                {
+                    HttpClient client = new HttpClient();
+
+                    // Request headers.
+                    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+                    // Request parameters. A third optional parameter is "details".
+                    // Comment parameters that aren't required
+                    string requestParameters = "visualFeatures=" +
+                        "Categories," +
+                        "Description," +
+                        "Color, " +
+                        "Tags, " +
+                        "Faces, " +
+                        "ImageType, " +
+                        "Adult , " +
+                        "Brands , " +
+                        "Objects"
+                        ;
+
+                    // Assemble the URI for the REST API method.
+                    string uri = uriBase + "?" + requestParameters;
+
+                    // Read the contents of the specified local image
+                    // into a byte array.
+                    byte[] byteData = GetImageAsByteArray(imageFilePath);
+
+                    // Add the byte array as an octet stream to the request body.
+                    using (ByteArrayContent content = new ByteArrayContent(byteData))
+                    {
+                        // This example uses the "application/octet-stream" content type.
+                        // The other content types you can use are "application/json" and "multipart/form-data".
+                        content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                        // Asynchronously call the REST API method.
+                        HttpResponseMessage response = await client.PostAsync(uri, content);
+                        // Asynchronously get the JSON response.
+                        string contentString = await response.Content.ReadAsStringAsync();
+
+                        // Display the JSON response.
+                        Console.WriteLine("\nResponse:\n\n{0}\n", JToken.Parse(contentString).ToString());
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("\n" + e.Message);
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("\n" + e.Message);
-            }
-        }
 
-        static byte[] GetImageAsByteArray(string imageFilePath)
-        {
-            // Open a read-only file stream for the specified file.
-            using (FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read))
+            static byte[] GetImageAsByteArray(string imageFilePath)
             {
-                // Read the file's contents into a byte array.
-                BinaryReader binaryReader = new BinaryReader(fileStream);
-                return binaryReader.ReadBytes((int)fileStream.Length);
-            }
-        }
-
-        static async Task AnalyzeFromUrlAsync(string imageUrl)
-        {
-            if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
-            {
-                Console.WriteLine("\nInvalid remote image url:\n{0} \n", imageUrl);
-                return;
+                // Open a read-only file stream for the specified file.
+                using (FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read))
+                {
+                    // Read the file's contents into a byte array.
+                    BinaryReader binaryReader = new BinaryReader(fileStream);
+                    return binaryReader.ReadBytes((int)fileStream.Length);
+                }
             }
 
-            try
+            static async Task AnalyzeFromUrlAsync(string imageUrl)
             {
-                HttpClient client = new HttpClient();
+                if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
+                {
+                    Console.WriteLine("\nInvalid remote image url:\n{0} \n", imageUrl);
+                    return;
+                }
 
-                // Request headers.
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+                try
+                {
+                    HttpClient client = new HttpClient();
 
-                // Request parameters. A third optional parameter is "details".
-                // Comment parameters that aren't required
-                string requestParameters = "visualFeatures=" +
-                    "Categories," +
-                    "Description," +
-                    "Color, " +
-                    "Tags, " +
-                    "Faces, " +
-                    "ImageType, " +
-                    "Adult , " +
-                    "Brands , " +
-                    "Objects"
-                    ;
+                    // Request headers.
+                    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
-                //Assemble the URI and content header for the REST API request
-                string uri = uriBase + "?" + requestParameters;
+                    // Request parameters. A third optional parameter is "details".
+                    // Comment parameters that aren't required
+                    string requestParameters = "visualFeatures=" +
+                        "Categories," +
+                        "Description," +
+                        "Color, " +
+                        "Tags, " +
+                        "Faces, " +
+                        "ImageType, " +
+                        "Adult , " +
+                        "Brands , " +
+                        "Objects"
+                        ;
 
-                string requestBody = " {\"url\":\"" + imageUrl + "\"}";
-                var content = new StringContent(requestBody);
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    //Assemble the URI and content header for the REST API request
+                    string uri = uriBase + "?" + requestParameters;
 
-                // Post the request and display the result
-                HttpResponseMessage response = await client.PostAsync(uri, content);
-                string contentString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("\nResponse:\n\n{0}\n", JToken.Parse(contentString).ToString());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("\n" + e.Message);
+                    string requestBody = " {\"url\":\"" + imageUrl + "\"}";
+                    var content = new StringContent(requestBody);
+                    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    // Post the request and display the result
+                    HttpResponseMessage response = await client.PostAsync(uri, content);
+                    string contentString = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("\nResponse:\n\n{0}\n", JToken.Parse(contentString).ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("\n" + e.Message);
+                }
             }
         }
     }
