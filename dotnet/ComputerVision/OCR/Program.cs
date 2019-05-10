@@ -28,9 +28,9 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR
         {
             Console.WriteLine("Performing OCR on the images:");
 
-            string imageFilePath = @"Images\handwritten_text.jpg";  // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
+            string imageFilePath = @"Images\printed_text.jpg";  // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/printed_text.jpg";
-            
+            //OCR works poorly for non-printed text. Look at the ExtractText sample for using the read operation that can work for both handwritten and printed text
             await OCRFromStreamAsync(imageFilePath, endpoint, key);
             await OCRFromUrlAsync(remoteImageUrl, endpoint, key);
         }
