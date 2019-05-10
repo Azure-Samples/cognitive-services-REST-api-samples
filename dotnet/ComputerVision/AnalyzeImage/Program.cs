@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage
 {
     using Newtonsoft.Json.Linq;
+
     class Program
     {
         public const string subscriptionKey = "<your training key here>"; //Insert your Cognitive Services subscription key here
