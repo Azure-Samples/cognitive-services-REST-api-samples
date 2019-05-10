@@ -1,12 +1,12 @@
-﻿namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage
+﻿using System;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
+namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage
 {
     using Newtonsoft.Json.Linq;
-    using System;
-    using System.IO;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
-
     class Program
     {
         public const string subscriptionKey = "<your training key here>"; //Insert your Cognitive Services subscription key here
