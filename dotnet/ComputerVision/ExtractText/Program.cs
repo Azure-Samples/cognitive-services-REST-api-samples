@@ -32,15 +32,12 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
             string imageFilePath = @"Images\handwritten_text.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/printed_text.jpg";
 
-            await ExtractTextFromStreamAsync(imageFilePath, endpoint, key);
-            await ExtractTextFromUrlAsync(remoteImageUrl, endpoint, key);
+            await ExtractTextFromStreamAsync(imageFilePath, endpoint, key, "Handwritten");  //the last parameter is whether the text that has to be extracted is printed or handwritten 
+            await ExtractTextFromUrlAsync(remoteImageUrl, endpoint, key, "Printed"); //This textRecognitionMode can only be either Handwritten or Printed
         }
 
-        /// <summary>
-        /// Gets the text from the specified image file by using the Computer Vision REST API.
-        /// </summary>
-        /// <param name="imageFilePath">The image file with text.</param>
-        static async Task ExtractTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey)
+        
+        static async Task ExtractTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey, string mode="Handwritten")
         {
             if (!File.Exists(imageFilePath))
             {
@@ -59,10 +56,8 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
                 // Request headers.
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
-                // Request parameter.
-                // replace to mode=Printed if passing in images with printed text
-                //string requestParameters = "mode=Printed";
-                string requestParameters = "mode=Handwritten";
+                // Request parameter indicating whether printed or handwritten text
+                string requestParameters = @"mode=" + mode;
 
                 //Assemble the URI and content header for the REST API request
                 string uriBase = endpoint+@"/vision/v2.0/read/core/asyncBatchAnalyze";
@@ -92,7 +87,6 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
         /// <summary>
         /// Returns the contents of the specified file as a byte array.
         /// </summary>
-        /// <param name="imageFilePath">The image file to read.</param>
         /// <returns>The byte array of the image data.</returns>
         static byte[] GetImageAsByteArray(string imageFilePath)
         {
@@ -150,9 +144,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
         /// <summary>
         /// Gets the text from the specified image URL by using the Computer Vision REST API.
         /// </summary>
-        /// <param name="remoteImgUrl">The URL of the image file with text.</param>
-
-        static async Task ExtractTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey)
+        static async Task ExtractTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey, string mode="Printed")
         {
             if (!Uri.IsWellFormedUriString(remoteImgUrl, UriKind.Absolute))
             {
@@ -165,9 +157,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
                 //Assemble the URI and content header for the REST API request
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                // replace to mode=Handwritten if passing in images with handwritten text
-                //string requestParameters = "mode=Handwritten";
-                string requestParameters = "mode=Printed";
+                string requestParameters = @"mode=" + mode; //The request parameter textRecognitionMode has to be either Handwritten or Printed
                 string uriBase = endpoint + @"/vision/v2.0/read/core/asyncBatchAnalyze";
                 string uri = uriBase + "?" + requestParameters;
                 string requestBody = " {\"url\":\"" + remoteImgUrl + "\"}";
