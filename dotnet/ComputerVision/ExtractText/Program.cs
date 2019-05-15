@@ -37,7 +37,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
         }
 
         
-        static async Task ExtractTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey, string mode="Handwritten")
+        static async Task ExtractTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey, string textRecognitionMode)
         {
             if (!File.Exists(imageFilePath))
             {
@@ -57,7 +57,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
                 // Request parameter indicating whether printed or handwritten text
-                string requestParameters = @"mode=" + mode;
+                string requestParameters = @"mode=" + textRecognitionMode;
 
                 //Assemble the URI and content header for the REST API request
                 string uriBase = endpoint+@"/vision/v2.0/read/core/asyncBatchAnalyze";
@@ -144,7 +144,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
         /// <summary>
         /// Gets the text from the specified image URL by using the Computer Vision REST API.
         /// </summary>
-        static async Task ExtractTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey, string mode="Printed")
+        static async Task ExtractTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey, string textRecognitionMode)
         {
             if (!Uri.IsWellFormedUriString(remoteImgUrl, UriKind.Absolute))
             {
@@ -157,7 +157,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
                 //Assemble the URI and content header for the REST API request
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                string requestParameters = @"mode=" + mode; //The request parameter textRecognitionMode has to be either Handwritten or Printed
+                string requestParameters = @"mode=" + textRecognitionMode; //The request parameter textRecognitionMode has to be either "Handwritten" or "Printed"
                 string uriBase = endpoint + @"/vision/v2.0/read/core/asyncBatchAnalyze";
                 string uri = uriBase + "?" + requestParameters;
                 string requestBody = " {\"url\":\"" + remoteImgUrl + "\"}";
