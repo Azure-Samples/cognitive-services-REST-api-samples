@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Cloud Ink Intelligence Basic Demo</title>
+  <style>
+    button {
+      width: 100px;
+      border: 1px solid #0066cc;
+      background-color: #0099cc;
+      color: #ffffff;
+      padding: 5px 10px;
+    }
+
+    button:hover {
+      width: 100px;
+      border: 1px solid #0099cc;
+      background-color: #00aacc;
+      color: #ffffff;
+      padding: 5px 10px;
+    }
+
+    button:disabled,
+    button[disabled] {
+      width: 100px;
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+    }
+  </style>
+
+  <script src="config.js"></script>
+  <script src="InkAnalysis.js"></script>
+  <script src="inkHelper.js"></script>
+  <script type="text/javascript">
+    var controlButtonIds = [];
+    var request = "",
+      response = "",
+      errorMessage = "";
+    var inkRecognzier, inkCanvas, resultBox, inkRecognitionResult;
+
+    function init() {
+      if (SUBSCRIPTION_KEY === "") {
+        window.alert("Please change the subscriptionKey variable by a valid key!");
+        return;
+      }
+
+      inkRecognizer = new Recognizer(ENDPOINT_URL, SUBSCRIPTION_KEY);
+      inkCanvas = new InkCanvas('inkCanvas');
+      resultBox = document.getElementById('resultBox');
+      inkRecognitionResult = null;
+      controlButtonIds = ['convertButton', 'requestButton', 'responseButton'];
+
+      fillLanguageTags();
+      disableControlButtons();
+
+      document.getElementById('clearButton').addEventListener("click", function () {
+        clear();
+      }, false);
+      document.getElementById('recognizeButton').addEventListener("click", function () {
+        recognize();
+      }, false);
+      document.getElementById('convertButton').addEventListener("click", function () {
+        convert();
+      }, false);
+      document.getElementById('requestButton').addEventListener("click", function () {
+        showRequest();
+      }, false);
+      document.getElementById('responseButton').addEventListener("click", function () {
+        showResponse();
+      }, false);
+    }
+
+    function fillLanguageTags() {
+      var options = document.getElementById('languageTags');
+      LANGUAGE_TAGS_TO_TRY.map(function (tag) {
+        var opt = document.createElement('option');
+        opt.innerHTML = tag;
+        options.appendChild(opt);
+      });
+      options.selectedIndex = 0;
+    }
+
+    function setButtonDisableState(buttons, state) {
+      buttons.map(function (id) {
+        document.getElementById(id).disabled = state;
+      });
+    }
+
+    function enableControlButtons() {
+      setButtonDisableState(controlButtonIds, false);
+    }
+
+    function disableControlButtons() {
+      setButtonDisableState(controlButtonIds, true);
+    }
+
+    function clear() {
+      inkCanvas.clear();
+      request = "";
+      response = "";
+      errorMessage = "";
+      inkRecognitionResult = null;
+      resultBox.value = "";
+      disableControlButtons();
+    }
+
+    function showRequest() {
+      resultBox.value = request.toString();
+    }
+
+    function showResponse() {
+      resultBox.value = response.toString();
+    }
+
+    function getLanguageTag() {
+      var options = document.getElementById('languageTags');
+      var lang = options[options.selectedIndex].text;
+      return (lang === "") ? "en-US" : lang;
+    }
+
+    function recognize() {
+      // check if any strokes present
+      var strokes = inkCanvas.strokes;
+      if (strokes.length === 0) {
+        window.alert("There are no strokes for analysis.");
+        return;
+      }
+
+      inkRecognizer = new Recognizer(ENDPOINT_URL, SUBSCRIPTION_KEY, getLanguageTag());
+
+      strokes.map(function (stroke) {
+        var strokeString = stroke.toJsonString(PIXEL_TO_MILLIMETERS);
+        inkRecognizer.addStroke(stroke.id, strokeString);
+      });
+
+      request = JSON.stringify(JSON.parse(inkRecognizer.data()), null, 2);
+      inkRecognizer.recognize(function (result, responseText) {
+          inkRecognitionResult = result;
+          response = JSON.stringify(JSON.parse(responseText), null, 2);
+          showResponse();
+          enableControlButtons();
+        },
+        function (error) {
+          errorMessage = error.status + ": " + error.message;
+        });
+    }
+
+    function convertLines(lines, bulletIds, bulletText) {
+      if (typeof (lines) !== "undefined") {
+        var pos;
+        inkCanvas.setStrokeStyle();
+        lines.map(function (line) {
+          // Check if is list item
+          var text = line.text;
+          if (line.children.some(function (e) {
+              return bulletIds.indexOf(e) !== -1;
+            })) {
+            text = bulletText + ' ' + text;
+          }
+
+          if (typeof (pos) === "undefined") {
+            pos = new Point(line.boundingRectangle.topX, line.boundingRectangle.topY);
+          } else {
+            // Leave enough gap between lines
+            pos = new Point(pos.x, pos.y + 20);
+          }
+
+          inkCanvas.drawText(text, pos, MILLIMETER_TO_PIXELS, "blue");
+        });
+      }
+    }
+
+    function convertShapes(units) {
+      if (typeof (units) !== "undefined") {
+        units.map(function (unit) {
+          if (unit.shape !== "drawing") {
+            var keyPoints = unit.points;
+            inkCanvas.setStrokeStyle("red");
+            if (unit.shape === "circle") {
+              inkCanvas.drawCircle(keyPoints, MILLIMETER_TO_PIXELS);
+            } else if (unit.shape === "ellipse") {
+              inkCanvas.drawEllipse(keyPoints, MILLIMETER_TO_PIXELS);
+            } else {
+              inkCanvas.drawPath(keyPoints, MILLIMETER_TO_PIXELS, true);
+            }
+          }
+        });
+      }
+    }
+
+    function convert() {
+      // convert all leaf nodes: words, bullets, shapes 
+      if (inkRecognitionResult != null) {
+        inkCanvas.clear();
+        setButtonDisableState(['convertButton'], true);
+
+        // For list, we want to unify the symbol of bullet
+        var bullets = inkRecognitionResult.findBullets();
+        var bulletText = "-";
+        if (bullets.length !== 0) {
+          var bulletSymbols = bullets.map(function (e) {
+            return e.text;
+          });
+          var isAllSymbolsTheSame = bulletSymbols.every(function (v) {
+            return v === bulletSymbols[0];
+          });
+          if (isAllSymbolsTheSame) {
+            bulletText = bulletSymbols[0];
+          }
+        }
+
+        var bulletIds = bullets.map(function (e) {
+          return e.id;
+        });
+
+        var lines = inkRecognitionResult.findLines();
+        convertLines(lines, bulletIds, bulletText);
+        convertShapes(inkRecognitionResult.findShapes());
+        inkCanvas.setStrokeStyle();
+      }
+    }
+  </script>
+</head>
+
+<body onload="init()">
+  <div id='bodyDiv'>
+    <div id='leftDiv' style='position: absolute; width:64%; margin-left:10px;'>
+      <div id='controlBar' style='height:40px;display: block'>
+        <button id='clearButton'>Clear</button>
+        <button id='recognizeButton'>Recognize</button>
+        <button id='convertButton'>Convert</button>
+        <select id="languageTags"></select>
+      </div>
+      <div id='visualContainer' style="height:710px" class='inkingArea'>
+        <canvas id='inkCanvas' width="700" height="700"
+          style='position: absolute; border:2px solid #CCC;touch-action:none;'></canvas>
+      </div>
+    </div>
+    <div id='rightDiv' style='position: absolute; width:35%; left:800px;'>
+      <div id='resultBar' style='height:40px'>
+        <button id='requestButton'>Request</button>
+        <button id='responseButton'>Response </button>
+      </div>
+      <textarea id='resultBox' readonly style="width:100%; height:800px; border:1px solid #CCC"></textarea>
+    </div>
+  </div>
+</body>
+
+</html>

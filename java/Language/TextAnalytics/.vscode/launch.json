@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TextAnalytics",
+            "request": "launch",
+            "mainClass": "com.microsoft.azure.textanalytics.samples.TextAnalytics",
+            "projectName": "azure-textanalytics-sample"
+        }
+    ]
+}
