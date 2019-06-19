@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
+namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile
 {
     using Newtonsoft.Json.Linq;
 
@@ -16,14 +16,14 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
 
         static void Main(string[] args)
         {
-            BatchReadTextSample.RunAsync(endpoint, subscriptionKey).Wait(5000);
+            BatchReadFileSample.RunAsync(endpoint, subscriptionKey).Wait(5000);
 
             Console.WriteLine("\nPress ENTER to exit.");
             Console.ReadLine();
         }
     }
 
-    public class BatchReadTextSample
+    public class BatchReadFileSample
     {
         public static async Task RunAsync(string endpoint, string key)
         {
@@ -32,12 +32,12 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
             string imageFilePath = @"Images\handwritten_text.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/printed_text.jpg";
 
-            await BatchReadTextFromStreamAsync(imageFilePath, endpoint, key);  
-            await BatchReadTextFromUrlAsync(remoteImageUrl, endpoint, key); 
+            await BatchReadFileFromStreamAsync(imageFilePath, endpoint, key);  
+            await BatchReadFileFromUrlAsync(remoteImageUrl, endpoint, key); 
         }
 
         
-        static async Task BatchReadTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey)
+        static async Task BatchReadFileFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey)
         {
             if (!File.Exists(imageFilePath))
             {
@@ -140,7 +140,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
         /// <summary>
         /// Gets the text from the specified image URL by using the Computer Vision REST API.
         /// </summary>
-        static async Task BatchReadTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey)
+        static async Task BatchReadFileFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey)
         {
             if (!Uri.IsWellFormedUriString(remoteImgUrl, UriKind.Absolute))
             {

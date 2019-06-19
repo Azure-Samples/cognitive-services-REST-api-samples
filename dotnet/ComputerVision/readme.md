@@ -17,7 +17,7 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 |-------------|-------------|
 | AnalyzeImage       | Project that analyzes image on specified visual parameters |
 | DetectObjects | Project that detects objects in an image |
-| BatchReadText | Project that looks for printed or handwritten text in an image|
+| BatchReadFile | Project that looks for printed or handwritten text in an image|
 | OCR | Project that performs OCR on the image|
 | DescribeImage| Captions on the image|
 | GetAreaOfInterest| important region of the image|

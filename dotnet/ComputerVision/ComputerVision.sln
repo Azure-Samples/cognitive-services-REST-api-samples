@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DetectObjects", "DetectObjects\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DetectObjects.csproj", "{ECC75ECA-5F9E-49FA-8480-B94A8A5DBB97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText", "BatchReadText\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText.csproj", "{C813CB28-39BD-4383-A59B-99020576057F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile", "BatchReadFile\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile.csproj", "{C813CB28-39BD-4383-A59B-99020576057F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR", "OCR\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR.csproj", "{F3F98FCD-728E-424C-A66E-64F5F0870298}"
 EndProject
