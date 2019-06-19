@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
+namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText
 {
     using Newtonsoft.Json.Linq;
 
@@ -16,28 +16,28 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
 
         static void Main(string[] args)
         {
-            ExtractTextSample.RunAsync(endpoint, subscriptionKey).Wait(5000);
+            RecognizeTextSample.RunAsync(endpoint, subscriptionKey).Wait(5000);
 
             Console.WriteLine("\nPress ENTER to exit.");
             Console.ReadLine();
         }
     }
 
-    public class ExtractTextSample
+    public class RecognizeTextSample
     {
         public static async Task RunAsync(string endpoint, string key)
         {
-            Console.WriteLine("Extracting text from the images:");
+            Console.WriteLine("Recognizing text from the images:");
 
             string imageFilePath = @"Images\handwritten_text.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/printed_text.jpg";
 
-            await ExtractTextFromStreamAsync(imageFilePath, endpoint, key, "Handwritten");  //the last parameter is whether the text that has to be extracted is printed or handwritten 
-            await ExtractTextFromUrlAsync(remoteImageUrl, endpoint, key, "Printed"); //This textRecognitionMode can only be either Handwritten or Printed
+            await RecognizeTextFromStreamAsync(imageFilePath, endpoint, key, "Handwritten");  //the last parameter is whether the text that has to be extracted is printed or handwritten 
+            await RecognizeTextFromUrlAsync(remoteImageUrl, endpoint, key, "Printed"); //This textRecognitionMode can only be either Handwritten or Printed
         }
 
-        
-        static async Task ExtractTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey, string textRecognitionMode)
+
+        static async Task RecognizeTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey, string textRecognitionMode)
         {
             if (!File.Exists(imageFilePath))
             {
@@ -60,7 +60,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
                 string requestParameters = @"mode=" + textRecognitionMode;
 
                 //Assemble the URI and content header for the REST API request
-                string uriBase = endpoint+@"/vision/v2.0/read/core/asyncBatchAnalyze";
+                string uriBase = endpoint + @"/vision/v2.0/recognizeText";
                 string uri = uriBase + "?" + requestParameters;
 
                 // Reads the contents of the specified local image into a byte array.
@@ -75,7 +75,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
 
                     // The first REST API method, Batch Read, starts the async process to analyze the written text in the image.
                     HttpResponseMessage response = await client.PostAsync(uri, content);
-                    await WaitForExtractTextOperationResultAsync(client, response);
+                    await WaitForRecognizeTextOperationResultAsync(client, response);
                 }
             }
             catch (Exception e)
@@ -99,7 +99,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
             }
         }
 
-        static async Task WaitForExtractTextOperationResultAsync(HttpClient client, HttpResponseMessage response)
+        static async Task WaitForRecognizeTextOperationResultAsync(HttpClient client, HttpResponseMessage response)
         {
             // operationLocation stores the URI of the second REST API method returned by the first REST API method.
             string operationLocation;
@@ -144,7 +144,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
         /// <summary>
         /// Gets the text from the specified image URL by using the Computer Vision REST API.
         /// </summary>
-        static async Task ExtractTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey, string textRecognitionMode)
+        static async Task RecognizeTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey, string textRecognitionMode)
         {
             if (!Uri.IsWellFormedUriString(remoteImgUrl, UriKind.Absolute))
             {
@@ -158,7 +158,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
                 string requestParameters = @"mode=" + textRecognitionMode; //The request parameter textRecognitionMode has to be either "Handwritten" or "Printed"
-                string uriBase = endpoint + @"/vision/v2.0/read/core/asyncBatchAnalyze";
+                string uriBase = endpoint + @"/vision/v2.0/recognizeText";
                 string uri = uriBase + "?" + requestParameters;
                 string requestBody = " {\"url\":\"" + remoteImgUrl + "\"}";
                 var content = new StringContent(requestBody);
@@ -168,7 +168,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText
                 HttpResponseMessage response = await client.PostAsync(uri, content);
 
                 // The response header for the Batch Read method contains the URI of the second method, Read Operation Result, which returns the results of the process in the response body.
-                await WaitForExtractTextOperationResultAsync(client, response);
+                await WaitForRecognizeTextOperationResultAsync(client, response);
             }
             catch (Exception e)
             {
