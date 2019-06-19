@@ -31,8 +31,8 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDoma
             string imageFilePath = @"Images\landmark.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/celebrities.jpg";
 
-            await RecognizeDomainSpecificContentFromUrlAsync(imageFilePath, endpoint, key, "celebrities");
-            await RecognizeDomainSpecificContentFromStreamAsync(remoteImageUrl, endpoint, key, "landmarks");
+            await RecognizeDomainSpecificContentFromUrlAsync(remoteImageUrl, endpoint, key, "celebrities");
+            await RecognizeDomainSpecificContentFromStreamAsync(imageFilePath, endpoint, key, "landmarks");
         }
 
         static async Task RecognizeDomainSpecificContentFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey, string specificDomain)
