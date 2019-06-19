@@ -32,12 +32,12 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
             string imageFilePath = @"Images\handwritten_text.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/printed_text.jpg";
 
-            await BatchReadTextFromStreamAsync(imageFilePath, endpoint, key, "Handwritten");  //the last parameter is whether the text that has to be extracted is printed or handwritten 
-            await BatchReadTextFromUrlAsync(remoteImageUrl, endpoint, key, "Printed"); //This textRecognitionMode can only be either Handwritten or Printed
+            await BatchReadTextFromStreamAsync(imageFilePath, endpoint, key);  
+            await BatchReadTextFromUrlAsync(remoteImageUrl, endpoint, key); 
         }
 
         
-        static async Task BatchReadTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey, string textRecognitionMode)
+        static async Task BatchReadTextFromStreamAsync(string imageFilePath, string endpoint, string subscriptionKey)
         {
             if (!File.Exists(imageFilePath))
             {
@@ -55,13 +55,9 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
 
                 // Request headers.
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-
-                // Request parameter indicating whether printed or handwritten text
-                string requestParameters = @"mode=" + textRecognitionMode;
-
+                
                 //Assemble the URI and content header for the REST API request
-                string uriBase = endpoint+@"/vision/v2.0/read/core/asyncBatchAnalyze";
-                string uri = uriBase + "?" + requestParameters;
+                string uri = endpoint+@"/vision/v2.0/read/core/asyncBatchAnalyze";
 
                 // Reads the contents of the specified local image into a byte array.
                 byte[] byteData = GetImageAsByteArray(imageFilePath);
@@ -144,7 +140,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
         /// <summary>
         /// Gets the text from the specified image URL by using the Computer Vision REST API.
         /// </summary>
-        static async Task BatchReadTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey, string textRecognitionMode)
+        static async Task BatchReadTextFromUrlAsync(string remoteImgUrl, string endpoint, string subscriptionKey)
         {
             if (!Uri.IsWellFormedUriString(remoteImgUrl, UriKind.Absolute))
             {
@@ -157,9 +153,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadText
                 //Assemble the URI and content header for the REST API request
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                string requestParameters = @"mode=" + textRecognitionMode; //The request parameter textRecognitionMode has to be either "Handwritten" or "Printed"
-                string uriBase = endpoint + @"/vision/v2.0/read/core/asyncBatchAnalyze";
-                string uri = uriBase + "?" + requestParameters;
+                string uri = endpoint + @"/vision/v2.0/read/core/asyncBatchAnalyze";
                 string requestBody = " {\"url\":\"" + remoteImgUrl + "\"}";
                 var content = new StringContent(requestBody);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
