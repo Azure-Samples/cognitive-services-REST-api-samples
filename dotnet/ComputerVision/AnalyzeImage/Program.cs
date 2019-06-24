@@ -64,8 +64,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage
                     ;
 
                 // Assemble the URI for the REST API method.
-                string uriBase = endpoint+@"/vision/v2.0/analyze";
-                string uri = uriBase + "?" + requestParameters;
+                string uri = $"{endpoint}/vision/v2.0/analyze?{requestParameters}";
 
                 // Read the contents of the specified local image
                 // into a byte array.
@@ -133,8 +132,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage
                     ;
 
                 //Assemble the URI and content header for the REST API request
-                string uriBase = endpoint + @"/vision/v2.0/analyze";
-                string uri = uriBase + "?" + requestParameters;
+                string uri = $"{endpoint}/vision/v2.0/analyze?{requestParameters}";
 
                 string requestBody = " {\"url\":\"" + imageUrl + "\"}";
                 var content = new StringContent(requestBody);

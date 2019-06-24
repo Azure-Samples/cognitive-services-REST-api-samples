@@ -17,8 +17,13 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 |-------------|-------------|
 | AnalyzeImage       | Project that analyzes image on specified visual parameters |
 | DetectObjects | Project that detects objects in an image |
-| ExtractText | Project that looks for printed or handwritten text in an image|
+| BatchReadFile | Project that looks for printed or handwritten text in an image or PDF|
 | OCR | Project that performs OCR on the image|
+| DescribeImage| Project for captioning an image|
+| GetAreaOfInterest| Project to find one important region in an image |
+| RecognizeDomainSpecificContent| Project that recognizes celebrities and landmarks in an image |
+| RecognizeText| Project that recognizes text in an image |
+| TagImage| Project to tag an image|
 | ComputerVision.sln | The Visual Studio solution with the above projects|
 | readme.md | This README file. |
 
