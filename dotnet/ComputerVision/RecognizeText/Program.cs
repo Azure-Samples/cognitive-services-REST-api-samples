@@ -60,9 +60,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText
                 string requestParameters = @"mode=" + textRecognitionMode;
 
                 //Assemble the URI and content header for the REST API request
-                string uriBase = endpoint + @"/vision/v2.0/recognizeText";
-                string uri = uriBase + "?" + requestParameters;
-
+                string uri = $"{endpoint}/vision/v2.0/recognizeText?{requestParameters}";
                 // Reads the contents of the specified local image into a byte array.
                 byte[] byteData = GetImageAsByteArray(imageFilePath);
 
@@ -158,8 +156,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
                 string requestParameters = @"mode=" + textRecognitionMode; //The request parameter textRecognitionMode has to be either "Handwritten" or "Printed"
-                string uriBase = endpoint + @"/vision/v2.0/recognizeText";
-                string uri = uriBase + "?" + requestParameters;
+                string uri = $"{endpoint}/vision/v2.0/recognizeText?{requestParameters}";
                 string requestBody = " {\"url\":\"" + remoteImgUrl + "\"}";
                 var content = new StringContent(requestBody);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

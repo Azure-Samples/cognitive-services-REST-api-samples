@@ -55,9 +55,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR
                 string requestParameters = "language=unk&detectOrientation=true";
 
                 //Assemble the URI and content header for the REST API request
-                string uriBase = endpoint + @"/vision/v2.0/ocr";
-                string uri = uriBase + "?" + requestParameters;
-
+                string uri = $"{endpoint}/vision/v2.0/ocr?{requestParameters}";
                 // Read the contents of the specified local image into a byte array.
                 byte[] byteData = GetImageAsByteArray(imageFilePath);
 
@@ -107,8 +105,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
                 //Assemble the URI and content header for the REST API request
                 string requestParameters = "language=unk&detectOrientation=true";
-                string uriBase = endpoint + @"/vision/v2.0/ocr";
-                string uri = uriBase + "?" + requestParameters;
+                string uri = $"{endpoint}/vision/v2.0/ocr?{requestParameters}";
                 string requestBody = " {\"url\":\"" + imageUrl + "\"}";
                 var content = new StringContent(requestBody);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

@@ -57,7 +57,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
                 
                 //Assemble the URI and content header for the REST API request
-                string uri = endpoint+@"/vision/v2.0/read/core/asyncBatchAnalyze";
+                string uri = $"{endpoint}/vision/v2.0/read/core/asyncBatchAnalyze";
 
                 // Reads the contents of the specified local image into a byte array.
                 byte[] byteData = GetImageAsByteArray(imageFilePath);
@@ -153,7 +153,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile
                 //Assemble the URI and content header for the REST API request
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                string uri = endpoint + @"/vision/v2.0/read/core/asyncBatchAnalyze";
+                string uri = $"{endpoint}/vision/v2.0/read/core/asyncBatchAnalyze";
                 string requestBody = " {\"url\":\"" + remoteImgUrl + "\"}";
                 var content = new StringContent(requestBody);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

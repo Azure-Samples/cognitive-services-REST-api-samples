@@ -48,7 +48,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDoma
 
                 // Request headers.
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                string uri = endpoint + $@"/vision/v2.0/models/{specificDomain}/analyze";
+                string uri = $"{endpoint}/vision/v2.0/models/{specificDomain}/analyze";
 
                 // Read the contents of the specified local image into a byte array.
                 byte[] byteData = GetImageAsByteArray(imageFilePath);
@@ -96,7 +96,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDoma
                 HttpClient client = new HttpClient();
                 // Request headers
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                string uri = endpoint + $@"/vision/v2.0/models/{specificDomain}/analyze";
+                string uri = $"{endpoint}/vision/v2.0/models/{specificDomain}/analyze";
 
                 string requestBody = " {\"url\":\"" + imageUrl + "\"}";
                 var content = new StringContent(requestBody);

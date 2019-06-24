@@ -48,7 +48,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage
 
                 // Request headers.
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                string uri = endpoint + @"/vision/v2.0/describe";
+                string uri = $"{endpoint}/vision/v2.0/describe";
                 // Read the contents of the specified local image into a byte array.
                 byte[] byteData = GetImageAsByteArray(imageFilePath);
                 // Add the byte array as an octet stream to the request body.
@@ -95,7 +95,7 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage
                 HttpClient client = new HttpClient();
                 // Request headers
                 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                string uri = endpoint + @"/vision/v2.0/describe";
+                string uri = $"{endpoint}/vision/v2.0/describe";
 
                 string requestBody = " {\"url\":\"" + imageUrl + "\"}";
                 var content = new StringContent(requestBody);
