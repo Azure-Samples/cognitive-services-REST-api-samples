@@ -11,15 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR", "OCR\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR.csproj", "{F3F98FCD-728E-424C-A66E-64F5F0870298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage", "DescribeImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage.csproj", "{236A621F-1422-4F11-A1DB-63A98FA81964}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage", "DescribeImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage.csproj", "{236A621F-1422-4F11-A1DB-63A98FA81964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetAreaOfInterest", "GetAreaOfInterest\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetAreaOfInterest.csproj", "{13CD735C-6C88-4C7D-9084-13924F9012DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetAreaOfInterest", "GetAreaOfInterest\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetAreaOfInterest.csproj", "{13CD735C-6C88-4C7D-9084-13924F9012DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.TagImage", "TagImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.TagImage.csproj", "{6F9E7415-FD2A-475C-A668-DB83D29DCBAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.TagImage", "TagImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.TagImage.csproj", "{6F9E7415-FD2A-475C-A668-DB83D29DCBAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDomainSpecificContent", "RecognizeDomainSpecificContent\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDomainSpecificContent.csproj", "{AFDFD5AC-2E2D-46C0-A25D-0AF09C6A89D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDomainSpecificContent", "RecognizeDomainSpecificContent\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDomainSpecificContent.csproj", "{AFDFD5AC-2E2D-46C0-A25D-0AF09C6A89D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText", "RecognizeText\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText.csproj", "{C024B030-8CA9-4239-9C89-371B24E029CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText", "RecognizeText\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText.csproj", "{C024B030-8CA9-4239-9C89-371B24E029CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetThumbnail", "GetThumbnail\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetThumbnail.csproj", "{E7D808D7-0294-471C-AD6A-C70626F97C21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{C024B030-8CA9-4239-9C89-371B24E029CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C024B030-8CA9-4239-9C89-371B24E029CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C024B030-8CA9-4239-9C89-371B24E029CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7D808D7-0294-471C-AD6A-C70626F97C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7D808D7-0294-471C-AD6A-C70626F97C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7D808D7-0294-471C-AD6A-C70626F97C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7D808D7-0294-471C-AD6A-C70626F97C21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
