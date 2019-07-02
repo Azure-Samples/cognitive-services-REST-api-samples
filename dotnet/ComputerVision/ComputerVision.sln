@@ -3,13 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzeImage", "AnalyzeImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage.csproj", "{D80D48F2-F52C-4649-A298-FB9F22668B19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage", "AnalyzeImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.AnalyzeImage.csproj", "{D80D48F2-F52C-4649-A298-FB9F22668B19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectObjects", "DetectObjects\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DetectObjects.csproj", "{ECC75ECA-5F9E-49FA-8480-B94A8A5DBB97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DetectObjects", "DetectObjects\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DetectObjects.csproj", "{ECC75ECA-5F9E-49FA-8480-B94A8A5DBB97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtractText", "ExtractText\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.ExtractText.csproj", "{C813CB28-39BD-4383-A59B-99020576057F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile", "BatchReadFile\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile.csproj", "{C813CB28-39BD-4383-A59B-99020576057F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR", "OCR\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR.csproj", "{F3F98FCD-728E-424C-A66E-64F5F0870298}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR", "OCR\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR.csproj", "{F3F98FCD-728E-424C-A66E-64F5F0870298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage", "DescribeImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.DescribeImage.csproj", "{236A621F-1422-4F11-A1DB-63A98FA81964}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetAreaOfInterest", "GetAreaOfInterest\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetAreaOfInterest.csproj", "{13CD735C-6C88-4C7D-9084-13924F9012DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.TagImage", "TagImage\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.TagImage.csproj", "{6F9E7415-FD2A-475C-A668-DB83D29DCBAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDomainSpecificContent", "RecognizeDomainSpecificContent\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeDomainSpecificContent.csproj", "{AFDFD5AC-2E2D-46C0-A25D-0AF09C6A89D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText", "RecognizeText\Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText.csproj", "{C024B030-8CA9-4239-9C89-371B24E029CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +43,26 @@ Global
 		{F3F98FCD-728E-424C-A66E-64F5F0870298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3F98FCD-728E-424C-A66E-64F5F0870298}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3F98FCD-728E-424C-A66E-64F5F0870298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236A621F-1422-4F11-A1DB-63A98FA81964}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236A621F-1422-4F11-A1DB-63A98FA81964}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236A621F-1422-4F11-A1DB-63A98FA81964}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236A621F-1422-4F11-A1DB-63A98FA81964}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13CD735C-6C88-4C7D-9084-13924F9012DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13CD735C-6C88-4C7D-9084-13924F9012DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13CD735C-6C88-4C7D-9084-13924F9012DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13CD735C-6C88-4C7D-9084-13924F9012DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F9E7415-FD2A-475C-A668-DB83D29DCBAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9E7415-FD2A-475C-A668-DB83D29DCBAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9E7415-FD2A-475C-A668-DB83D29DCBAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9E7415-FD2A-475C-A668-DB83D29DCBAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFDFD5AC-2E2D-46C0-A25D-0AF09C6A89D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDFD5AC-2E2D-46C0-A25D-0AF09C6A89D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDFD5AC-2E2D-46C0-A25D-0AF09C6A89D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDFD5AC-2E2D-46C0-A25D-0AF09C6A89D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C024B030-8CA9-4239-9C89-371B24E029CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C024B030-8CA9-4239-9C89-371B24E029CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C024B030-8CA9-4239-9C89-371B24E029CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C024B030-8CA9-4239-9C89-371B24E029CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
