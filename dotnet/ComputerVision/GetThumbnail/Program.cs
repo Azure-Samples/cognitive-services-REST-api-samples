@@ -71,8 +71,8 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetThumbnail
                         //Get the thumbnail image to save
                         byte[] thumbnailImageData = await response.Content.ReadAsByteArrayAsync();
                         //Save the thumbnail image. This will overwrite existing images at the path
-                        string imageName = imageFilePath.Substring(imageFilePath.LastIndexOf('/') + 1);
-                        string thumbnailFilePath = localSavePath + "\\" + imageName.Insert(imageName.Length - 4, "_thumb");
+                        string imageName = Path.GetFileName(imageFilePath);
+                        string thumbnailFilePath = Path.Combine(localSavePath, imageName.Insert(imageName.Length - 4, "_thumb"));
                         File.WriteAllBytes(thumbnailFilePath, thumbnailImageData);
                         Console.WriteLine("Saved the image to {0}\n", thumbnailFilePath);
                     }
@@ -130,8 +130,8 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.GetThumbnail
                     //Get the thumbnail image to save
                     byte[] thumbnailImageData = await response.Content.ReadAsByteArrayAsync();
                     //Save the thumbnail image. This will overwrite existing images at the path
-                    string imageName = imageUrl.Substring(imageUrl.LastIndexOf('/') + 1);
-                    string thumbnailFilePath = localSavePath + "\\" + imageName.Insert(imageName.Length - 4, "_thumb");
+                    string imageName = Path.GetFileName(imageUrl);
+                    string thumbnailFilePath = Path.Combine(localSavePath, imageName.Insert(imageName.Length - 4, "_thumb"));
                     File.WriteAllBytes(thumbnailFilePath, thumbnailImageData);
                     Console.WriteLine("Saved the thumbnail image from URL to {0}\n", thumbnailFilePath);
                 }
