@@ -65,7 +65,7 @@ namespace SampleSentimentV3
                     }
                 }
             };
-
+            //If you’re using C# 7.1 or greater, you can use an async main() method to await the function
             var sentimentV3Prediction = TextAnalyticsSentimentV3Client.SentimentV3PreviewPredictAsync(inputDocuments).Result;
 
             // Replace with whatever you wish to print or simply consume the sentiment v3 prediction
