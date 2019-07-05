@@ -24,7 +24,7 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 | RecognizeDomainSpecificContent| Project that recognizes celebrities and landmarks in an image |
 | RecognizeText| Project that recognizes text in an image |
 | TagImage| Project to tag an image|
-| GetThumbnail | Saves a thumbnail of an input image to disk|
+| GetThumbnail | Gets a recommended thumbnail for an image given a target size |
 | ComputerVision.sln | The Visual Studio solution with the above projects|
 | readme.md | This README file. |
 
