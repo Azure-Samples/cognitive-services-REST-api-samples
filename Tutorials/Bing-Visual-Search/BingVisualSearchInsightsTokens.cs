@@ -13,7 +13,7 @@ namespace VisualSearchFeatures
         {
             String subscriptionKey = "YOUR-ACCESS-KEY";
 
-            insightsToken = ImageResults(subscriptionKey);
+            var insightsToken = ImageResults(subscriptionKey);
 
             VisualSearchInsightsToken(subscriptionKey, insightsToken);
 
@@ -29,7 +29,7 @@ namespace VisualSearchFeatures
             String insightTok = "None";
             try
             {
-                var client = new ImageSearchAPI(new Microsoft.Azure.CognitiveServices.Search.ImageSearch.ApiKeyServiceClientCredentials(subKey)); //
+                var client = new ImageSearchClient(new Microsoft.Azure.CognitiveServices.Search.ImageSearch.ApiKeyServiceClientCredentials(subKey)); //
                 var imageResults = client.Images.SearchAsync(query: "canadian rockies").Result;
                 Console.WriteLine("Search images for query \"canadian rockies\"");
 
@@ -74,7 +74,7 @@ namespace VisualSearchFeatures
 
         public static void VisualSearchInsightsToken(string subscriptionKey, string insightsTok)
         {
-            var client = new VisualSearchAPI(new Microsoft.Azure.CognitiveServices.Search.VisualSearch.ApiKeyServiceClientCredentials(subscriptionKey));
+            var client = new VisualSearchClient(new Microsoft.Azure.CognitiveServices.Search.VisualSearch.ApiKeyServiceClientCredentials(subscriptionKey));
 
             try
             {
