@@ -12,6 +12,9 @@ namespace SampleSentimentV3
     {
         public class TextAnalyticsSentimentV3Client
         {
+            //You can get the reqeust url by going to: 
+            //https://centralus.dev.cognitive.microsoft.com/docs/services/TextAnalytics-v3-0-preview/operations/56f30ceeeda5650db055a3c9
+            //and clicking on the region (e.g. Central US). 
             private static readonly string textAnalyticsUrl = "<ADD_TEXT_ANALYTICS_URL_HERE>/v3.0-preview/sentiment";
 
             private static readonly string textAnalyticsKey = "<ADD_TEXT_ANALYTICS_KEY_HERE>";
