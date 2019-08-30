@@ -11,15 +11,16 @@ namespace AutosuggestSample1
 {
     class Program
     {
-        static string host = "https://api.cognitive.microsoft.com";
+        // Add your Azure Bing Autosuggest endpoint to your environment variables.
+        static string host = Environment.GetEnvironmentVariable("BING_AUTOSUGGEST_ENDPOINT");
         static string path = "/bing/v7.0/Suggestions";
-
+        
         // For a list of available markets, go to:
         // https://docs.microsoft.com/rest/api/cognitiveservices/bing-autosuggest-api-v7-reference#market-codes
         static string market = "en-US";
 
-        // NOTE: Replace this example key with a valid subscription key.
-                static string key = "INSERT YOUR API KEY HERE";
+        // Add your Azure Bing Autosuggest subscription key to your environment variables.
+        static string key = Environment.GetEnvironmentVariable("BING_AUTOSUGGEST_SUBSCRIPTION_KEY");
 
         static string query = "sail";
 
