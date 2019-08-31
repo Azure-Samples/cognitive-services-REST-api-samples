@@ -11,11 +11,11 @@ namespace ConsoleAppPost
     // For more information, see https://docs.microsoft.com/en-us/azure/cognitive-services/bing-image-search/tutorial-image-post  
     class Program
     {
-        // Replace the accessKey string value with your valid access key.
-        const string accessKey = "YOUR-ACCESS-KEY";
+        // Add your Azure Bing Search V7 subscription key to your environment variables.
+        const string accessKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
 
-        // The endpoint URI.  
-        const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0/images/details";
+        // Add your Azure Bing Search V7 endpoint to your environment variables. 
+        const string uriBase = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/images/details";
 
         // The image to upload. Replace with your file and path.
         const string imageFile = @"C:\Users\USER\PATH\IMAGE.jpg";
