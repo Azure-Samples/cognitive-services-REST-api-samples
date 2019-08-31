@@ -17,13 +17,13 @@ namespace BingVideoSearchCSharpCore
         // **********************************************
 
         // Replace the accessKey string value with your valid access key.
-        const string accessKey = "enter key here";
+        const string accessKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
 
         // Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
         // search APIs.  In the future, regional endpoints may be available.  If you
         // encounter unexpected authorization errors, double-check this value against
         // the endpoint for your Bing search instance in your Azure dashboard.
-        const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0/videos/search";
+        const string uriBase = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/videos/search";
 
         const string searchTerm = "kittens";
 
