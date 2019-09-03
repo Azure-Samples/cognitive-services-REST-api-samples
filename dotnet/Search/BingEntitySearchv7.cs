@@ -6,13 +6,14 @@ namespace EntitySearchSample
 {
     class Program
     {
-        static string host = "https://api.cognitive.microsoft.com";
+        // Add your Bing Entity Search endpoint to your environment variables.
+        static string host = System.getenv("BING_ENTITY_SEARCH_ENDPOINT");
         static string path = "/bing/v7.0/entities";
 
         static string market = "en-US";
 
-        // NOTE: Replace this example key with a valid subscription key.
-        static string key = "ENTER YOUR KEY HERE";
+        // Add your Bing Entity Search subscription key to your environment variables.
+        static string key = System.getenv("BING_ENTITY_SEARCH_SUBSCRIPTION_KEY");
 
         static string query = "italian restaurant near me";
 
