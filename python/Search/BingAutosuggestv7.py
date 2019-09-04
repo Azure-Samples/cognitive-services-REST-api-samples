@@ -9,10 +9,11 @@ import http.client, urllib.parse, json
 # *** Update or verify the following values. ***
 # **********************************************
 
-# Replace the subscriptionKey string value with your valid subscription key.
-subscriptionKey = 'enter key here'
+# Add your Bing Autosuggest subscription key to your environment variables.
+subscriptionKey = os.environ['BING_AUTOSUGGEST_SUBSCRIPTION_KEY']
 
-host = 'api.cognitive.microsoft.com'
+# Add your Bing Autosuggest endpoint to your environment variables.
+host = os.environ['BING_AUTOSUGGEST_ENDPOINT']
 path = '/bing/v7.0/Suggestions'
 
 mkt = 'en-US'
