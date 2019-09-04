@@ -2,11 +2,13 @@
 
 let https = require ('https');
 
-let host = 'api.cognitive.microsoft.com';
+// Add your Bing Spell Check endpoint to your environment variables.
+let host = process.env['BING_SPELL_CHECK_ENDPOINT']
 let path = '/bing/v7.0/spellcheck';
 
-/* NOTE: Replace this example key with a valid subscription key (see the Prequisites section above). Also note v5 and v7 require separate subscription keys. */
-let key = 'ENTER KEY HERE';
+// Add your Bing Spell Check subscription key to your environment variables.
+// Also note v5 and v7 require separate subscription keys. 
+let key = process.env['BING_SPELL_CHECK_SUBSCRIPTION_KEY']
 
 // These values are used for optional headers (see below).
 // let CLIENT_ID = "<Client ID from Previous Response Goes Here>";
