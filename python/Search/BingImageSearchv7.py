@@ -9,14 +9,11 @@ import http.client, urllib.parse, json
 # *** Update or verify the following values. ***
 # **********************************************
 
-# Replace the subscriptionKey string value with your valid subscription key.
-subscriptionKey = "enter key here"
+# Add your Bing Search V7 subscription key to your environment variables.
+subscriptionKey = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
 
-# Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
-# search APIs.  In the future, regional endpoints may be available.  If you
-# encounter unexpected authorization errors, double-check this value against
-# the endpoint for your Bing search instance in your Azure dashboard.
-host = "api.cognitive.microsoft.com"
+# Add your Bing Search V7 endpoint to your environment variables.
+host = os.environ['BING_SEARCH_V7_ENDPOINT']
 path = "/bing/v7.0/images/search"
 
 term = "puppies"
