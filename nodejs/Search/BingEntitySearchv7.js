@@ -8,10 +8,10 @@ let https = require ('https');
 // *** Update or verify the following values. ***
 // **********************************************
 
-// Replace the subscriptionKey string value with your valid subscription key.
-let subscriptionKey = 'ENTER YOUR KEY HERE';
-
-let host = 'api.cognitive.microsoft.com';
+// Add your Bing Entity Search subscription key to your environment variables.
+let subscriptionKey = process.env['BING_ENTITY_SEARCH_SUBSCRIPTION_KEY']
+// Add your Bing Entity Search endpoint to your environment variables.
+let host = process.env['BING_ENTITY_SEARCH_ENDPOINT']
 let path = '/bing/v7.0/entities';
 
 let mkt = 'en-US';
