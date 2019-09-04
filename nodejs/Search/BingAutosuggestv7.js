@@ -9,10 +9,10 @@ let https = require ('https');
 // *** Update or verify the following values. ***
 // **********************************************
 
-// Replace the subscriptionKey string value with your valid subscription key.
-let subscriptionKey = 'enter key here';
-
-let host = 'api.cognitive.microsoft.com';
+// Add your Bing Autosuggest subscription key to your environment variables.
+let subscriptionKey = process.env['BING_AUTOSUGGEST_SUBSCRIPTION_KEY']
+// Add your Bing Autosuggest endpoint to your environment variables.
+let host = process.env['BING_AUTOSUGGEST_endpoint']
 let path = '/bing/v7.0/Suggestions';
 
 let mkt = 'en-US';
