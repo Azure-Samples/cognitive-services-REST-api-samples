@@ -3,6 +3,7 @@ import (
     "fmt"
     "net/http"
     "io/ioutil"
+    "os"
     "time"
     "encoding/json"
 )
@@ -64,8 +65,9 @@ type BingAnswer struct {
 
 // Declare the main function. This is required for all Go programs.
 func main() {
-    const endpoint = "https://api.cognitive.microsoft.com/bing/v7.0/search"
-    token := "YOUR-ACCESS-KEY"
+    // Add your Bing Search V7 endpoint and subscription key to your environment variables.
+    const endpoint = os.Getenv("BING_SEARCH_V7_ENDPOINT")
+    token := os.Getenv("BING_SEARCH_V7_SUBSCRIPTION_KEY")
     searchTerm := "Microsoft Cognitive Services"
 
     // Declare a new GET request.
