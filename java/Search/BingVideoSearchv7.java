@@ -31,14 +31,11 @@ public class BingVideoSearch {
 // *** Update or verify the following values. ***
 // **********************************************
 
-    // Replace the subscriptionKey string value with your valid subscription key.
-    static String subscriptionKey = "enter key here";
-
-    // Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
-    // search APIs.  In the future, regional endpoints may be available.  If you
-    // encounter unexpected authorization errors, double-check this value against
-    // the endpoint for your Bing Web search instance in your Azure dashboard.
-    static String host = "https://api.cognitive.microsoft.com";
+    // Add your Bing Search V7 subscription key to your environment variables.
+    static String subscriptionKey = System.getenv("BING_SEARCH_V7_SUBSCRIPTION_KEY");
+    
+    // Add your Bing Search V7 endpoint to your environment variables.
+    static String host = System.getenv("BING_SEARCH_V7_ENDPOINT");
     static String path = "/bing/v7.0/videos/search";
 
     static String searchTerm = "kittens";
