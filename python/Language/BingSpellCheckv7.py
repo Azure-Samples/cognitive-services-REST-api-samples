@@ -7,10 +7,11 @@ text = 'Hollo, wrld!'
 
 params = {'mkt': 'en-US', 'mode': 'proof', 'text': text}
 
-# NOTE: Replace this example key with a valid subscription key.
-key = 'enter key here'
+# Add your Bing Spell Check subscription key to your environment variables.
+key = os.environ['BING_SPELL_CHECK_SUBSCRIPTION_KEY']
 
-host = 'api.cognitive.microsoft.com'
+# Add your Bing Spell Check endpoint to your environment variables.
+host = os.environ['BING_SPELL_CHECK_ENDPOINT']
 path = '/bing/v7.0/spellcheck'
 
 headers = {'Ocp-Apim-Subscription-Key': key,
