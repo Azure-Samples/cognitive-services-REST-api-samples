@@ -39,10 +39,10 @@ XCode 10 on macOS Mojave
 ### Quickstart
 (Add steps to get up and running quickly)
 
-1. git clone https://github.com/Azure-Samples/cognitive-services-java-android-ink-recognition
+1. git clone https://github.com/Azure-Samples/cognitive-services-REST-api-samples
 2. cd [respository name]
-3. Navigate to the project directory and select the xcode project file.
-4. Replace [SUBSCRIPTION_KEY] in InkRenderer.swift with your valid subscription key
+3. Navigate to the project directory (`swift/InkRecognition`) and select the xcode project file.
+4. Replace `<SUBSCRIPTION_KEY_HERE>` in InkRendererView.swift with your valid subscription key
 
 ## Demo
 
