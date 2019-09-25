@@ -18,9 +18,9 @@
         };
 
         function recognizeInk() {
-            var SERVER_ADDRESS = "https://api.cognitive.microsoft.com";
+            var SERVER_ADDRESS = process.env["INK_RECOGNITION_ENDPOINT"];
             var ENDPOINT_URL = SERVER_ADDRESS + "/inkrecognizer/v1.0-preview/recognize";
-            var SUBSCRIPTION_KEY = "YOUR_SUBSCRIPTION_KEY";
+            var SUBSCRIPTION_KEY = process.env["INK_RECOGNITION_SUBSCRIPTION_KEY"];
 
             
             if (SUBSCRIPTION_KEY === "") {
