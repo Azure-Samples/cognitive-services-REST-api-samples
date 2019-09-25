@@ -13,13 +13,13 @@ namespace ConsoleApp7
     class Program
     {
         // Replace the subscriptionKey string with your valid subscription key.
-        const string subscriptionKey = "YOUR_SUBSCRIPTION_KEY";
+        const string subscriptionKey = Environment.GetEnvironmentVariable("INK_RECOGNITION_SUBSCRIPTION_KEY");
 
         // Replace the dataPath string with a path to the JSON formatted ink stroke data.
         const string dataPath = @"PATH_TO_INK_STROKE_DATA";
 
         // URI information for ink recognition:
-        const string endpoint = "https://api.cognitive.microsoft.com";
+        const string endpoint = Environment.GetEnvironmentVariable("INK_RECOGNITION_ENDPOINT");
         const string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
 
         static async Task<string> Request(string apiAddress, string endpoint, string subscriptionKey, string requestData)
