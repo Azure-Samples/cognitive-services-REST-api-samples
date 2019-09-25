@@ -14,11 +14,13 @@ import java.nio.file.Paths;
 
 public class RecognizeInk {
 
-    // Replace the subscriptionKey string value with your valid subscription key.
-    private static final String subscriptionKey = "YOUR_SUBSCRIPTION_KEY";
-    // Replace the dataPath string with a path to the JSON formatted ink stroke data file.
-    public static final String rootUrl = "https://api.cognitive.microsoft.com";
+    // Add your Azure Ink Recognition subscription key to your environment variables.
+    private static final String subscriptionKey = System.getenv("INK_RECOGNITION_SUBSCRIPTION_KEY");
+    
+    // Add your Azure Ink Recognition endpoint to your environment variables.
+    public static final String rootUrl = System.getenv("INK_RECOGNITION_ENDPOINT");
     public static final String inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
+    // Replace the dataPath string with a path to the JSON formatted ink stroke data file.
     private static final String dataPath = "PATH_TO_INK_STROKE_DATA";
 
     public static void main(String[] args) throws Exception {
