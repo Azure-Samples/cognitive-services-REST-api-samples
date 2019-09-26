@@ -1,7 +1,8 @@
 import os, requests, json
 
-subscriptionKey = 'put_your_key_here'
-host = ''
+# Add your Bing Entity Search subscription key and endpoint to your environment variables.
+subscriptionKey = os.environ['BING_ENTITY_SEARCH_SUBSCRIPTION_KEY']
+host = os.environ['BING_ENTITY_SEARCH_ENDPOINT']
 path = ''
 search_query = ''
 
