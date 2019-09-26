@@ -27,14 +27,14 @@ import com.google.gson.JsonParser;
 
 public class Autosuggest {
 
-// **********************************************
-// *** Update or verify the following values. ***
-// **********************************************
+    // **********************************************
+    // *** Update or verify the following values. ***
+    // **********************************************
 
-// Replace the subscriptionKey string value with your valid subscription key.
-    static String subscriptionKey = "enter key here";
+    // Add your Bing Autosuggest subscription key to your environment variables.
+    static String subscriptionKey = System.getenv("BING_AUTOSUGGEST_SUBSCRIPTION_KEY");
 
-    static String host = "https://api.cognitive.microsoft.com";
+    static String host = System.getenv("BING_AUTOSUGGEST_ENDPOINT");
     static String path = "/bing/v7.0/Suggestions";
 
     static String mkt = "en-US";
