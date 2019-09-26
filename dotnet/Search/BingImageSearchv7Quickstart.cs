@@ -13,12 +13,11 @@ namespace BingSearchApisQuickstart
     class Program
     {
 
-        // Replace this string value with your valid access key.
-        const string subscriptionKey = "Enter your subscription key here";
+        // Add your Azure Bing Search V7 subscription key to your environment variables
+        const string subscriptionKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
 
-        // Verify the endpoint URI. If you encounter unexpected authorization errors,
-        // double-check this value against the Bing search endpoint in your Azure dashboard.
-        const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
+        // Add your Azure Bing Search V7 endpoint to your environment variables
+        const string uriBase = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/images/search";
 
         const string searchTerm = "tropical ocean";
 
