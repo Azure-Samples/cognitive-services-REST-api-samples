@@ -12,11 +12,13 @@ namespace bing_custom_search_example_dotnet
     {
         static void Main(string[] args)
         {
-            var subscriptionKey = "YOUR-SUBSCRIPTION-KEY";
+            // Add your Azure Bing Custom Search subscription key to your environment variables.
+            var subscriptionKey = Environment.GetEnvironmentVariable("BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY");
             var customConfigId = "YOUR-CUSTOM-CONFIG-ID";
             var searchTerm = args.Length > 0 ? args[0]: "microsoft";            
-
-            var url = "https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search?" +
+            
+            // Add your Azure Bing Custom Search endpoint to your environment variables.
+            var url = Environment.GetEnvironmentVariable("BING_CUSTOM_SEARCH_ENDPOINT") + "/bingcustomsearch/v7.0/search?" +
                 "q=" + searchTerm +
                 "&customconfig=" + customConfigId;
 
