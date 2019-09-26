@@ -11,8 +11,9 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile
 
     public class Program
     {
-        public const string subscriptionKey = "<your training key here>"; //Insert your Cognitive Services subscription key here
-        public const string endpoint = "https://westus.api.cognitive.microsoft.com"; // You must use the same Azure region that you generated your subscription keys for.  Free trial subscription keys are generated in the westus region. 
+        // Add your Azure Computer Vision subscription key and endpoint to your environment variables
+        public const string subscriptionKey = Environment.GetEnvironmentVariable("COMPUTER_VISION_SUBSCRIPTION_KEY");
+        public const string endpoint = Environment.GetEnvironmentVariable("COMPUTER_VISION_ENDPOINT");
 
         static void Main(string[] args)
         {
@@ -28,8 +29,8 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.BatchReadFile
         public static async Task RunAsync(string endpoint, string key)
         {
             Console.WriteLine("Extracting text from the images:");
-
-            string imageFilePath = @"Images\handwritten_text.jpg"; // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
+            // See this repo's readme.md for info on how to get these images. Or, set the path to any appropriate image on your machine.
+            string imageFilePath = @"Images\handwritten_text.jpg"; 
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/printed_text.jpg";
 
             await BatchReadFileFromStreamAsync(imageFilePath, endpoint, key);  
