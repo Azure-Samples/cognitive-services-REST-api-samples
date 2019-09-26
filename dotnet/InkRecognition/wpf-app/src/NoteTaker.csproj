@@ -120,7 +120,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="JSON\Converter\InkPointsToStringConverter.cs" />
     <Compile Include="JSON\Format\Alternates.cs" />
     <Compile Include="JSON\Format\InkBullet.cs" />
     <Compile Include="JSON\Format\InkDrawing.cs" />
