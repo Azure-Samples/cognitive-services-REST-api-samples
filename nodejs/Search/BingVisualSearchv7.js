@@ -2,8 +2,10 @@ var request = require('request');
 var FormData = require('form-data');
 var fs = require('fs');
 
-var baseUri = 'https://api.cognitive.microsoft.com/bing/v7.0/images/visualsearch';
-var subscriptionKey = 'your-susbcription-key';
+// Add your Bing Search V7 endpoint to your environment variables.
+var baseUri = process.env['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/visualsearch';
+// Add your Bing Search V7 subscription key to your environment variables.
+var subscriptionKey = process.env['BING_SEARCH_V7_SUBSCRIPTION_KEY']
 var imagePath = "path-to-your-image";
 
 var form = new FormData();
