@@ -24,14 +24,14 @@ import com.google.gson.JsonParser;
 
 public class EntitySearch {
 
-// **********************************************
-// *** Update or verify the following values. ***
-// **********************************************
+    // **********************************************
+    // *** Update or verify the following values. ***
+    // **********************************************
 
-// Replace the subscriptionKey string value with your valid subscription key.
-    static String subscriptionKey = "ENTER KEY HERE";
-
-    static String host = "https://api.cognitive.microsoft.com";
+    // Add your Bing Entity Search subscription key to your environment variables.
+    static String subscriptionKey = System.getenv("BING_ENTITY_SEARCH_SUBSCRIPTION_KEY");
+    // Add your Bing Entity Search endpoint to your environment variables.
+    static String host = System.getenv("BING_ENTITY_SEARCH_ENDPOINT");
     static String path = "/bing/v7.0/entities";
 
     static String mkt = "en-US";
