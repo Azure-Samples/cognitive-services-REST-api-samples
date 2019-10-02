@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+// <imports>
 using System;
 using System.IO;
 using System.Net;
@@ -7,21 +10,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+// </imports>
 
-namespace ConsoleApp7
+namespace RecognizeInk
 {
     class Program
     {
+        // <vars>
         // Replace the subscriptionKey string with your valid subscription key.
         const string subscriptionKey = Environment.GetEnvironmentVariable("INK_RECOGNITION_SUBSCRIPTION_KEY");
 
         // Replace the dataPath string with a path to the JSON formatted ink stroke data.
         const string dataPath = @"PATH_TO_INK_STROKE_DATA";
 
-        // URI information for ink recognition:
+        // URI information for ink recognition. Your endpoint should look like:
+        // <your-custom-subdomain>.cognitiveservices.azure.com
         const string endpoint = Environment.GetEnvironmentVariable("INK_RECOGNITION_ENDPOINT");
         const string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
-
+        // </vars>
+        // <request>
         static async Task<string> Request(string apiAddress, string endpoint, string subscriptionKey, string requestData)
         {
 
@@ -42,9 +49,10 @@ namespace ConsoleApp7
                     return $"ErrorCode: {res.StatusCode}";
                 }
             }
-
         }
+        // </request>
 
+        // <recognize>
         static void recognizeInk(string requestData)
         {
 
@@ -58,10 +66,10 @@ namespace ConsoleApp7
             dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
             System.Console.WriteLine(jsonObj);
         }
-
+        // </recognize>
+        // <loadJson>
         public static JObject LoadJson(string fileLocation)
         {
-
             var jsonObj = new JObject();
 
             using (StreamReader file = File.OpenText(fileLocation))
@@ -71,7 +79,8 @@ namespace ConsoleApp7
             }
             return jsonObj;
         }
-
+        // </loadJson> 
+        // <main>   
         static void Main(string[] args)
         {
 
@@ -81,5 +90,6 @@ namespace ConsoleApp7
             System.Console.WriteLine("\nPress any key to exit ");
             System.Console.ReadKey();
         }
+        // </main>
     }
 }
