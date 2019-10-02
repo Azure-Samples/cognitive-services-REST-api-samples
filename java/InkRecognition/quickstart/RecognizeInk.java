@@ -3,7 +3,7 @@
 // <imports>
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -42,7 +42,7 @@ public class RecognizeInk {
     // <sendRequest>
     static String sendRequest(String endpoint, String apiAddress, String subscriptionKey, String requestData) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpPost request = new HttpPost(endpoint + apiAddress);
+            HttpPut request = new HttpPut(endpoint + apiAddress);
             // Request headers.
             request.setHeader("Content-Type", "application/json");
             request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
