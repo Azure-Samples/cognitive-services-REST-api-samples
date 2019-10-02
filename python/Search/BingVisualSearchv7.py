@@ -6,10 +6,11 @@
 
 import requests, json
 
+# Add your Bing Search V7 endpoint to your environment variables.
+BASE_URI = os.environ['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/visualsearch'
 
-BASE_URI = 'https://api.cognitive.microsoft.com/bing/v7.0/images/visualsearch'
-
-SUBSCRIPTION_KEY = 'your-subscription-key'
+# Add your Bing Search V7 subscription key to your environment variables.
+SUBSCRIPTION_KEY = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
 
 imagePath = 'your-image-path'
 

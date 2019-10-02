@@ -36,8 +36,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class UploadImage2 {
 
-    static String endpoint = "https://api.cognitive.microsoft.com/bing/v7.0/images/visualsearch";
-    static String subscriptionKey = "<yoursubscriptionkeygoeshere";
+    // Add your Bing Search V7 endpoint to your environment variables.
+    static String endpoint = System.getenv("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/images/visualsearch";
+    // Add your Bing Search V7 subscription key to your environment variables.
+    static String subscriptionKey = System.getenv("BING_SEARCH_V7_SUBSCRIPTION_KEY");
     static String imagePath = "<pathtoyourimagetouploadgoeshere>";
 
     /**

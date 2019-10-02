@@ -3,12 +3,12 @@
 
 var request = require("request");
 
-var subscriptionKey = 'YOUR-SUBSCRIPTION-KEY';
+var subscriptionKey = process.env['BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY']
 var customConfigId = 'YOUR-CUSTOM-CONFIG-ID';
 var searchTerm = 'microsoft';
 
 var options = {
-    url: 'https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search?' + 
+    url: process.env['BING_CUSTOM_SEARCH_ENDPOINT'] + "/bingcustomsearch/v7.0/search?' + 
       'q=' + searchTerm + 
       '&customconfig=' + customConfigId,
     headers: {

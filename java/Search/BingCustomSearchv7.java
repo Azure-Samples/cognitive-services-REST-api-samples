@@ -18,10 +18,11 @@ import com.google.gson.JsonParser;
 
 public class CustomSrchJava {
 
-
-    static String host = "https://api.cognitive.microsoft.com";
+    // Add your Bing Custom Search endpoint to your environment variables.
+    static String host = System.getenv("BING_CUSTOM_SEARCH_ENDPOINT");
     static String path = "/bingcustomsearch/v7.0/search";
-    static String subscriptionKey = "YOUR-SUBSCRIPTION-KEY"; 
+    // Add your Bing Custom Search subscription key to your environment variables.
+    static String subscriptionKey = System.getenv("BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY");
     static String customConfigId = "YOUR-CUSTOM-CONFIG-ID";  
 
     static String searchTerm = "Microsoft";  // Replace with search term specific to your defined sources.

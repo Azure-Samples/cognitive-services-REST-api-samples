@@ -13,10 +13,10 @@ namespace VisualSearchUpload
         // *** Update and verify the following values. ***
         // **********************************************
 
-        // Replace the accessKey string value with your valid subscription key.
-        const string accessKey = "<yoursubscriptionkeygoeshere>";
-
-        const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0/images/visualsearch";
+        // Add your Azure Bing Search V7 subscription key to your environment variables.
+        const string accessKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
+        // Add your Azure Bing Search V7 endpoint to your environment variables.
+        const string uriBase = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/images/visualsearch";
 
         // Set the path to the image that you want to get insights of. 
         static string imagePath = @"<pathtoimagegoeshere>";

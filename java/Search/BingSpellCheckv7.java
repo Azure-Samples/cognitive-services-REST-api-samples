@@ -4,11 +4,12 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class HelloWorld {
 
-    static String host = "https://api.cognitive.microsoft.com";
+    // Add your Bing Spell Check subscription key to your environment variables.
+    static String host = System.getenv("BING_SPELL_CHECK_ENDPOINT");
     static String path = "/bing/v7.0/spellcheck";
 
-    // NOTE: Replace this example key with a valid subscription key.
-    static String key = "ENTER KEY HERE";
+    // Add your Bing Spell Check endpoint to your environment variables.
+    static String key = System.getenv("BING_SPELL_CHECK_SUBSCRIPTION_KEY");
 
     static String mkt = "en-US";
     static String mode = "proof";

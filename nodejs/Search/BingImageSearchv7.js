@@ -9,14 +9,11 @@ let https = require('https');
 // *** Update or verify the following values. ***
 // **********************************************
 
-// Replace the subscriptionKey string value with your valid subscription key.
-let subscriptionKey = 'enter key here';
+// Add your Bing Search V7 subscription key to your environment variables.
+let subscriptionKey = process.env['BING_SEARCH_V7_SUBSCRIPTION_KEY']
 
-// Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
-// search APIs.  In the future, regional endpoints may be available.  If you
-// encounter unexpected authorization errors, double-check this host against
-// the endpoint for your Bing Search instance in your Azure dashboard.
-let host = 'api.cognitive.microsoft.com';
+// Add your Bing Search V7 endpoint to your environment variables.
+let host = process.env['BING_SEARCH_V7_ENDPOINT']
 let path = '/bing/v7.0/images/search';
 
 let term = 'puppies';

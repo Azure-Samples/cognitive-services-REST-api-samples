@@ -10,9 +10,10 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR
 
     class Program
     {
-        public const string subscriptionKey = "<your training key here>"; //Insert your Cognitive Services subscription key here
-        public const string endpoint = "https://westus.api.cognitive.microsoft.com"; // You must use the same Azure region that you generated your subscription keys for.  Free trial subscription keys are generated in the westus region. 
-
+        // Add your Azure Computer Vision subscription key and endpoint to your environment variables
+        public const string subscriptionKey = Environment.GetEnvironmentVariable("COMPUTER_VISION_SUBSCRIPTION_KEY");
+        public const string endpoint = Environment.GetEnvironmentVariable("COMPUTER_VISION_ENDPOINT");
+        
         static void Main(string[] args)
         {
             OCRSample.RunAsync(endpoint, subscriptionKey).Wait(5000);
@@ -27,10 +28,10 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.OCR
         public static async Task RunAsync(string endpoint, string key)
         {
             Console.WriteLine("Performing OCR on the images:");
-
-            string imageFilePath = @"Images\printed_text.jpg";  // See this repo's readme.md for info on how to get these images. Alternatively, you can just set the path to any appropriate image on your machine.
+            // See this repo's readme.md for info on how to get these images. Or, set the path to any appropriate image on your machine.
+            string imageFilePath = @"Images\printed_text.jpg";  
             string remoteImageUrl = "https://github.com/Azure-Samples/cognitive-services-sample-data-files/raw/master/ComputerVision/Images/printed_text.jpg";
-            //OCR works poorly for non-printed text. Look at the ExtractText sample for using the read operation that can work for both handwritten and printed text
+            // OCR works poorly for non-printed text. Look at the ExtractText sample for using the read operation that can work for both handwritten and printed text
             await OCRFromStreamAsync(imageFilePath, endpoint, key);
             await OCRFromUrlAsync(remoteImageUrl, endpoint, key);
         }

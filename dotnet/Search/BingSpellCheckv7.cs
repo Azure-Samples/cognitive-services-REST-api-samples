@@ -10,15 +10,16 @@ namespace SpellCheckSample
 {
     class Program
     {
-        static string host = "https://api.cognitive.microsoft.com";
+        // Add your Azure Bing Spell Check endpoint to your environment variables.
+        static string host = Environment.GetEnvironmentVariable("BING_SPELL_CHECK_ENDPOINT");
         static string path = "/bing/v7.0/spellcheck?";
 
         // For a list of available markets, go to:
         // https://docs.microsoft.com/rest/api/cognitiveservices/bing-autosuggest-api-v7-reference#market-codes
         static string params_ = "mkt=en-US&mode=proof";
 
-        // NOTE: Replace this example key with a valid subscription key.
-        static string key = "enter your key here";
+        // Add your Azure Bing Spell Check subscription key to your environment variables.
+        static string key = Environment.GetEnvironmentVariable("BING_SPELL_CHECK_SUBSCRIPTION_KEY");
         //text to be spell-checked
         static string text = "Hollo, wrld!";
 
