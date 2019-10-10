@@ -8,6 +8,25 @@ using Windows.UI.Input.Inking;
 
 namespace Contoso.NoteTaker.JSON.Format
 {
+    public class InkRecognizerPoint
+    {
+        [JsonIgnore]
+        private double x;
+        [JsonIgnore]
+        private double y;
+        [JsonProperty(PropertyName = "x")]
+        public double X { get { return x; } }
+
+        [JsonProperty(PropertyName = "y")]
+        public double Y { get { return y; } }
+
+        public InkRecognizerPoint(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
     public class InkRecognizerStroke
     {
         [JsonIgnore]
@@ -22,8 +41,8 @@ namespace Contoso.NoteTaker.JSON.Format
         [JsonProperty(PropertyName ="kind", NullValueHandling = NullValueHandling.Ignore)]
         public StrokeKind? Kind { get; set; } = null;
 
-        [JsonProperty(PropertyName = "points"), JsonConverter(typeof(InkPointsToStringConverter))]
-        public IReadOnlyList<InkPoint> Points { get; protected set; }
+        [JsonProperty(PropertyName = "points", NullValueHandling = NullValueHandling.Ignore)]
+        public IReadOnlyList<InkRecognizerPoint> Points { get; protected set; }
 
         public InkRecognizerStroke(InkStroke stroke, float DpiX, float DpiY)
         {
@@ -33,9 +52,9 @@ namespace Contoso.NoteTaker.JSON.Format
             Points = ConvertPixelsToMillimeters(pointsInPixels, DpiX, DpiY).AsReadOnly();
         }
 
-        private List<InkPoint> ConvertPixelsToMillimeters(IReadOnlyList<InkPoint> pointsInPixels, float DpiX, float DpiY)
+        private List<InkRecognizerPoint> ConvertPixelsToMillimeters(IReadOnlyList<InkPoint> pointsInPixels, float DpiX, float DpiY)
         {
-            var transformedInkPoints = new List<InkPoint>();
+            var transformedInkPoints = new List<InkRecognizerPoint>();
             const float inchToMillimeterFactor = 25.4f;
 
 
@@ -43,8 +62,7 @@ namespace Contoso.NoteTaker.JSON.Format
             {
                 var transformedX = (point.Position.X / DpiX) * inchToMillimeterFactor;
                 var transformedY = (point.Position.Y / DpiY) * inchToMillimeterFactor;
-                var transformedPoint = new Point(transformedX, transformedY);
-                var transformedInkPoint = new InkPoint(transformedPoint, point.Pressure);
+                var transformedInkPoint = new InkRecognizerPoint(transformedX, transformedY);
 
                 transformedInkPoints.Add(transformedInkPoint);
             }

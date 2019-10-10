@@ -117,7 +117,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="JSON\Converter\InkRecognitionResponseConverter.cs" />
-    <Compile Include="JSON\Converter\InkPointsToStringConverter.cs" />
     <Compile Include="JSON\Format\Alternates.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

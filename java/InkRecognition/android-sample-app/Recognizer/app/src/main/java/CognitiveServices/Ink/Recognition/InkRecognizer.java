@@ -77,17 +77,17 @@ public class InkRecognizer {
                 jsonStroke.put("kind", strokeKindToString(stroke.kind));
             }
             StringBuilder points = new StringBuilder();
+            JSONArray jsonPoints = new JSONArray();
             for (int r=0;
                     r <  stroke.inkPoints.size();
                     r++) {
-                points.append(stroke.inkPoints.get(r).x);
-                points.append(",");
-                points.append(stroke.inkPoints.get(r).y);
-                if (r <stroke.inkPoints.size()-1) {
-                    points.append(",");
-                }
+
+                JSONObject jsonPoint = new JSONObject();
+                jsonPoint.put("x", stroke.inkPoints.get(r).x);
+                jsonPoint.put("y", stroke.inkPoints.get(r).y);
+                jsonPoints.put(jsonPoint);
             }
-            jsonStroke.put("points", points.toString());
+            jsonStroke.put("points", jsonPoints);
             jsonStrokes.put(jsonStroke);
         }
         jsonAnalysisRequest.put("strokes", jsonStrokes);
