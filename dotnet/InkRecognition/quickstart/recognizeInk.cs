@@ -18,15 +18,15 @@ namespace RecognizeInk
     {
         // <vars>
         // Replace the subscriptionKey string with your valid subscription key.
-        const string subscriptionKey = Environment.GetEnvironmentVariable("INK_RECOGNITION_SUBSCRIPTION_KEY");
+        static readonly string string subscriptionKey = Environment.GetEnvironmentVariable("INK_RECOGNITION_SUBSCRIPTION_KEY");
 
         // Replace the dataPath string with a path to the JSON formatted ink stroke data.
-        const string dataPath = @"PATH_TO_INK_STROKE_DATA";
+        static readonly string string dataPath = @"PATH_TO_INK_STROKE_DATA";
 
         // URI information for ink recognition. Your endpoint should look like:
         // <your-custom-subdomain>.cognitiveservices.azure.com
-        const string endpoint = Environment.GetEnvironmentVariable("INK_RECOGNITION_ENDPOINT");
-        const string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
+        static readonly string string endpoint = Environment.GetEnvironmentVariable("INK_RECOGNITION_ENDPOINT");
+        static readonly string string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
         // </vars>
         // <request>
         static async Task<string> Request(string apiAddress, string endpoint, string subscriptionKey, string requestData)
