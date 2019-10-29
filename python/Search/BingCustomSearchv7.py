@@ -16,9 +16,11 @@ endpoint = os.environ['BING_CUSTOM_SEARCH_ENDPOINT']
 customConfigId = "1" #you can also use "1"
 searchTerm = "microsoft"
 # </importsAndVars>
-# <request>
+# <url>
 # Add your Bing Custom Search endpoint to your environment variables.
 url = endpoint + "/search?q=" + searchTerm + "&customconfig=" + customConfigId
+# </url>
+# <request>
 r = requests.get(url, headers={'Ocp-Apim-Subscription-Key': subscriptionKey})
 print(r.text)
 # </request>
