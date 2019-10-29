@@ -1,6 +1,7 @@
 /*Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the MIT License.*/
-
+// <imports>
+import javax.net.ssl.HttpsURLConnection;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -9,25 +10,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+// </imports>
 
-public class CustomSrchJava {
+public class Bing {
 
-    // Add your Bing Custom Search endpoint to your environment variables.
+    // <vars>
+    // Add your Bing Custom Search endpoint and key to your environment variables.
+    // Your endpoint will have the form: 
+    //   https://<your-custom-subdomain>.cognitiveservices.azure.com/bingcustomsearch/v7.0
     static String host = System.getenv("BING_CUSTOM_SEARCH_ENDPOINT");
-    static String path = "/bingcustomsearch/v7.0/search";
-    // Add your Bing Custom Search subscription key to your environment variables.
     static String subscriptionKey = System.getenv("BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY");
-    static String customConfigId = "YOUR-CUSTOM-CONFIG-ID";  
-
+    
+    static String path = "/search";
+    static String customConfigId = "YOUR-CUSTOM-CONFIG-ID"; //you can also use "1"
     static String searchTerm = "Microsoft";  // Replace with search term specific to your defined sources.
-
-    public static SearchResults SearchImages (String searchQuery) throws Exception {
+    // </vars>
+    // <searchWeb>
+    public static SearchResults SearchWeb(String searchQuery) throws Exception {
         // construct URL of search request (endpoint + query string)
         URL url = new URL(host + path + "?q=" +  URLEncoder.encode(searchTerm, "UTF-8") + "&CustomConfig=" + customConfigId);
         HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
@@ -52,7 +55,8 @@ public class CustomSrchJava {
         stream.close();
         return results;
     }
-
+    // </searchWeb>
+    // <prettify>
     // pretty-printer for JSON; uses GSON parser to parse and re-serialize
     public static String prettify(String json_text) {
         JsonParser parser = new JsonParser();
@@ -60,7 +64,8 @@ public class CustomSrchJava {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(json);
     }
-
+    // </prettify>
+    // <main>
     public static void main (String[] args) {
         if (subscriptionKey.length() != 32) {
             System.out.println("Invalid Bing Search API subscription key!");
@@ -71,7 +76,7 @@ public class CustomSrchJava {
         try {
             System.out.println("Searching the Web for: " + searchTerm);
 
-            SearchResults result = SearchImages(searchTerm);
+            SearchResults result = SearchWeb(searchTerm);
 
             System.out.println("\nRelevant HTTP Headers:\n");
             for (String header : result.relevantHeaders.keySet())
@@ -85,7 +90,12 @@ public class CustomSrchJava {
             System.exit(1);
         }
     }
+    // </main>
 }
+
+// <searchResultsClass>
+// put this in a seperate .java file.
+import java.util.HashMap;
 
 // Container class for search results encapsulates relevant headers and JSON data
 class SearchResults{
@@ -97,3 +107,5 @@ class SearchResults{
     }
 
 }
+// </searchResultsClass>
+
