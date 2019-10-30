@@ -50,7 +50,7 @@ namespace bing_custom_search_example_dotnet
             //</iterateResponse>           
         }
     }
-    // <repsonseClasses>
+    // <responseClasses>
     public class BingCustomSearchResponse
     {        
         public string _type{ get; set; }            
@@ -81,5 +81,5 @@ namespace bing_custom_search_example_dotnet
         public int width { get; set; }
         public int height { get; set; }
     }
-    // </repsonseClasses>
+    // </responseClasses>
 }
