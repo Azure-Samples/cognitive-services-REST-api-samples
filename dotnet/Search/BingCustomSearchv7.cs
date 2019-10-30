@@ -1,10 +1,11 @@
 //Copyright (c) Microsoft Corporation. All rights reserved.
 //Licensed under the MIT License.
-
+// <using>
 using System;
 using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json;
+// </using>
 
 namespace bing_custom_search_example_dotnet
 {
@@ -12,22 +13,29 @@ namespace bing_custom_search_example_dotnet
     {
         static void Main(string[] args)
         {
-            // Add your Azure Bing Custom Search subscription key to your environment variables.
+            // <vars>
+            // Add your Azure Bing Custom Search subscription key and endpoint to your environment variables.
+            // Your endpoint will have the form: https://<your-custom-subdomain>.cognitiveservices.azure.com/bingcustomsearch/v7.0
             var subscriptionKey = Environment.GetEnvironmentVariable("BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY");
-            var customConfigId = "YOUR-CUSTOM-CONFIG-ID";
-            var searchTerm = args.Length > 0 ? args[0]: "microsoft";            
-            
-            // Add your Azure Bing Custom Search endpoint to your environment variables.
-            var url = Environment.GetEnvironmentVariable("BING_CUSTOM_SEARCH_ENDPOINT") + "/bingcustomsearch/v7.0/search?" +
-                "q=" + searchTerm +
-                "&customconfig=" + customConfigId;
+            var endpoint = Environment.GetEnvironmentVariable("BING_CUSTOM_SEARCH_ENDPOINT");
 
+            var customConfigId = "YOUR-CUSTOM-CONFIG-ID"; // you can also use "1"
+            var searchTerm = args.Length > 0 ? args[0]: "microsoft";            
+            // </vars>
+            // </url>
+            // Use your Azure Bing Custom Search endpoint to create the full request URL.
+            var url = endpoint + "/search?" + "q=" + searchTerm + "&customconfig=" + customConfigId;
+            // </url>
+            // <client>
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+            // </client>
+            // <sendRequest>
             var httpResponseMessage = client.GetAsync(url).Result;
             var responseContent = httpResponseMessage.Content.ReadAsStringAsync().Result;
             BingCustomSearchResponse response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(responseContent);
-
+            // </sendRequest>
+            // <iterateResponse>
             for(int i = 0; i < response.webPages.value.Length; i++)
             {                
                 var webPage = response.webPages.value[i];
@@ -38,10 +46,11 @@ namespace bing_custom_search_example_dotnet
                 Console.WriteLine("snippet: " + webPage.snippet);
                 Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
                 Console.WriteLine();
-            }            
+            } 
+            //</iterateResponse>           
         }
     }
-
+    // <repsonseClasses>
     public class BingCustomSearchResponse
     {        
         public string _type{ get; set; }            
@@ -72,4 +81,5 @@ namespace bing_custom_search_example_dotnet
         public int width { get; set; }
         public int height { get; set; }
     }
+    // <repsonseClasses>
 }
