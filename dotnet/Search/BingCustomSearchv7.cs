@@ -22,7 +22,7 @@ namespace bing_custom_search_example_dotnet
             var customConfigId = "YOUR-CUSTOM-CONFIG-ID"; // you can also use "1"
             var searchTerm = args.Length > 0 ? args[0]: "microsoft";            
             // </vars>
-            // </url>
+            // <url>
             // Use your Azure Bing Custom Search endpoint to create the full request URL.
             var url = endpoint + "/search?" + "q=" + searchTerm + "&customconfig=" + customConfigId;
             // </url>
@@ -81,5 +81,5 @@ namespace bing_custom_search_example_dotnet
         public int width { get; set; }
         public int height { get; set; }
     }
-    // <repsonseClasses>
+    // </repsonseClasses>
 }
