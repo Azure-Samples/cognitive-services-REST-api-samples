@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 // </imports>
 
-public class Bing {
+public class BingCustomSearchv7 {
 
     // <vars>
     // Add your Bing Custom Search endpoint and key to your environment variables.
