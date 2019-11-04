@@ -13,7 +13,7 @@ import os
 # Your endpoint will have the form: https://<your-custom-subdomain>.cognitiveservices.azure.com/bingcustomsearch/v7.0
 subscriptionKey = os.environ['BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY']
 endpoint = os.environ['BING_CUSTOM_SEARCH_ENDPOINT']
-customConfigId = "1" #you can also use "1"
+customConfigId = "your-custom-config-id" #you can also use "1"
 searchTerm = "microsoft"
 # </importsAndVars>
 # <url>
