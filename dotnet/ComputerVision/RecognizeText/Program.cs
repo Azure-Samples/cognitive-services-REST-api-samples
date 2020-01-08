@@ -11,12 +11,12 @@ namespace Microsoft.Azure.CognitiveServices.Samples.ComputerVision.RecognizeText
 
     public class Program
     {
-        public const string subscriptionKey = Environment.GetEnvironmentVariable("COMPUTER_VISION_SUBSCRIPTION_KEY");
-        public const string endpoint = Environment.GetEnvironmentVariable("COMPUTER_VISION_ENDPOINT");
+        public static string subscriptionKey = Environment.GetEnvironmentVariable("COMPUTER_VISION_SUBSCRIPTION_KEY");
+        public static string endpoint = Environment.GetEnvironmentVariable("COMPUTER_VISION_ENDPOINT");
         
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            RecognizeTextSample.RunAsync(endpoint, subscriptionKey).Wait(5000);
+            await RecognizeTextSample.RunAsync(endpoint, subscriptionKey);
 
             Console.WriteLine("\nPress ENTER to exit.");
             Console.ReadLine();
