@@ -15,19 +15,9 @@ namespace CSHttpClientSample
         // *** Update or verify the following values. ***
         // **********************************************
 
-        // Replace the subscriptionKey string value with your valid subscription key.
-        const string subscriptionKey = "Enter key here";
-
-        // Replace or verify the region.
-        //
-        // You must use the same region in your REST API call as you used to obtain your subscription keys.
-        // For example, if you obtained your subscription keys from the westus region, replace 
-        // "westcentralus" in the URI below with "westus".
-        //
-        // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-        // a free trial subscription key, you should not need to change this region.
-        const string uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
-
+        // Add your Azure Computer Vision subscription key and endpoint to your environment variables
+        const string subscriptionKey = Environment.GetEnvironmentVariable("COMPUTER_VISION_SUBSCRIPTION_KEY");
+        const string uriBase = Environment.GetEnvironmentVariable("COMPUTER_VISION_ENDPOINT");
 
         static void Main()
         {
