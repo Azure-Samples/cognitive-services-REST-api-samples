@@ -1,22 +1,20 @@
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//Licensed under the MIT License.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 'use strict';
 
 let https = require('https');
 
-/* Add a valid Azure Computer Vision endpoint to your environment variables.
-   Example https://northeurope.api.cognitive.microsoft.com/ 
-*/
+// This sample recognizes printed text using the OCR method.
+// Add a valid Azure Computer Vision endpoint to your environment variables.
+// Example: https://northeurope.api.cognitive.microsoft.com/ 
 let endpoint = process.env['COMPUTER_VISION_ENDPOINT']
 
-/* Add a valid Azure Computer Vision subscription key to your environment variables. 
-   Also note v5 and v7 require separate subscription keys. 
-*/
+// Add a valid Azure Computer Vision subscription key to your environment variables. 
+// Also note v5 and v7 require separate subscription keys. 
 let key = process.env['COMPUTER_VISION_SUBSCRIPTION_KEY'];
 
-/* Use this url image with text, or replace with your own 
-*/
+// Use this url image with text, or replace with your own 
 let url = 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/ComputerVision/Images/printed_text.jpg';
 let detectOrientation = false;
 
