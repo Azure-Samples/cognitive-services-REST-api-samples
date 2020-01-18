@@ -21,7 +21,7 @@ namespace SpellCheckSample1
         static string mode = "proof";
 
         // NOTE: Replace this example key with a valid subscription key.
-        static string key = "INSERT API KEY";
+        static string key = Environment.GetEnvironmentVariable("BING_SPELL_CHECK_SUBSCRIPTION_KEY");
 
         static string text = "Hollo, wrld!";
 
