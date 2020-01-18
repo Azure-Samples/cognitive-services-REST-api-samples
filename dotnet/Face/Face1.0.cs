@@ -1,5 +1,5 @@
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the MIT License.
+// Copyright(c) Microsoft Corporation.All rights reserved.
+// Licensed under the MIT License.
 
 using System;
 using System.IO;
@@ -7,25 +7,26 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace CSHttpClientSample
+/* This sample uses the Azure Face API to detect faces in an image and then
+ * returns a lot of facial features, in addition to gender and age.
+ * Face API: 
+ * https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
+ */
+
+namespace FaceSample
 {
     static class Program
     {
-        // **********************************************
-        // *** Update or verify the following values. ***
-        // **********************************************
-
         // Add your Azure Face subscription key and endpoint to your environment variables
-        const string subscriptionKey = Environment.GetEnvironmentVariable("FACE_SUBSCRIPTION_KEY");
-        const string uriBase = Environment.GetEnvironmentVariable("FACE_ENDPOINT");
-
+        private static string subscriptionKey = Environment.GetEnvironmentVariable("FACE_SUBSCRIPTION_KEY");
+        private static string uriBase = Environment.GetEnvironmentVariable("FACE_ENDPOINT");
 
         static void Main()
         {
-            // Get the path and filename to process from the user.
-            Console.WriteLine("Detect faces:");
-            Console.Write("Enter the path to an image with faces that you wish to analzye: ");
-            string imageFilePath = Console.ReadLine();
+            // Download an image from here:
+            // https://github.com/Azure-Samples/cognitive-services-sample-data-files/tree/master/ComputerVision/Images
+            // Or add your own image and put into your bin\Debug\netcoreapp3.0\Images folder.
+            string imageFilePath = @"Images\faces.jpg";
 
             // Execute the REST API call.
             MakeAnalysisRequest(imageFilePath);
@@ -33,7 +34,6 @@ namespace CSHttpClientSample
             Console.WriteLine("\nPlease wait a moment for the results to appear. Then, press Enter to exit...\n");
             Console.ReadLine();
         }
-
 
         /// <summary>
         /// Gets the analysis of the specified image file by using the Computer Vision REST API.
@@ -47,10 +47,11 @@ namespace CSHttpClientSample
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             // Request parameters. A third optional parameter is "details".
-            string requestParameters = "returnFaceId=true&returnFaceLandmarks=false&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise";
+            string requestParameters = 
+                "returnFaceId=true&returnFaceLandmarks=false&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise";
 
             // Assemble the URI for the REST API Call.
-            string uri = uriBase + "?" + requestParameters;
+            string uri = uriBase + "/face/v1.0/detect?" + requestParameters;
 
             HttpResponseMessage response;
 
@@ -75,7 +76,6 @@ namespace CSHttpClientSample
             }
         }
 
-
         /// <summary>
         /// Returns the contents of the specified file as a byte array.
         /// </summary>
@@ -87,7 +87,6 @@ namespace CSHttpClientSample
             BinaryReader binaryReader = new BinaryReader(fileStream);
             return binaryReader.ReadBytes((int)fileStream.Length);
         }
-
 
         /// <summary>
         /// Formats the given JSON string by adding line breaks and indents.
