@@ -17,16 +17,17 @@ namespace RecognizeInk
     class Program
     {
         // <vars>
-        // Replace the subscriptionKey string with your valid subscription key.
-        static readonly string subscriptionKey = Environment.GetEnvironmentVariable("INK_RECOGNITION_SUBSCRIPTION_KEY");
+        // Add your Ink Recognizer subscription key to your environment variables.
+        static readonly string subscriptionKey = Environment.GetEnvironmentVariable("INK_RECOGNIZER_SUBSCRIPTION_KEY");
+        
+        // Add your Ink Recognizer endpoint to your environment variables.
+        // For example: <your-custom-subdomain>.cognitiveservices.azure.com
+        static readonly string endpoint = Environment.GetEnvironmentVariable("INK_RECOGNIZER_ENDPOINT");
+        static readonly string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
 
         // Replace the dataPath string with a path to the JSON formatted ink stroke data.
+        // Optionally, use the example-ink-strokes.json file of this sample. Add to your bin\Debug\netcoreapp3.0 project folder.
         static readonly string dataPath = @"PATH_TO_INK_STROKE_DATA";
-
-        // URI information for ink recognition. Your endpoint should look like:
-        // <your-custom-subdomain>.cognitiveservices.azure.com
-        static readonly string endpoint = Environment.GetEnvironmentVariable("INK_RECOGNITION_ENDPOINT");
-        static readonly string inkRecognitionUrl = "/inkrecognizer/v1.0-preview/recognize";
         // </vars>
         // <request>
         static async Task<string> Request(string apiAddress, string endpoint, string subscriptionKey, string requestData)
