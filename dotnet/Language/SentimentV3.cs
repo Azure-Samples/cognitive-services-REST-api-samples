@@ -12,22 +12,21 @@ namespace SampleSentimentV3
     {
         public class TextAnalyticsSentimentV3Client
         {
-            //You can get the reqeust url by going to: 
-            //https://centralus.dev.cognitive.microsoft.com/docs/services/TextAnalytics-v3-0-preview/operations/56f30ceeeda5650db055a3c9
-            //and clicking on the region (e.g. Central US). 
-            private static readonly string textAnalyticsUrl = "<ADD_TEXT_ANALYTICS_URL_HERE>/v3.0-preview/sentiment";
+            // You can get the reqeust url from: 
+            // https://<YOUR-REGION>.dev.cognitive.microsoft.com/docs/services/TextAnalytics-v3-0-preview/operations/56f30ceeeda5650db055a3c9
+            private static readonly string endpoint = Environment.GetEnvironmentVariable("TEXT_ANALYTICS_ENDPOINT") + "/v3.0-preview/sentiment";
 
-            private static readonly string textAnalyticsKey = "<ADD_TEXT_ANALYTICS_KEY_HERE>";
+            private static readonly string subscriptionKey = Environment.GetEnvironmentVariable("TEXT_ANALYTICS_SUBSCRIPTION_KEY");
 
             public static async Task<SentimentV3Response> SentimentV3PreviewPredictAsync(TextAnalyticsBatchInput inputDocuments)
             {
                 using (var httpClient = new HttpClient())
                 {
-                    httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", textAnalyticsKey);
+                    httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
                     var httpContent = new StringContent(JsonConvert.SerializeObject(inputDocuments), Encoding.UTF8, "application/json");
 
-                    var httpResponse = await httpClient.PostAsync(new Uri(textAnalyticsUrl), httpContent);
+                    var httpResponse = await httpClient.PostAsync(new Uri(endpoint), httpContent);
                     var responseContent = await httpResponse.Content.ReadAsStringAsync();
 
                     if (!httpResponse.StatusCode.Equals(HttpStatusCode.OK) || httpResponse.Content == null)
@@ -50,7 +49,7 @@ namespace SampleSentimentV3
                     {
                         Id = "1",
 
-                        Text = "Hello world. This is some input text that I love."
+                        Text = "Hello world. This is some input text."
                     },
 
                     new TextAnalyticsInput()
@@ -64,7 +63,7 @@ namespace SampleSentimentV3
                     {
                         Id = "3",
 
-                        Text = "Pike place market is my favorite Seattle attraction."
+                        Text = "Pike place market is not my favorite Seattle attraction."
                     }
                 }
             };
