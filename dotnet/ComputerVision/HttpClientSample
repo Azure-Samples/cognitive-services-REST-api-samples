@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright(c) Microsoft Corporation.All rights reserved.
 // Licensed under the MIT License.
 
 using System;
@@ -7,24 +7,26 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-/* This sample uses the Azure Computer Vision API to analyze an image, 
- * then retrieves its categories, color, description, and captions... in addition to some metadata.
+/* This sample uses the Azure Face API to detect faces in an image and then
+ * returns a lot of facial features, in addition to gender and age.
+ * Face API: 
+ * https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
  */
 
-namespace HttpClientSample
+namespace FaceSample
 {
     static class Program
     {
-        // Add your Azure Computer Vision subscription key and endpoint to your environment variables
-        public static string subscriptionKey = Environment.GetEnvironmentVariable("COMPUTER_VISION_SUBSCRIPTION_KEY");
-        public static string uriBase = Environment.GetEnvironmentVariable("COMPUTER_VISION_ENDPOINT");
+        // Add your Azure Face subscription key and endpoint to your environment variables
+        private static string subscriptionKey = Environment.GetEnvironmentVariable("FACE_SUBSCRIPTION_KEY");
+        private static string uriBase = Environment.GetEnvironmentVariable("FACE_ENDPOINT");
 
         static void Main()
         {
             // Download an image from here:
             // https://github.com/Azure-Samples/cognitive-services-sample-data-files/tree/master/ComputerVision/Images
             // Or add your own image and put into your bin\Debug\netcoreapp3.0\Images folder.
-            string imageFilePath = @"Images\objects.jpg";
+            string imageFilePath = @"Images\faces.jpg";
 
             // Execute the REST API call.
             MakeAnalysisRequest(imageFilePath);
@@ -45,10 +47,11 @@ namespace HttpClientSample
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             // Request parameters. A third optional parameter is "details".
-            string requestParameters = "visualFeatures=Categories,Description,Color&language=en";
+            string requestParameters = 
+                "returnFaceId=true&returnFaceLandmarks=false&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise";
 
             // Assemble the URI for the REST API Call.
-            string uri = uriBase + "/vision/v2.0/analyze?" + requestParameters;
+            string uri = uriBase + "/face/v1.0/detect?" + requestParameters;
 
             HttpResponseMessage response;
 
@@ -84,7 +87,6 @@ namespace HttpClientSample
             BinaryReader binaryReader = new BinaryReader(fileStream);
             return binaryReader.ReadBytes((int)fileStream.Length);
         }
-
 
         /// <summary>
         /// Formats the given JSON string by adding line breaks and indents.
