@@ -6,13 +6,12 @@ namespace BingEntitySearch
 {
     class Program
     {
+        // Add your key and endpoint to your environment variables.
+        static string key = Environment.GetEnvironmentVariable("BING_ENTITY_SEARCH_SUBSCRIPTION_KEY");
         static string endpoint = Environment.GetEnvironmentVariable("BING_ENTITY_SEARCH_ENDPOINT");
         static string path = "/bing/v7.0/entities/";
 
         static string market = "en-US";
-
-        // NOTE: Replace this example key with a valid subscription key.
-        static string key = Environment.GetEnvironmentVariable("BING_ENTITY_SEARCH_SUBSCRIPTION_KEY");
 
         static string query = "italian restaurant near me";
 
