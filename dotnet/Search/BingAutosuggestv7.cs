@@ -1,33 +1,30 @@
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//Licensed under the MIT License.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 
-namespace AutosuggestSample1
+namespace BingAutosuggest
 {
     class Program
     {
+        // Add your Azure Bing Autosuggest subscription key to your environment variables.
+        static string key = Environment.GetEnvironmentVariable("BING_AUTOSUGGEST_SUBSCRIPTION_KEY");
         // Add your Azure Bing Autosuggest endpoint to your environment variables.
-        static string host = Environment.GetEnvironmentVariable("BING_AUTOSUGGEST_ENDPOINT");
-        static string path = "/bing/v7.0/Suggestions";
-        
+        static string endpoint = Environment.GetEnvironmentVariable("BING_AUTOSUGGEST_ENDPOINT");
+        static string path = "/bing/v7.0/Suggestions/";
+
         // For a list of available markets, go to:
         // https://docs.microsoft.com/rest/api/cognitiveservices/bing-autosuggest-api-v7-reference#market-codes
         static string market = "en-US";
 
-        // Add your Azure Bing Autosuggest subscription key to your environment variables.
-        static string key = Environment.GetEnvironmentVariable("BING_AUTOSUGGEST_SUBSCRIPTION_KEY");
-
         static string query = "sail";
 
         // These properties are used for optional headers (see below).
-        // static string ClientId = "<Client ID from Previous Response Goes Here>";
-        // static string ClientIp = "999.999.999.999";
-        // static string ClientLocation = "+90.0000000000000;long: 00.0000000000000;re:100.000000000000";
+        //static string ClientId = "<Client ID from Previous Response Goes Here>";
+        //static string ClientIp = "999.999.999.999";
+        //static string ClientLocation = "+90.0000000000000;long: 00.0000000000000;re:100.000000000000";
 
         async static void Autosuggest()
         {
@@ -40,86 +37,19 @@ namespace AutosuggestSample1
             //client.DefaultRequestHeaders.Add("X-MSEdge-ClientID", ClientId);
             //client.DefaultRequestHeaders.Add("X-MSEdge-ClientIP", ClientIp);
 
-            string uri = host + path + "?mkt=" + market + "&query=" + System.Net.WebUtility.UrlEncode (query);
+            string uri = endpoint + path + "?mkt=" + market + "&query=" + System.Net.WebUtility.UrlEncode(query);
 
             HttpResponseMessage response = await client.GetAsync(uri);
 
-            string contentString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(JsonPrettyPrint(contentString));
+           string contentString = await response.Content.ReadAsStringAsync();
+            dynamic parsedJson = JsonConvert.DeserializeObject(contentString);
+            Console.WriteLine(JsonConvert.SerializeObject(parsedJson, Formatting.Indented));
         }
 
         static void Main(string[] args)
         {
             Autosuggest();
             Console.ReadLine();
-        }
-
-        static string JsonPrettyPrint(string json)
-        {
-            if (string.IsNullOrEmpty(json)) {
-                return string.Empty;
-            }
-
-            json = json.Replace(Environment.NewLine, "").Replace("\t", "");
-
-            StringBuilder sb = new StringBuilder();
-            bool quote = false;
-            bool ignore = false;
-            char last = ' ';
-            int offset = 0;
-            int indentLength = 3;
-
-            foreach (char ch in json)
-            {
-                switch (ch)
-                {
-                    case '"':
-                        if (!ignore) quote = !quote;
-                        break;
-                    case '\\':
-                        if (quote && last != '\\') ignore = true;
-                        break;
-                }
-
-                if (quote)
-                {
-                    sb.Append(ch);
-                    if (last == '\\' && ignore) ignore = false;
-                }
-                else
-                {
-                    switch (ch)
-                    {
-                        case '{':
-                        case '[':
-                            sb.Append(ch);
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', ++offset * indentLength));
-                            break;
-                        case '}':
-                        case ']':
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', --offset * indentLength));
-                            sb.Append(ch);
-                            break;
-                        case ',':
-                            sb.Append(ch);
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', offset * indentLength));
-                            break;
-                        case ':':
-                            sb.Append(ch);
-                            sb.Append(' ');
-                            break;
-                        default:
-                            if (quote || ch != ' ') sb.Append(ch);
-                            break;
-                    }
-                }
-                last = ch;
-            }
-
-            return sb.ToString().Trim();
         }
     }
 }
