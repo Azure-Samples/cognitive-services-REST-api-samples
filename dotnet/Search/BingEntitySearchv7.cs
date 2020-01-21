@@ -2,12 +2,12 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 
-namespace EntitySearchSample
+namespace BingEntitySearch
 {
     class Program
     {
-        static string host = Environment.GetEnvironmentVariable("BING_ENTITY_SEARCH_ENDPOINT"); 
-        static string path = "/bing/v7.0/entities";
+        static string endpoint = Environment.GetEnvironmentVariable("BING_ENTITY_SEARCH_ENDPOINT");
+        static string path = "/bing/v7.0/entities/";
 
         static string market = "en-US";
 
@@ -21,7 +21,7 @@ namespace EntitySearchSample
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", key);
 
-            string uri = host + path + "?mkt=" + market + "&q=" + System.Net.WebUtility.UrlEncode(query);
+            string uri = endpoint + path + "?mkt=" + market + "&q=" + System.Net.WebUtility.UrlEncode(query);
 
             HttpResponseMessage response = await client.GetAsync(uri);
 
@@ -39,3 +39,4 @@ namespace EntitySearchSample
 
     }
 }
+
