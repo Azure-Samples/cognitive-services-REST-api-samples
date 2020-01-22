@@ -1,5 +1,5 @@
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//Licensed under the MIT License.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 // <using>
 using System;
 using System.Net.Http;
@@ -7,7 +7,7 @@ using System.Web;
 using Newtonsoft.Json;
 // </using>
 
-namespace bing_custom_search_example_dotnet
+namespace BingCustomSearch
 {
     class Program
     {
@@ -19,12 +19,12 @@ namespace bing_custom_search_example_dotnet
             var subscriptionKey = Environment.GetEnvironmentVariable("BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY");
             var endpoint = Environment.GetEnvironmentVariable("BING_CUSTOM_SEARCH_ENDPOINT");
 
-            var customConfigId = "YOUR-CUSTOM-CONFIG-ID"; // you can also use "1"
-            var searchTerm = args.Length > 0 ? args[0]: "microsoft";            
+            var customConfigId = Environment.GetEnvironmentVariable("BING_CUSTOM_CONFIG"); // you can also use "1"
+            var searchTerm = args.Length > 0 ? args[0] : "microsoft";
             // </vars>
             // <url>
             // Use your Azure Bing Custom Search endpoint to create the full request URL.
-            var url = endpoint + "/search?" + "q=" + searchTerm + "&customconfig=" + customConfigId;
+            var url = endpoint + "/bingcustomsearch/v7.0/images/search?" + "q=" + searchTerm + "&customconfig=" + customConfigId;
             // </url>
             // <client>
             var client = new HttpClient();
@@ -36,48 +36,36 @@ namespace bing_custom_search_example_dotnet
             BingCustomSearchResponse response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(responseContent);
             // </sendRequest>
             // <iterateResponse>
-            for(int i = 0; i < response.webPages.value.Length; i++)
-            {                
-                var webPage = response.webPages.value[i];
+            for (int i = 0; i < response.value.Length; i++)
+            {
+                var webPage = response.value[i];
 
-                Console.WriteLine("name: " + webPage.name);
-                Console.WriteLine("url: " + webPage.url);                
-                Console.WriteLine("displayUrl: " + webPage.displayUrl);
-                Console.WriteLine("snippet: " + webPage.snippet);
-                Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
+                Console.WriteLine("Name: " + webPage.name);
+                Console.WriteLine("WebSearchUrl: " + webPage.webSearchUrl);
+                Console.WriteLine("HostPageUrl: " + webPage.hostPageUrl);
+                Console.WriteLine("Thumbnail: " + webPage.thumbnail.width + " width, " + webPage.thumbnail.height + " height");
                 Console.WriteLine();
-            } 
+            }
             //</iterateResponse>           
         }
     }
     // <responseClasses>
     public class BingCustomSearchResponse
-    {        
-        public string _type{ get; set; }            
-        public WebPages webPages { get; set; }
-    }
-
-    public class WebPages
     {
-        public string webSearchUrl { get; set; }
-        public int totalEstimatedMatches { get; set; }
-        public WebPage[] value { get; set; }        
+        public string _type { get; set; }
+        public WebPage[] value { get; set; }
     }
 
     public class WebPage
     {
         public string name { get; set; }
-        public string url { get; set; }
-        public string displayUrl { get; set; }
-        public string snippet { get; set; }
-        public DateTime dateLastCrawled { get; set; }
-        public string cachedPageUrl { get; set; }
-        public OpenGraphImage openGraphImage { get; set; }        
+        public string webSearchUrl { get; set; }
+        public string hostPageUrl { get; set; }
+        public OpenGraphImage thumbnail { get; set; }
     }
 
     public class OpenGraphImage
     {
-        public string contentUrl { get; set; }
         public int width { get; set; }
         public int height { get; set; }
     }
