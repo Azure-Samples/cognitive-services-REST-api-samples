@@ -8,6 +8,11 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 
+/* This sample makes a call to the Bing News Search API with a query word and returns related news.
+ * Bing News Search API: 
+ * https://dev.cognitive.microsoft.com/docs/services/e5e22123c5d24f1081f63af1548defa1/operations/56b449fbcf5ff81038d15cdf
+ */
+
 namespace BingNewsSearch
 {
     class Program
