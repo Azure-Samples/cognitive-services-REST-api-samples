@@ -1,164 +1,62 @@
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//Licensed under the MIT License.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Net;
 using System.IO;
 using System.Collections.Generic;
 
-namespace BingSearchApisQuickstart
-{
+/* This sample uses the Bing Web Search API v7 to retrieve different kinds of media from the web.
+ * Web Search includes the most types of web content, whereas other Search APIs get more specific about a type.
+ * Web Search API:
+ * https://dev.cognitive.microsoft.com/docs/services/f40197291cd14401b93a478716e818bf/operations/56b4447dcf5ff8098cef380d/console
+ */
 
+namespace BingWebSearch
+{
     class Program
     {
-        // **********************************************
-        // *** Update or verify the following values. ***
-        // **********************************************
+        // Add your Azure Bing Search V7 subscription key and endpoint to your environment variables
+        static string subscriptionKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
+        static string endpoint = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/search";
 
-        // Add your Azure Bing Search V7 subscription key to your environment variables
-        const string accessKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
-
-        // Add your Azure Bing Search V7 endpoint to your environment variables
-        const string uriBase = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/search";
-
-        const string searchTerm = "Microsoft Cognitive Services";
-
-        // Used to return search results including relevant headers
-        struct SearchResult
-        {
-            public String jsonResult;
-            public Dictionary<String, String> relevantHeaders;
-        }
+        const string query = "Microsoft Cognitive Services";
 
         static void Main()
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            // Create a dictionary to store relevant headers
+            Dictionary<String, String> relevantHeaders = new Dictionary<String, String>();
 
-            if (accessKey.Length == 32)
-            {
-                Console.WriteLine("Searching the Web for: " + searchTerm);
+            Console.OutputEncoding = Encoding.UTF8;
 
-                SearchResult result = BingWebSearch(searchTerm);
+            Console.WriteLine("Searching the Web for: " + query);
 
-                Console.WriteLine("\nRelevant HTTP Headers:\n");
-                foreach (var header in result.relevantHeaders)
-                    Console.WriteLine(header.Key + ": " + header.Value);
-
-                Console.WriteLine("\nJSON Response:\n");
-                Console.WriteLine(JsonPrettyPrint(result.jsonResult));
-            }
-            else
-            {
-                Console.WriteLine("Invalid Bing Search API subscription key!");
-                Console.WriteLine("Please paste yours into the source code.");
-            }
-
-            Console.Write("\nPress Enter to exit ");
-            Console.ReadLine();
-        }
-
-        /// <summary>
-        /// Performs a Bing Web search and return the results as a SearchResult.
-        /// </summary>
-        static SearchResult BingWebSearch(string searchQuery)
-        {
             // Construct the URI of the search request
-            var uriQuery = uriBase + "?q=" + Uri.EscapeDataString(searchQuery);
+            var uriQuery = endpoint + "?q=" + Uri.EscapeDataString(query);
 
             // Perform the Web request and get the response
             WebRequest request = HttpWebRequest.Create(uriQuery);
-            request.Headers["Ocp-Apim-Subscription-Key"] = accessKey;
+            request.Headers["Ocp-Apim-Subscription-Key"] = subscriptionKey;
             HttpWebResponse response = (HttpWebResponse)request.GetResponseAsync().Result;
             string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-            // Create result object for return
-            var searchResult = new SearchResult()
-            {
-                jsonResult = json,
-                relevantHeaders = new Dictionary<String, String>()
-            };
 
             // Extract Bing HTTP headers
             foreach (String header in response.Headers)
             {
                 if (header.StartsWith("BingAPIs-") || header.StartsWith("X-MSEdge-"))
-                    searchResult.relevantHeaders[header] = response.Headers[header];
+                    relevantHeaders[header] = response.Headers[header];
             }
 
-            return searchResult;
-        }
+            // Show headers
+            Console.WriteLine("\nRelevant HTTP Headers:\n");
+            foreach (var header in relevantHeaders)
+                Console.WriteLine(header.Key + ": " + header.Value);
 
-        /// <summary>
-        /// Formats the given JSON string by adding line breaks and indents.
-        /// </summary>
-        /// <param name="json">The raw JSON string to format.</param>
-        /// <returns>The formatted JSON string.</returns>
-        static string JsonPrettyPrint(string json)
-        {
-            if (string.IsNullOrEmpty(json))
-                return string.Empty;
-
-            json = json.Replace(Environment.NewLine, "").Replace("\t", "");
-
-            StringBuilder sb = new StringBuilder();
-            bool quote = false;
-            bool ignore = false;
-            char last = ' ';
-            int offset = 0;
-            int indentLength = 2;
-
-            foreach (char ch in json)
-            {
-                switch (ch)
-                {
-                    case '"':
-                        if (!ignore) quote = !quote;
-                        break;
-                    case '\\':
-                        if (quote && last != '\\') ignore = true;
-                        break;
-                }
-
-                if (quote)
-                {
-                    sb.Append(ch);
-                    if (last == '\\' && ignore) ignore = false;
-                }
-                else
-                {
-                    switch (ch)
-                    {
-                        case '{':
-                        case '[':
-                            sb.Append(ch);
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', ++offset * indentLength));
-                            break;
-                        case '}':
-                        case ']':
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', --offset * indentLength));
-                            sb.Append(ch);
-                            break;
-                        case ',':
-                            sb.Append(ch);
-                            sb.Append(Environment.NewLine);
-                            sb.Append(new string(' ', offset * indentLength));
-                            break;
-                        case ':':
-                            sb.Append(ch);
-                            sb.Append(' ');
-                            break;
-                        default:
-                            if (quote || ch != ' ') sb.Append(ch);
-                            break;
-                    }
-                }
-                last = ch;
-            }
-
-            return sb.ToString().Trim();
+            Console.WriteLine("\nJSON Response:\n");
+            dynamic parsedJson = JsonConvert.DeserializeObject(json);
+            Console.WriteLine(JsonConvert.SerializeObject(parsedJson, Formatting.Indented));
         }
     }
 }
