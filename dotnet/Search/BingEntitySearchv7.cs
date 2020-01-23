@@ -3,7 +3,6 @@ using System;
 using System.Net.Http;
 
 /* This sample makes a call to the Bing Entity Search v7 API with a query and returns details about it.
- * Details about each similar image, also known as "insights", are returned in the JSON response.
  * Bing Entity Search API:
  * https://westus2.dev.cognitive.microsoft.com/docs/services/7a3fb374be374859a823b79fd938cc65/operations/52069701a465405ab3286f82
  */
