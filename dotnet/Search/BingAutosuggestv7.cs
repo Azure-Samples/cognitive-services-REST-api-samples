@@ -5,6 +5,11 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 
+/* This sample makes a call to the Bing Autosuggest API with a query word and returns autocomplete suggestions.
+ * Bing Autosuggest API: 
+ * https://docs.microsoft.com/en-us/rest/api/cognitiveservices-bingsearch/bing-autosuggest-api-v7-reference
+ */
+
 namespace BingAutosuggest
 {
     class Program
