@@ -7,6 +7,11 @@ using System.Web;
 using Newtonsoft.Json;
 // </using>
 
+/* This sample makes a call to the Bing Custom Search API with a query word and returns images with details.
+ * Bing Custom Search API: 
+ * https://docs.microsoft.com/en-us/rest/api/cognitiveservices-bingsearch/bing-custom-search-api-v7-reference
+ */
+
 namespace BingCustomSearch
 {
     class Program
