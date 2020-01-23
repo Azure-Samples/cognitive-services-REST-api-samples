@@ -7,6 +7,11 @@ using System.Text;
 using System.Net;
 using System.IO;
 
+/* This sample makes a call to the Bing Video Search API with a query and returns data about it.
+ * Bing Video Search API: 
+ * https://dev.cognitive.microsoft.com/docs/services/3960b4bc7b3a4bc5b97c42d78036d234/operations/56b440d2cf5ff8098cef380b
+ */
+
 namespace BingVideoSearch
 {
 
