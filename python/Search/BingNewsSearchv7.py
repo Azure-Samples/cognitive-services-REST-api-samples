@@ -1,39 +1,38 @@
-#Copyright (c) Microsoft Corporation. All rights reserved.
-#Licensed under the MIT License.
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
 
 # -*- coding: utf-8 -*-
 
-import http.client, urllib.parse, json
+import http.client
+import json
+import urllib.parse
+import os
 
-# **********************************************
-# *** Update or verify the following values. ***
-# **********************************************
+'''
+This sample makes a call to the Bing News Search API with a text query and returns relevant news webpages.
+Documentation: https: // docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/
+'''
 
-# Add your Bing Search V7 subscription key to your environment variables.
+# Add your Bing Search V7 subscription key and endpoint to your environment variables.
 subscriptionKey = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-
-# Add your Bing Search V7 endpoint to your environment variables.
 host = os.environ['BING_SEARCH_V7_ENDPOINT']
+host = host.replace('https://', '')
 path = "/bing/v7.0/news/search"
 
 term = "Microsoft"
 
-def BingNewsSearch(search):
-    "Performs a Bing News search and returns the results."
-
-    headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
-    conn = http.client.HTTPSConnection(host)
-    query = urllib.parse.quote(search)
-    conn.request("GET", path + "?q=" + query, headers=headers)
-    response = conn.getresponse()
-    headers = [k + ": " + v for (k, v) in response.getheaders()
-                   if k.startswith("BingAPIs-") or k.startswith("X-MSEdge-")]
-    return headers, response.read().decode("utf8")
-
+# Construct the request.
+headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
+conn = http.client.HTTPSConnection(host)
+query = urllib.parse.quote(term)
 print('Searching news for: ', term)
+conn.request("GET", path + "?q=" + query, headers=headers)
+response = conn.getresponse()
+headers = [k + ": " + v for (k, v) in response.getheaders()
+           if k.startswith("BingAPIs-") or k.startswith("X-MSEdge-")]
 
-headers, result = BingNewsSearch(term)
+# Print search results. 
 print("\nRelevant HTTP Headers:\n")
 print("\n".join(headers))
 print("\nJSON Response:\n")
-print(json.dumps(json.loads(result), indent=4))
+print(json.dumps(json.loads(response.read()), indent=4))
