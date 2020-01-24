@@ -3,37 +3,39 @@
 
 # -*- coding: utf-8 -*-
 
-import http.client, urllib.parse, json
+import http.client
+import json
+import os
+import urllib.parse
 
-# **********************************************
-# *** Update or verify the following values. ***
-# **********************************************
+'''
+This sample makes a call to the Bing Video Search API with a topic query and returns relevant video links with data.
+Documentation: https: // docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/
+'''
 
-# Add your Bing Search V7 subscription key to your environment variables.
+# Add your Bing Search V7 subscription key and endpoint to your environment variables.
 subscriptionKey = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-
-# Add your Bing Search V7 endpoint to your environment variables.
 host = os.environ['BING_SEARCH_V7_ENDPOINT']
+host = host.replace('https://', '')
 path = "/bing/v7.0/videos/search"
 
+# Search query
 term = "kittens"
 
-def BingVideoSearch(search):
-    "Performs a Bing video search and returns the results."
+# Construct a request
+headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
+conn = http.client.HTTPSConnection(host)
+query = urllib.parse.quote(term)
 
-    headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
-    conn = http.client.HTTPSConnection(host)
-    query = urllib.parse.quote(search)
-    conn.request("GET", path + "?q=" + query, headers=headers)
-    response = conn.getresponse()
-    headers = [k + ": " + v for (k, v) in response.getheaders()
-                   if k.startswith("BingAPIs-") or k.startswith("X-MSEdge-")]
-    return headers, response.read().decode("utf8")
-
+# Call the API
 print('Searching videos for: ', term)
+conn.request("GET", path + "?q=" + query, headers=headers)
+response = conn.getresponse()
+headers = [k + ": " + v for (k, v) in response.getheaders()
+           if k.startswith("BingAPIs-") or k.startswith("X-MSEdge-")]
 
-headers, result = BingVideoSearch(term)
+# Print results
 print("\nRelevant HTTP Headers:\n")
 print("\n".join(headers))
 print("\nJSON Response:\n")
-print(json.dumps(json.loads(result), indent=4))
+print(json.dumps(json.loads(response.read()), indent=4))
