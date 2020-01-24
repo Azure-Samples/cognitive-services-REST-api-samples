@@ -16,10 +16,8 @@ text = 'Hollo, wrld!'
 
 params = {'mkt': 'en-US', 'mode': 'proof', 'text': text}
 
-# Add your Bing Spell Check subscription key to your environment variables.
+# Add your Bing Spell Check subscription key anf endpoint to your environment variables.
 key = os.environ['BING_SPELL_CHECK_SUBSCRIPTION_KEY']
-
-# Add your Bing Spell Check endpoint to your environment variables.
 host = os.environ['BING_SPELL_CHECK_ENDPOINT']
 host = host.replace('https://', '')
 path = '/bing/v7.0/spellcheck'
