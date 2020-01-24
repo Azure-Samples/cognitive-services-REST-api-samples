@@ -3,17 +3,22 @@
 
 # -*- coding: utf-8 -*-
 
-import http.client, urllib.parse, json
+'''
+This sample uses the Bing Autosuggest API to check the spelling of query words and then suggests corrections.
+Bing Spell Check API: https://docs.microsoft.com/en-us/rest/api/cognitiveservices-bingsearch/bing-autosuggest-api-v7-reference57855119bca1df1c647bc358
+'''
 
-# **********************************************
-# *** Update or verify the following values. ***
-# **********************************************
+import http.client
+import json
+import os
+import urllib.parse
 
 # Add your Bing Autosuggest subscription key to your environment variables.
 subscriptionKey = os.environ['BING_AUTOSUGGEST_SUBSCRIPTION_KEY']
 
 # Add your Bing Autosuggest endpoint to your environment variables.
 host = os.environ['BING_AUTOSUGGEST_ENDPOINT']
+host = host.replace('https://', '')
 path = '/bing/v7.0/Suggestions'
 
 mkt = 'en-US'
