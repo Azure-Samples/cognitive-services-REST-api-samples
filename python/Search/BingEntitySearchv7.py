@@ -1,77 +1,31 @@
-import os, requests, json
+import http.client
+import json
+import os
+from pprint import pprint
+import requests
+import urllib.parse
+
+'''
+This sample uses the Bing Entity Search v7 to search for restaurants and return details about it.
+Bing Entity Search API: https://westus2.dev.cognitive.microsoft.com/docs/services/7a3fb374be374859a823b79fd938cc65/operations/52069701a465405ab3286f82
+'''
 
 # Add your Bing Entity Search subscription key and endpoint to your environment variables.
 subscriptionKey = os.environ['BING_ENTITY_SEARCH_SUBSCRIPTION_KEY']
 host = os.environ['BING_ENTITY_SEARCH_ENDPOINT']
-path = ''
-search_query = ''
-
-def entitySearch():
-
-    params = {
-    }
-	#the url to send the request
-    constructed_url = host + path
-
-    headers = {
-        'Ocp-Apim-Subscription-Key': subscriptionKey
-    }
-    
-    request = requests.get(constructed_url, headers=headers)
-    response = request.json()
-
-    print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))
-
-if __name__ = "__main__":
-    entitySearch()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# -*- coding: utf-8 -*-
-
-import http.client, urllib.parse
-import json
-
-# **********************************************
-# *** Update or verify the following values. ***
-# **********************************************
-
-# Replace the subscriptionKey string value with your valid subscription key.
-subscriptionKey = 'ENTER KEY HERE'
-
-host = 'api.cognitive.microsoft.com'
+host = host.replace('https://', '')
 path = '/bing/v7.0/entities'
 
-mkt = 'en-US'
+# Entity you want to find
 query = 'italian restaurants near me'
 
-params = '?mkt=' + mkt + '&q=' + urllib.parse.quote (query)
+# Construct a request
+mkt = 'en-US'
+params = '?mkt=' + mkt + '&q=' + urllib.parse.quote(query)
+headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
+conn = http.client.HTTPSConnection(host)
+conn.request("GET", path + params, None, headers)
 
-def get_suggestions ():
-	headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
-	conn = http.client.HTTPSConnection (host)
-	conn.request ("GET", path + params, None, headers)
-	response = conn.getresponse ()
-	return response.read ()
-
-result = get_suggestions ()
-print (json.dumps(json.loads(result), indent=4))
+# Print response
+response = conn.getresponse()
+pprint(json.loads(response.read())) 
