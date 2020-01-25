@@ -15,16 +15,21 @@ and data of the exact image and/or similar images.
 endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/visualsearch'
 subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
 
-image_path = 'YOUR-IMAGE.xxx' # for example: my_image.jpg
+image_path = 'MY-IMAGE' # for example: my_image.jpg
 
+# Construct the request
 headers = {'Ocp-Apim-Subscription-Key': subscription_key}
-
-file = {'image' : ('YOUR-IMAGE', open(image_path, 'rb'))} # YOUR-IMAGE is the name of the image file (no extention)
+file = {'image' : ('MY-IMAGE', open(image_path, 'rb'))} # MY-IMAGE is the name of the image file (no extention)
     
+# Call the API
 try:
     response = requests.post(endpoint, headers=headers, files=file)
     response.raise_for_status()
+
+    print("\nHeaders:\n")
+    print(response.headers)
+
+    print("\nJSON Response:\n")
     pprint(response.json())
 except Exception as ex:
     raise ex
-
