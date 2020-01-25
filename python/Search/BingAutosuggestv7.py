@@ -3,37 +3,35 @@
 
 # -*- coding: utf-8 -*-
 
+import json
+import os
+import requests
+from pprint import pprint
+
 '''
 This sample uses the Bing Autosuggest API to check the spelling of query words and then suggests corrections.
 Bing Spell Check API: https://docs.microsoft.com/en-us/rest/api/cognitiveservices-bingsearch/bing-autosuggest-api-v7-reference57855119bca1df1c647bc358
 '''
 
-import http.client
-import json
-import os
-import urllib.parse
+# Add your Bing Autosuggest subscription key and endpoint to your environment variables.
+subscription_key = os.environ['BING_AUTOSUGGEST_SUBSCRIPTION_KEY']
+endpoint = os.environ['BING_AUTOSUGGEST_ENDPOINT'] + '/bing/v7.0/Suggestions/'
 
-# Add your Bing Autosuggest subscription key to your environment variables.
-subscriptionKey = os.environ['BING_AUTOSUGGEST_SUBSCRIPTION_KEY']
-
-# Add your Bing Autosuggest endpoint to your environment variables.
-host = os.environ['BING_AUTOSUGGEST_ENDPOINT']
-host = host.replace('https://', '')
-path = '/bing/v7.0/Suggestions'
-
+# Construct the request
 mkt = 'en-US'
 query = 'sail'
+params = { 'q': query, 'mkt': mkt }
+headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
 
-params = '?mkt=' + mkt + '&q=' + query
+# Call the API
+try:
+    response = requests.get(endpoint, headers=headers, params=params)
+    response.raise_for_status()
 
-def get_suggestions ():
-    "Gets Autosuggest results for a query and returns the information."
+    print("\nHeaders:\n")
+    print(response.headers)
 
-    headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
-    conn = http.client.HTTPSConnection(host)
-    conn.request ("GET", path + params, None, headers)
-    response = conn.getresponse ()
-    return response.read ()
-
-result = get_suggestions ()
-print (json.dumps(json.loads(result), indent=4))
+    print("\nJSON Response:\n")
+    pprint(response.json())
+except Exception as ex:
+    raise ex
