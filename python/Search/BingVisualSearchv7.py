@@ -1,40 +1,30 @@
-"""Bing Visual Search upload image example"""
+# Download and install Python at https://www.python.org/ 
+# Run the following in a command console window: pip3 install requests
 
-# Download and install Python at https://www.python.org/
-# Run the following in a command console window
-# pip3 install requests
+import json 
+import os
+from pprint import pprint
+import requests
 
-import requests, json
+'''
+This sample uses the Bing Visual Search API with a local, query image and returns several web links
+and data of the exact image and/or similar images.
+'''
 
-# Add your Bing Search V7 endpoint to your environment variables.
-BASE_URI = os.environ['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/visualsearch'
+# Add your Bing Search V7 subscriptionKey and endpoint to your environment variables.
+endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/visualsearch'
+subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
 
-# Add your Bing Search V7 subscription key to your environment variables.
-SUBSCRIPTION_KEY = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
+image_path = 'YOUR-IMAGE.xxx' # for example: my_image.jpg
 
-imagePath = 'your-image-path'
+headers = {'Ocp-Apim-Subscription-Key': subscription_key}
 
-HEADERS = {'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY}
-
-file = {'image' : ('myfile', open(imagePath, 'rb'))}
-
-def main():
+file = {'image' : ('YOUR-IMAGE', open(image_path, 'rb'))} # YOUR-IMAGE is the name of the image file (no extention)
     
-    try:
-        response = requests.post(BASE_URI, headers=HEADERS, files=file)
-        response.raise_for_status()
-        print_json(response.json())
+try:
+    response = requests.post(endpoint, headers=headers, files=file)
+    response.raise_for_status()
+    pprint(response.json())
+except Exception as ex:
+    raise ex
 
-    except Exception as ex:
-        raise ex
-
-
-def print_json(obj):
-    """Print the object as json"""
-    print(json.dumps(obj, sort_keys=True, indent=2, separators=(',', ': ')))
-
-
-
-# Main execution
-if __name__ == '__main__':
-    main()
