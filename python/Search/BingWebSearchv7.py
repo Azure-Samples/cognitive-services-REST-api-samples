@@ -3,44 +3,32 @@
 
 # -*- coding: utf-8 -*-
 
-import http.client, urllib.parse, json
+import json
+import os 
+from pprint import pprint
+import requests
 
-# **********************************************
-# *** Update or verify the following values. ***
-# **********************************************
+# Add your Bing Search V7 subscription key and endpoint to your environment variables.
+subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
+endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/bing/v7.0/search"
 
-# Add your Bing Search V7 subscription key to your environment variables.
-subscriptionKey = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
+# Query term(s) to search for. 
+query = "Microsoft Cognitive Services"
 
-# Add your Bing Search V7 endpoint to your environment variables.
-host = os.environ['BING_SEARCH_V7_ENDPOINT']
-path = "/bing/v7.0/search"
+# Construct a request
+mkt = 'en-US'
+params = { 'q': query, 'mkt': mkt }
+headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
 
-term = "Microsoft Cognitive Services"
+# Call the API
+try:
+    response = requests.get(endpoint, headers=headers, params=params)
+    response.raise_for_status()
 
-def BingWebSearch(search):
-    "Performs a Bing Web search and returns the results."
+    print("\nHeaders:\n")
+    print(response.headers)
 
-    headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
-    conn = http.client.HTTPSConnection(host)
-    query = urllib.parse.quote(search)
-    conn.request("GET", path + "?q=" + query, headers=headers)
-    response = conn.getresponse()
-    headers = [k + ": " + v for (k, v) in response.getheaders()
-                   if k.startswith("BingAPIs-") or k.startswith("X-MSEdge-")]
-    return headers, response.read().decode("utf8")
-
-if len(subscriptionKey) == 32:
-
-    print('Searching the Web for: ', term)
-
-    headers, result = BingWebSearch(term)
-    print("\nRelevant HTTP Headers:\n")
-    print("\n".join(headers))
     print("\nJSON Response:\n")
-    print(json.dumps(json.loads(result), indent=4))
-
-else:
-
-    print("Invalid Bing Search API subscription key!")
-    print("Please paste yours into the source code.")
+    pprint(response.json())
+except Exception as ex:
+    raise ex
