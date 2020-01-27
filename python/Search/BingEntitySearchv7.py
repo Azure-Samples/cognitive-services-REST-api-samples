@@ -18,7 +18,6 @@ query = 'italian restaurants near me'
 
 # Construct the request
 mkt = 'en-US'
-query = 'sail'
 params = 'mkt=' + mkt + '&q=' + urllib.parse.quote(query)
 headers = {'Ocp-Apim-Subscription-Key': subscription_key}
 
