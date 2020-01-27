@@ -1,4 +1,3 @@
-import http.client
 import json
 import os
 from pprint import pprint
@@ -11,21 +10,28 @@ Bing Entity Search API: https://westus2.dev.cognitive.microsoft.com/docs/service
 '''
 
 # Add your Bing Entity Search subscription key and endpoint to your environment variables.
-subscriptionKey = os.environ['BING_ENTITY_SEARCH_SUBSCRIPTION_KEY']
-host = os.environ['BING_ENTITY_SEARCH_ENDPOINT']
-host = host.replace('https://', '')
-path = '/bing/v7.0/entities'
+subscription_key = os.environ['BING_ENTITY_SEARCH_SUBSCRIPTION_KEY']
+endpoint = os.environ['BING_ENTITY_SEARCH_ENDPOINT'] + '/bing/v7.0/entities'
 
 # Entity you want to find
 query = 'italian restaurants near me'
 
-# Construct a request
+# Construct the request
 mkt = 'en-US'
-params = '?mkt=' + mkt + '&q=' + urllib.parse.quote(query)
-headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
-conn = http.client.HTTPSConnection(host)
-conn.request("GET", path + params, None, headers)
+query = 'sail'
+params = 'mkt=' + mkt + '&q=' + urllib.parse.quote(query)
+headers = {'Ocp-Apim-Subscription-Key': subscription_key}
 
-# Print response
-response = conn.getresponse()
+# Call the API
+try:
+    response = requests.get(endpoint, headers=headers, params=params)
+    response.raise_for_status()
+
+    print("\nHeaders:\n")
+    print(response.headers)
+
+    print("\nJSON Response:\n")
+    pprint(response.json())
+except Exception as ex:
+    raise ex
 pprint(json.loads(response.read())) 
