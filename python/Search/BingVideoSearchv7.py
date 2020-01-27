@@ -15,8 +15,7 @@ Documentation: https: // docs.microsoft.com/en-us/azure/cognitive-services/bing-
 
 # Add your Bing Search V7 subscription key and endpoint to your environment variables.
 subscriptionKey = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-host = os.environ['BING_SEARCH_V7_ENDPOINT']
-path = "/bing/v7.0/videos/search"
+endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/bing/v7.0/videos/search"
 
 # Search query
 query = "kittens"
@@ -29,12 +28,15 @@ headers = {
 params = { "q": query }
 
 # Call the API
-response = requests.get(host + path, headers=headers, params=params)
-response.raise_for_status()
+try:
+    response = requests.get(endpoint, headers=headers, params=params)
+    response.raise_for_status()
 
-# Print results
-print("\nHeaders:\n")
-print(response.headers)
+    # Print results
+    print("\nHeaders:\n")
+    print(response.headers)
 
-print("\nJSON Response:\n")
-pprint(response.json())
+    print("\nJSON Response:\n")
+    pprint(response.json())
+except Exception as ex:
+    raise ex
