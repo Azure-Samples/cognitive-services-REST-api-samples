@@ -7,8 +7,7 @@ import os
 from pprint import pprint
 
 '''
-This sample makes a call to the Face API with a URL image query
-to detect faces and features in an image.
+This sample makes a call to the Face API with a URL image query to detect faces and features in an image.
 Face API: https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
 '''
 
