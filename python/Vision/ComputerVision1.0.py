@@ -1,54 +1,45 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
 
-########### Python 3.6 #############
-import http.client, urllib.request, urllib.parse, urllib.error, base64, json
+import json
+import os 
+from pprint import pprint
+import requests
 
-###############################################
-#### Update or verify the following values. ###
-###############################################
+'''
+This sample makes a call to the Computer Vision API with a URL image query to analyze an image,
+and then returns user input parameter data like category, description, and color.
+API: https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/587f2c6a154055056008f200
+'''
 
-# Replace the subscription_key string value with your valid subscription key.
-subscription_key = 'Enter key here'
+# Add your Bing Search V7 subscription key and endpoint to your environment variables.
+subscription_key = os.environ['COMPUTER_VISION_SUBSCRIPTION_KEY']
+endpoint = os.environ['COMPUTER_VISION_ENDPOINT'] + "/vision/v2.1/analyze"
 
-# Replace or verify the region.
-#
-# You must use the same region in your REST API call as you used to obtain your subscription keys.
-# For example, if you obtained your subscription keys from the westus region, replace 
-# "westcentralus" in the URI below with "westus".
-#
-# NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-# a free trial subscription key, you should not need to change this region.
-uri_base = 'westcentralus.api.cognitive.microsoft.com'
-
+# Request headers.
 headers = {
-    # Request headers.
     'Content-Type': 'application/json',
     'Ocp-Apim-Subscription-Key': subscription_key,
 }
 
-params = urllib.parse.urlencode({
-    # Request parameters. All of them are optional.
+# Request parameters. All of them are optional
+params = {
     'visualFeatures': 'Categories,Description,Color',
     'language': 'en',
-})
+}
 
 # Replace the three dots below with the URL of a JPEG image of a celebrity.
-body = "{'url':'https://upload.wikimedia.org/wikipedia/commons/1/12/Broadway_and_Times_Square_by_night.jpg'}"
+body = {'url': 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/ComputerVision/Images/objects.jpg'}
 
+# Call the API
 try:
-    # Execute the REST API call and get the response.
-    conn = http.client.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
-    conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
-    response = conn.getresponse()
-    data = response.read()
+    response = requests.post(endpoint, headers=headers, params=params, json=body)
+    response.raise_for_status()
 
-    # 'data' contains the JSON data. The following formats the JSON data for display.
-    parsed = json.loads(data)
-    print ("Response:")
-    print (json.dumps(parsed, sort_keys=True, indent=2))
-    conn.close()
+    print("\nHeaders:\n")
+    print(response.headers)
 
-except Exception as e:
-    print('Error:')
-    print(e)
+    print("\nJSON Response:\n")
+    pprint(response.json())
+except Exception as ex:
+    raise ex
