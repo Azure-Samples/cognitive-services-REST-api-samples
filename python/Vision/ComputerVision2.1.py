@@ -2,19 +2,19 @@
 # Licensed under the MIT License.
 
 import json
-import requests
-import os
+import os 
 from pprint import pprint
+import requests
 
 '''
-This sample makes a call to the Face API with a URL image query
-to detect faces and features in an image.
-Face API: https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
+This sample makes a call to the Computer Vision API with a URL image query to analyze an image,
+and then returns user input parameter data like category, description, and color.
+API: https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/587f2c6a154055056008f200
 '''
 
-# Add your Face subscription key and endpoint to your environment variables.
-subscription_key = os.environ['FACE_SUBSCRIPTION_KEY']
-endpoint = os.environ['FACE_ENDPOINT'] + '/face/v1.0/detect'
+# Add your Computer Vision subscription key and endpoint to your environment variables.
+subscription_key = os.environ['COMPUTER_VISION_SUBSCRIPTION_KEY']
+endpoint = os.environ['COMPUTER_VISION_ENDPOINT'] + "/vision/v2.1/analyze"
 
 # Request headers.
 headers = {
@@ -22,18 +22,17 @@ headers = {
     'Ocp-Apim-Subscription-Key': subscription_key,
 }
 
-# Request parameters.
+# Request parameters. All of them are optional.
 params = {
-    'returnFaceId': 'true',
-    'returnFaceLandmarks': 'false',
-    'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise',
+    'visualFeatures': 'Categories,Description,Color',
+    'language': 'en',
 }
 
-# The URL of a JPEG image of faces to analyze.
-body = {'url': 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/Face/images/test-image-person-group.jpg'}
+# Any image with objects will work.
+body = {'url': 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/ComputerVision/Images/objects.jpg'}
 
+# Call the API.
 try:
-    # Call API. 
     response = requests.post(endpoint, headers=headers, params=params, json=body)
     response.raise_for_status()
 
@@ -42,7 +41,5 @@ try:
 
     print("\nJSON Response:\n")
     pprint(response.json())
-
-except Exception as e:
-    print('Error:')
-    print(e)
+except Exception as ex:
+    raise ex
