@@ -1,25 +1,20 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
 
-########### Python 3.6 #############
-import http.client, urllib.request, urllib.parse, urllib.error, base64, requests, json
+import json
+import requests
+import os
+from pprint import pprint
 
-###############################################
-#### Update or verify the following values. ###
-###############################################
+'''
+This sample makes a call to the Face API with a URL image query
+to detect faces and features in an image.
+Face API: https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
+'''
 
-# Replace the subscription_key string value with your valid subscription key.
-subscription_key = 'Enter key here'
-
-# Replace or verify the region.
-#
-# You must use the same region in your REST API call as you used to obtain your subscription keys.
-# For example, if you obtained your subscription keys from the westus region, replace 
-# "westcentralus" in the URI below with "westus".
-#
-# NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-# a free trial subscription key, you should not need to change this region.
-uri_base = 'https://westcentralus.api.cognitive.microsoft.com'
+# Add your Face subscription key and endpoint to your environment variables.
+subscription_key = os.environ['FACE_SUBSCRIPTION_KEY']
+endpoint = os.environ['FACE_ENDPOINT'] + '/face/v1.0/detect'
 
 # Request headers.
 headers = {
@@ -34,19 +29,20 @@ params = {
     'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise',
 }
 
-# Body. The URL of a JPEG image to analyze.
-body = {'url': 'https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg'}
+# The URL of a JPEG image of faces to analyze.
+body = {'url': 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/Face/images/test-image-person-group.jpg'}
 
 try:
-    # Execute the REST API call and get the response.
-    response = requests.request('POST', uri_base + '/face/v1.0/detect', json=body, data=None, headers=headers, params=params)
+    # Call API. 
+    response = requests.post(endpoint, headers=headers, params=params, json=body)
+    response.raise_for_status()
 
-    print ('Response:')
-    parsed = json.loads(response.text)
-    print (json.dumps(parsed, sort_keys=True, indent=2))
+    print("\nHeaders:\n")
+    print(response.headers)
+
+    print("\nJSON Response:\n")
+    pprint(response.json())
 
 except Exception as e:
     print('Error:')
     print(e)
-
-####################################
