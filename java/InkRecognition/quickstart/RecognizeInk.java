@@ -8,10 +8,26 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 // </imports>
+
+/**
+ * Library jars needed (add to a lib folder): 
+ *   httpclient-4.5.11+
+ *   slf4j-jdk14-1.7.28+ 
+ *   httpcore-4.4.13+ 
+ *   commons-logging-1.2+
+ *   jackson-databind-2.10.2+
+ *   jackson-annotations-2.10.2+
+ *   jackson-core-2.10.2+
+ */
 
 public class RecognizeInk {
     // <vars>
@@ -36,7 +52,19 @@ public class RecognizeInk {
         System.out.println("Sending an Ink recognition request.");
 
         String result = sendRequest(rootUrl, inkRecognitionUrl, subscriptionKey, requestData);
-        System.out.println(result);
+        
+        // Pretty-print the JSON result
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> response = objectMapper.readValue(result, HashMap.class);
+            System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }  
     }
     // </recognizeInk>
     // <sendRequest>
