@@ -1,8 +1,5 @@
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//Licensed under the MIT License.
-
-// This sample uses the Apache HTTP client library(org.apache.httpcomponents:httpclient:4.2.4)
-// and the org.json library (org.json:json:20170516). YOu can download this from Maven repo to the lib directory of your project.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 import java.net.URI;
 import org.apache.http.HttpEntity;
@@ -16,25 +13,27 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Include these library jars (or newer +), add to a lib folder:
+ *   commons-logging-4.0.6+ 
+ *   httpclient-4.5.3+ 
+ *   httpcore-4.4.13+ 
+ *   json-20190722+
+ *
+ * To compile and run from command line: 
+*    javac Main.java -cp .;lib\* 
+ *   java -cp .;lib\* Main
+ */
+
 public class Main
 {
-    // **********************************************
-    // *** Update or verify the following values. ***
-    // **********************************************
+    // Add your Face subscription key and endpoint to your environment variables.
+    private static String subscriptionKey = System.getenv("FACE_SUBSCRIPTION_KEY");
+    private static String baseUrl = System.getenv("FACE_ENDPOINT");
 
-    // Replace the subscriptionKey string value with your valid subscription key.
-    public static final String subscriptionKey = "Enter key here";
+    public static final String endpoint= baseUrl + "/face/v1.0/detect";
 
-    // Replace or verify the region.
-    //
-    // You must use the same region in your REST API call as you used to obtain your subscription keys.
-    // For example, if you obtained your subscription keys from the westus region, replace
-    // "westcentralus" in the URI below with "westus".
-    //
-    // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-    // a free trial subscription key, you should not need to change this region.
-    public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
-
+    private static String image = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/Face/images/test-image-person-group.jpg";
 
     public static void main(String[] args)
     {
@@ -42,7 +41,7 @@ public class Main
 
         try
         {
-            URIBuilder builder = new URIBuilder(uriBase);
+            URIBuilder builder = new URIBuilder(endpoint);
 
             // Request parameters. All of them are optional.
             builder.setParameter("returnFaceId", "true");
@@ -58,7 +57,7 @@ public class Main
             request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             // Request body.
-            StringEntity reqEntity = new StringEntity("{\"url\":\"https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg\"}");
+            StringEntity reqEntity = new StringEntity("{\"url\":\"" + image + "\"}");
             request.setEntity(reqEntity);
 
             // Execute the REST API call and get the response entity.
