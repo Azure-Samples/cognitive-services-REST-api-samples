@@ -383,7 +383,7 @@ function bingSearchOptions(form) {
 
     var options = [];
     options.push("mkt=" + form.where.value);
-    options.push("SafeSearch=" + (form.safe.checked ? "strict" : "off"));
+    options.push("SafeSearch=" + (form.safe.checked ? "strict" : "moderate"));
 
     if (form.when.value.length) options.push("freshness=" + form.when.value);
     var what = [];
