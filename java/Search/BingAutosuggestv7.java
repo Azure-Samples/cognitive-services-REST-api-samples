@@ -1,41 +1,34 @@
-/*Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the MIT License.*/
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.net.ssl.HttpsURLConnection;
-
-/*
- * Gson: https://github.com/google/gson
- * Maven info:
- *     groupId: com.google.code.gson
- *     artifactId: gson
- *     version: 2.8.1
- *
- * Once you have compiled or downloaded gson-2.8.1.jar, assuming you have placed it in the
- * same folder as this file (Autosuggest.java), you can compile and run this program at
- * the command line as follows.
- *
- * javac Autosuggest.java -classpath .;gson-2.8.1.jar -encoding UTF-8
- * java -cp .;gson-2.8.1.jar Autosuggest
- */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class Autosuggest {
+/*
+ * Download the Gson library: https://github.com/google/gson
+ * Maven info:
+ *     groupId: com.google.code.gson
+ *     artifactId: gson
+ *     version: x.x.x
+ *
+ * Place the Gson jar in the same folder as this file (BingAutosuggest.java), 
+ * then compile and run from the command line:
+ *   javac BingAutosuggest.java -classpath .;gson-2.8.6.jar -encoding UTF-8
+ *   java -cp .;gson-2.8.6.jar BingAutosuggest
+ */
 
-    // **********************************************
-    // *** Update or verify the following values. ***
-    // **********************************************
+public class BingAutosuggest {
 
     // Add your Bing Autosuggest subscription key to your environment variables.
     static String subscriptionKey = System.getenv("BING_AUTOSUGGEST_SUBSCRIPTION_KEY");
 
-    static String host = System.getenv("BING_AUTOSUGGEST_ENDPOINT");
-    static String path = "/bing/v7.0/Suggestions";
+    static String endpoint = System.getenv("BING_AUTOSUGGEST_ENDPOINT") +  "/bing/v7.0/Suggestions";
 
     static String mkt = "en-US";
     static String query = "sail";
@@ -43,7 +36,7 @@ public class Autosuggest {
     public static String get_suggestions () throws Exception {
         String encoded_query = URLEncoder.encode (query, "UTF-8");
         String params = "?mkt=" + mkt + "&q=" + encoded_query;
-        URL url = new URL (host + path + params);
+        URL url = new URL (endpoint + params);
 
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -63,8 +56,7 @@ public class Autosuggest {
     }
 
     public static String prettify (String json_text) {
-        JsonParser parser = new JsonParser();
-        JsonObject json = parser.parse(json_text).getAsJsonObject();
+        JsonObject json = JsonParser.parseString(json_text).getAsJsonObject();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(json);
     }
