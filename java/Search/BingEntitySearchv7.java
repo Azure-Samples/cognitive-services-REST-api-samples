@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
- * This sample uses Bing Entity Search to search the web for an entity (restarant).
+ * This sample uses Bing Entity Search to search the web for an entity (restaurant).
  *
  * Gson: https://github.com/google/gson
  * Maven info:
