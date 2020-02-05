@@ -10,16 +10,16 @@ import org.json.*;
  * This sample uses the Bing Spell Check v7 API to check spelling of a sentence.
  *
  * Include library (for pretty print), add jar to a lib folder:
- *   https://github.com/stleary/JSON-java
+ * https://github.com/stleary/JSON-java
  *
  * Add your subscription key and endpoint to your environment variables.
  *
  * Build/run from command line: 
- *   javac BingSpellCheckv7.java -cp .;lib\*
- *   java -cp .;lib\* BingSpellCheckv7
+ *   javac BingSpellCheck.java -cp .;lib\* 
+ *   java -cp .;lib\* BingSpellCheck
  */
 
-public class BingSpellCheckv7 {
+public class BingSpellCheck {
 
     // Or using the generic endpoint https://api.cognitive.microsoft.com is OK too.
     static String endpoint = System.getenv("BING_SPELL_CHECK_ENDPOINT") + "/bing/v7.0/spellcheck";
