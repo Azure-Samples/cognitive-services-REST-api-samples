@@ -1,29 +1,10 @@
-package uploadimage;
-
 import java.util.*;
 import java.io.*;
-
-/*
- * Gson: https://github.com/google/gson
- * Maven info:
- *     groupId: com.google.code.gson
- *     artifactId: gson
- *     version: 2.8.2
- *
- * Once you have compiled or downloaded gson-2.8.2.jar, assuming you have placed it in the
- * same folder as this file (BingImageSearch.java), you can compile and run this program at
- * the command line as follows.
- *
- * javac BingImageSearch.java -classpath .;gson-2.8.2.jar -encoding UTF-8
- * java -cp .;gson-2.8.2.jar BingImageSearch
- */
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-// http://hc.apache.org/downloads.cgi (HttpComponents Downloads) HttpClient 4.5.5
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,18 +14,32 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+/**
+ * Add the Gson, HttpComponents, and HttpClient Mime jars to a lib folder: 
+ *   Gson: https://github.com/google/gson 
+ *   HttpComponents (HttpClient and HttpCore): http://hc.apache.org/downloads.cgi 
+ *   HttpClient Mime: https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime
+ *   Commons Logging: https://mvnrepository.com/artifact/commons-logging/commons-logging
+ *
+ * Add your Bing Search V7 key and endpoint to your environment variables.
+ *
+ * Maven info: 
+ *   groupId: com.google.code.gson 
+ *   artifactId: gson 
+ *   version: x.x.x
+ *
+ * Compile and run from the command line: 
+ *   javac BingVisualSearch.java -cp .;lib\* -encoding UTF-8 
+ *   java -cp .;lib\* BingVisualSearch
+ */
+public class BingVisualSearch {
 
-public class UploadImage2 {
-
-    // Add your Bing Search V7 endpoint to your environment variables.
-    static String endpoint = System.getenv("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/images/visualsearch";
-    // Add your Bing Search V7 subscription key to your environment variables.
+    // Add your Bing Search V7 key endpoint to your environment variables.
     static String subscriptionKey = System.getenv("BING_SEARCH_V7_SUBSCRIPTION_KEY");
-    static String imagePath = "<pathtoyourimagetouploadgoeshere>";
+    static String endpoint = System.getenv("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/images/visualsearch";
+    // Use your own URL image if desired.
+    static String imagePath = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/ComputerVision/Images/objects.jpg";
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -77,10 +72,9 @@ public class UploadImage2 {
         }
     }
     
-    // pretty-printer for JSON; uses GSON parser to parse and re-serialize
+    // Pretty-printer for JSON; uses GSON parser to parse and re-serialize
     public static String prettify(String json_text) {
-        JsonParser parser = new JsonParser();
-        JsonObject json = parser.parse(json_text).getAsJsonObject();
+        JsonObject json = JsonParser.parseString(json_text).getAsJsonObject();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(json);
     }
