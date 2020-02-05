@@ -1,5 +1,5 @@
-/*Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the MIT License.*/
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. 
 // <imports>
 import javax.net.ssl.HttpsURLConnection;
 import java.io.InputStream;
@@ -16,63 +16,34 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 // </imports>
 
-public class BingCustomSearchv7 {
+/**
+ * This sample uses BingCustomSearch to do a web search with a text query and
+ * return custom-designed results.
+ * 
+ * Add the Bing Custom Search key, endpoint, and custom configuration ID to your
+ * environment variables.
+ * 
+ * Include the Gson library jar in your project folder:
+ * https://github.com/google/gson
+ *
+ * To compile/run from command line: 
+ *   javac BingCustomSearch.java -cp .;gson-2.8.6.jar 
+ *   java -cp .;gson-2.8.6.jar BingCustomSearch
+ */
 
+public class BingCustomSearch {
     // <vars>
-    // Add your Bing Custom Search endpoint and key to your environment variables.
-    // Your endpoint will have the form: 
-    //   https://<your-custom-subdomain>.cognitiveservices.azure.com/bingcustomsearch/v7.0
-    static String host = System.getenv("BING_CUSTOM_SEARCH_ENDPOINT");
+    // Add your Bing Custom Search subscription key and endpoint to your environment variables.
+    // Example endpoint: https://<your-custom-subdomain>.cognitiveservices.azure.com
     static String subscriptionKey = System.getenv("BING_CUSTOM_SEARCH_SUBSCRIPTION_KEY");
+    static String endpoint = System.getenv("BING_CUSTOM_SEARCH_ENDPOINT") + "/bingcustomsearch/v7.0/search";
     
-    static String path = "/search";
-    static String customConfigId = "YOUR-CUSTOM-CONFIG-ID"; //you can also use "1"
-    static String searchTerm = "Microsoft";  // Replace with search term specific to your defined sources.
+    static String customConfigId = System.getenv("BING_CUSTOM_CONFIG"); //you can also use "1"
+    static String searchTerm = "Microsoft";  // Replace with another search term, if you'd like.
     // </vars>
-    // <searchWeb>
-    public static SearchResults SearchWeb(String searchQuery) throws Exception {
-        // construct URL of search request (endpoint + query string)
-        URL url = new URL(host + path + "?q=" +  URLEncoder.encode(searchTerm, "UTF-8") + "&CustomConfig=" + customConfigId);
-        HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
-        connection.setRequestProperty("Ocp-Apim-Subscription-Key", subscriptionKey);
 
-        // receive JSON body
-        InputStream stream = connection.getInputStream();
-        String response = new Scanner(stream).useDelimiter("\\A").next();
-
-        // construct result object for return
-        SearchResults results = new SearchResults(new HashMap<String, String>(), response);
-
-        // extract Bing-related HTTP headers
-        Map<String, List<String>> headers = connection.getHeaderFields();
-        for (String header : headers.keySet()) {
-            if (header == null) continue;      // may have null key
-            if (header.startsWith("BingAPIs-") || header.startsWith("X-MSEdge-")) {
-                results.relevantHeaders.put(header, headers.get(header).get(0));
-            }
-        }
-
-        stream.close();
-        return results;
-    }
-    // </searchWeb>
-    // <prettify>
-    // pretty-printer for JSON; uses GSON parser to parse and re-serialize
-    public static String prettify(String json_text) {
-        JsonParser parser = new JsonParser();
-        JsonObject json = parser.parse(json_text).getAsJsonObject();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(json);
-    }
-    // </prettify>
     // <main>
     public static void main (String[] args) {
-        if (subscriptionKey.length() != 32) {
-            System.out.println("Invalid Bing Search API subscription key!");
-            System.out.println("Please paste yours into the source code.");
-            System.exit(1);
-        }
-
         try {
             System.out.println("Searching the Web for: " + searchTerm);
 
@@ -91,12 +62,46 @@ public class BingCustomSearchv7 {
         }
     }
     // </main>
+
+    // <searchWeb>
+    public static SearchResults SearchWeb(String searchQuery) throws Exception {
+        // Construct URL of search request (endpoint + query string)
+        URL url = new URL(endpoint + "?q=" +  URLEncoder.encode(searchTerm, "UTF-8") + "&CustomConfig=" + customConfigId);
+        HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+        connection.setRequestProperty("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+        // Receive JSON body
+        InputStream stream = connection.getInputStream();
+        Scanner scanner = new Scanner(stream);
+        String response = scanner.useDelimiter("\\A").next();
+
+        // Construct result object for return
+        SearchResults results = new SearchResults(new HashMap<String, String>(), response);
+
+        // Extract Bing-related HTTP headers
+        Map<String, List<String>> headers = connection.getHeaderFields();
+        for (String header : headers.keySet()) {
+            if (header == null) continue;      // may have null key
+            if (header.startsWith("BingAPIs-") || header.startsWith("X-MSEdge-")) {
+                results.relevantHeaders.put(header, headers.get(header).get(0));
+            }
+        }
+        scanner.close();
+        return results;
+    }
+    // </searchWeb>
+
+    // <prettify>
+    // Pretty-printer for JSON; uses GSON parser to parse and re-serialize
+    public static String prettify(String jsonText) {
+        JsonObject json = JsonParser.parseString(jsonText).getAsJsonObject();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(json);
+    }
+    // </prettify>
 }
 
 // <searchResultsClass>
-// put this in a seperate .java file.
-import java.util.HashMap;
-
 // Container class for search results encapsulates relevant headers and JSON data
 class SearchResults{
     HashMap<String, String> relevantHeaders;
@@ -105,7 +110,5 @@ class SearchResults{
         relevantHeaders = headers;
         jsonResponse = json;
     }
-
 }
 // </searchResultsClass>
-
