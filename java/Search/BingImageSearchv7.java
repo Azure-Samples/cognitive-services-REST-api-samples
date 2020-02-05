@@ -11,6 +11,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /*
+ * This sample uses the Bing Image Search API with a query search term that returns appropriate images.
+ *
  * Gson: https://github.com/google/gson
  * Maven info:
  *   groupId: com.google.code.gson
