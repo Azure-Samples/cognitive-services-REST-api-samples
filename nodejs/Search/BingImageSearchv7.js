@@ -1,61 +1,41 @@
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//Licensed under the MIT License.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 'use strict';
 
-let https = require('https');
+let request = require('request');
 
-// **********************************************
-// *** Update or verify the following values. ***
-// **********************************************
+/**
+ * This sample uses the Bing Image Search API to query a search topic
+ * and return image results for that topic, along with metadata.
+ */
 
-// Add your Bing Search V7 subscription key to your environment variables.
+// Add your Bing Search V7 subscription key and endpoint to your environment variables.
 let subscriptionKey = process.env['BING_SEARCH_V7_SUBSCRIPTION_KEY']
+let endpoint = process.env['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/search';
 
-// Add your Bing Search V7 endpoint to your environment variables.
-let host = process.env['BING_SEARCH_V7_ENDPOINT']
-let path = '/bing/v7.0/images/search';
+let query = 'puppies';
+let mkt = 'en-US'
 
-let term = 'puppies';
-
-let response_handler = function (response) {
-    let body = '';
-    response.on('data', function (d) {
-        body += d;
-    });
-    response.on('end', function () {
-        console.log('\nRelevant Headers:\n');
-        for (var header in response.headers)
-            // header keys are lower-cased by Node.js
-            if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
-                 console.log(header + ": " + response.headers[header]);
-        body = JSON.stringify(JSON.parse(body), null, '  ');
-        console.log('\nJSON Response:\n');
-        console.log(body);
-    });
-    response.on('error', function (e) {
-        console.log('Error: ' + e.message);
-    });
-};
-
-let bing_image_search = function (search) {
-  console.log('Searching images for: ' + term);
-  let request_params = {
-        method : 'GET',
-        hostname : host,
-        path : path + '?q=' + encodeURIComponent(search),
-        headers : {
-            'Ocp-Apim-Subscription-Key' : subscriptionKey,
-        }
-    };
-
-    let req = https.request(request_params, response_handler);
-    req.end();
+// Construct parameters
+let request_params = {
+    method: 'GET',
+    uri: endpoint,
+    headers: {
+        'Ocp-Apim-Subscription-Key': subscriptionKey
+    },
+    qs: {
+        q: query,
+        mkt: mkt
+    },
+    json: true
 }
 
-if (subscriptionKey.length === 32) {
-    bing_image_search(term);
-} else {
-    console.log('Invalid Bing Search API subscription key!');
-    console.log('Please paste yours into the source code.');
-}
+// Make request
+request(request_params, function (error, response, body) {
+    console.error('error:', error)
+    console.log('statusCode:', response && response.statusCode)
+    console.log('original query: ' + body.queryContext.originalQuery)
+    console.log()
+    console.log(body)
+})
