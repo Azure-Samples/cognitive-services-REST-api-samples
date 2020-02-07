@@ -15,7 +15,6 @@ let request = require('request')
  */
 
 // Add your Azure Computer Vision subscription key and endpoint to your environment variables. 
-// Also note v5 and v7 require separate subscription keys. 
 let subscriptionKey = process.env['COMPUTER_VISION_SUBSCRIPTION_KEY']
 let endpoint = process.env['COMPUTER_VISION_ENDPOINT'] + '/vision/v2.1/ocr'
 
