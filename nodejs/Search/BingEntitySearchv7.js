@@ -1,50 +1,44 @@
 
-
 'use strict';
 
-let https = require ('https');
+let request = require ('request');
 
-// **********************************************
-// *** Update or verify the following values. ***
-// **********************************************
+/**
+ * This sample uses the Bing Entity Search API to use an entity query to
+ * get results with entity details like address and contact information.
+ */
 
-// Add your Bing Entity Search subscription key to your environment variables.
+// Add your Bing Entity Search subscription key and endpoint to your environment variables.
 let subscriptionKey = process.env['BING_ENTITY_SEARCH_SUBSCRIPTION_KEY']
-// Add your Bing Entity Search endpoint to your environment variables.
-let host = process.env['BING_ENTITY_SEARCH_ENDPOINT']
-let path = '/bing/v7.0/entities';
+let endpoint = process.env['BING_ENTITY_SEARCH_ENDPOINT'] + '/bing/v7.0/entities';
 
 let mkt = 'en-US';
-let q = 'italian restaurant near me';
+let query = 'italian restaurant near me';
 
-let query = '?mkt=' + mkt + '&q=' + encodeURI(q);
+//let query = '?mkt=' + mkt + '&q=' + encodeURI(q);
 
-let response_handler = function (response) {
-    let body = '';
-    response.on ('data', function (d) {
-        body += d;
-    });
-    response.on ('end', function () {
-        let json = JSON.stringify(JSON.parse(body), null, '  ');
-        console.log (json);
-    });
-    response.on ('error', function (e) {
-        console.log ('Error: ' + e.message);
-    });
-};
-
-let Search = function () {
-	let request_params = {
-		method : 'GET',
-		hostname : host,
-		path : path + query,
-		headers : {
-			'Ocp-Apim-Subscription-Key' : subscriptionKey,
-		}
-	};
-
-	let req = https.request (request_params, response_handler);
-	req.end ();
+// Construct parameters
+let request_params = {
+    method: 'GET',
+    uri: endpoint,
+    headers: {
+        'Ocp-Apim-Subscription-Key': subscriptionKey
+    },
+    qs: {
+        q: query,
+        mkt: mkt
+    },
+    json: true
 }
 
-Search ();
+// Make request
+request(request_params, function (error, response, body) {
+    console.error('error:', error)
+    console.log('statusCode:', response && response.statusCode)
+
+    console.log(body.queryContext.originalQuery)
+    console.log()
+    body.places.value.forEach(entity => {
+        console.log(entity)
+    })
+})
