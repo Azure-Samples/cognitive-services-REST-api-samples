@@ -1,52 +1,41 @@
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//Licensed under the MIT License.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 'use strict';
 
-let https = require ('https');
+let request = require ('request');
 
-// **********************************************
-// *** Update or verify the following values. ***
-// **********************************************
+/**
+ * This samnple uses the Bing Autosuggest API with a text search query
+ * that returns website suggestions based on the word(s) submitted.
+ */
 
-// Add your Bing Autosuggest subscription key to your environment variables.
+// Add your Bing Autosuggest subscription key and endpoint to your environment variables.
 let subscriptionKey = process.env['BING_AUTOSUGGEST_SUBSCRIPTION_KEY']
-// Add your Bing Autosuggest endpoint to your environment variables.
-let host = process.env['BING_AUTOSUGGEST_endpoint']
-let path = '/bing/v7.0/Suggestions';
+let endpoint = process.env['BING_AUTOSUGGEST_ENDPOINT'] + '/bing/v7.0/Suggestions';
 
-let mkt = 'en-US';
+// Search term
 let query = 'sail';
+// Market to perform the search
+let mkt = 'en-US'
 
-let params = '?mkt=' + mkt + '&q=' + query;
-
-let response_handler = function (response) {
-    let body = '';
-    response.on ('data', function (d) {
-        body += d;
-    });
-    response.on ('end', function () {
-        let body_ = JSON.parse (body);
-        let body__ = JSON.stringify (body_, null, '  ');
-        console.log (body__);
-    });
-    response.on ('error', function (e) {
-        console.log ('Error: ' + e.message);
-    });
-};
-
-let get_suggestions = function () {
-    let request_params = {
-        method : 'GET',
-        hostname : host,
-        path : path + params,
-        headers : {
-            'Ocp-Apim-Subscription-Key' : subscriptionKey,
-        }
-    };
-
-    let req = https.request (request_params, response_handler);
-    req.end ();
+// Construct parameters
+let request_params = {
+    method: 'GET',
+    uri: endpoint,
+    headers: { 'Ocp-Apim-Subscription-Key': subscriptionKey },
+    qs: { q: query, mkt: mkt },
+    json: true
 }
 
-get_suggestions ();
+// Make request
+request(request_params, function (error, response, body) {
+    console.error('error:', error)
+    console.log('statusCode:', response && response.statusCode)
+
+    console.log(body)
+    console.log()
+    body.suggestionGroups.forEach( sugg => {
+        console.log(sugg)
+    })
+})
