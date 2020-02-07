@@ -12,7 +12,6 @@ let request = require('request')
  *
  * Computer Vision API - v2 .1:
  * https: //westus.dev.cognitive.microsoft.com/docs/services/5cd27ec07268f6c679a3e641/operations/56f91f2e778daf14a499f20d
- *
  */
 
 // Add your Azure Computer Vision subscription key and endpoint to your environment variables. 
