@@ -1,14 +1,17 @@
-var request = require('request');
-var FormData = require('form-data');
-var fs = require('fs');
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
-// Add your Bing Search V7 endpoint to your environment variables.
-var baseUri = process.env['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/visualsearch';
-// Add your Bing Search V7 subscription key to your environment variables.
-var subscriptionKey = process.env['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-var imagePath = "path-to-your-image";
+const request = require('request');
+const FormData = require('form-data');
+const fs = require('fs');
 
-var form = new FormData();
+// Add your Bing Search V7 subscription key and endpoint to your environment variables.
+let subscriptionKey = process.env['BING_SEARCH_V7_SUBSCRIPTION_KEY']
+let baseUri = process.env['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/images/visualsearch';
+
+let imagePath = "path-to-your-image";
+
+let form = new FormData();
 form.append("image", fs.createReadStream(imagePath));
 
 form.getLength(function(err, length){
@@ -16,7 +19,7 @@ form.getLength(function(err, length){
     return requestCallback(err);
   }
 
-  var r = request.post(baseUri, requestCallback);
+  let r = request.post(baseUri, requestCallback);
   r._form = form; 
   r.setHeader('Ocp-Apim-Subscription-Key', subscriptionKey);
 });
