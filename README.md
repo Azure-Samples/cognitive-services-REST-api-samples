@@ -15,7 +15,11 @@ urlFragment: cognitive-services-REST-api-samples
 
 # Samples for REST APIs in Cognitive Services
 
-This repo provides code samples for Azure Cognitive Services APIs. There are sections for Language, Search, and Vision, using various progamming languages. Note that these are just simple wrappers to the APIs. For SDKs and SDK samples there are separate repos. You can check out all Cognitive Services here: https://azure.microsoft.com/en-us/services/cognitive-services/. You can check out detailed documentation of these APIs here: https://docs.microsoft.com/en-us/azure/cognitive-services/.
+This repo provides code samples for Azure Cognitive Services APIs. There are sections for Language, Search, and Vision, using various progamming languages. Note that these are just simple wrappers to the APIs. For SDKs and SDK samples there are separate repos (see below for references). 
+
+Cognitive Services introduction: https://azure.microsoft.com/en-us/services/cognitive-services/
+
+Cognitive Services docs: https://docs.microsoft.com/en-us/azure/cognitive-services/
 
 ## Getting Started
 
@@ -25,7 +29,7 @@ These REST samples require some steps:
   1. Add your key and endpoint to your environment variables with the naming as shown in the code sample.
   1. Install libraries if needed (instructions on the ones needed are in the sample).
   1. Compile and run the sample through your IDE or the command line.
-  1. (Optional) You may want to download the whole repo first: 
+  1. (Optional) You may want to download the whole repo first: <br>
       `git clone https://github.com/Azure-Samples/cognitive-services-REST-api-samples`
 
 ## Resources
