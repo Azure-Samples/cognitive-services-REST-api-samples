@@ -49,5 +49,6 @@ The projects in this code are quickstarts that show how to use Computer Vision R
 6. Hit F5 or build the solution
 
 ## Resources
-- Computer Vision documentation: https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home
-- Computer Vision API: (https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/56f91f2e778daf14a499e1fa)
+- Computer Vision documentation: <br>
+https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home
+- Computer Vision API:<br> https://westus.dev.cognitive.microsoft.com/docs/services/5adf991815e1060e6355ad44/operations/56f91f2e778daf14a499e1fa
