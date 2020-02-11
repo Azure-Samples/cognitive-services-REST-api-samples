@@ -10,11 +10,11 @@ namespace SampleSentimentV3
 {
     public class Program
     {
-        public class TextAnalyticsSentimentV3Client
+        public class TextAnalyticsSentiment
         {
-            // You can get the reqeust url from: 
-            // https://<YOUR-REGION>.dev.cognitive.microsoft.com/docs/services/TextAnalytics-v3-0-preview/operations/56f30ceeeda5650db055a3c9
-            private static readonly string endpoint = Environment.GetEnvironmentVariable("TEXT_ANALYTICS_ENDPOINT") + "/v3.0-preview/sentiment";
+            // The request URL is shown here (change the region to your own region):
+            // https://westus2.dev.cognitive.microsoft.com/docs/services/TextAnalytics-v3-0-Preview-1/operations/Sentiment/console
+            private static readonly string endpoint = Environment.GetEnvironmentVariable("TEXT_ANALYTICS_ENDPOINT") + "/text/analytics/v3.0-preview.1/sentiment";
 
             private static readonly string subscriptionKey = Environment.GetEnvironmentVariable("TEXT_ANALYTICS_SUBSCRIPTION_KEY");
 
@@ -68,7 +68,7 @@ namespace SampleSentimentV3
                 }
             };
             //If you’re using C# 7.1 or greater, you can use an async main() method to await the function
-            var sentimentV3Prediction = TextAnalyticsSentimentV3Client.SentimentV3PreviewPredictAsync(inputDocuments).Result;
+            var sentimentV3Prediction = TextAnalyticsSentiment.SentimentV3PreviewPredictAsync(inputDocuments).Result;
 
             // Replace with whatever you wish to print or simply consume the sentiment v3 prediction
             Console.WriteLine("Document ID=" + sentimentV3Prediction.Documents[0].Id + " : Sentiment=" + sentimentV3Prediction.Documents[0].Sentiment);
