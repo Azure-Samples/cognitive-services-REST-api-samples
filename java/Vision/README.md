@@ -1,5 +1,5 @@
 
-Vision REST API samples
+# Vision REST API samples
 
 These samples are quickstarts that show how to use various Vision APIs, such as Face.
 
