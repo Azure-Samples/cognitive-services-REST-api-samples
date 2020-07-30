@@ -10,7 +10,7 @@ The sample app can:
 * Manage subscription keys
 * Handle errors
 
-To use this app, you must have a valid Azure subscription. If you don't have one, you can [get an account](https://azure.microsoft.com/free/) for free. After you sign up, you can use the subscription key from creating an [Azure Cognitive Services resource](http://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account) for the Bing Search APIs. 
+To use this app, you must have a valid Azure subscription. If you don't have one, you can visit [the Microsoft Cognitive Services Web site](https://azure.microsoft.com/free/cognitive-services/), create a new Azure account, and try Cognitive Services for free. After you sign up, you can use the subscription key from creating an [Azure Cognitive Services resource](http://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account) for the Bing Search APIs. 
 
 ## Prerequisites 
 

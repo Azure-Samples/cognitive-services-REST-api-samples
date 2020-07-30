@@ -6,7 +6,7 @@ ms.topic: include
 ms.date: 08/08/2018
 --- 
 
-You must have a [Cognitive Services API account](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account) with access to the Bing Search APIs. If you don't have an Azure subscription, you can [create an account](https://azure.microsoft.com/try/cognitive-services/?api=bing-web-search-api) for free. Before continuing, You will need the access key provided after activating your free trial, or a paid subscription key from your Azure dashboard.
+You must have a [Cognitive Services API account](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account) with access to the Bing Search APIs. If you don't have an Azure subscription, you can visit [the Microsoft Cognitive Services Web site](https://azure.microsoft.com/free/cognitive-services/), create a new Azure account, and try Cognitive Services for free. Before continuing, You will need the access key provided after activating your free trial, or a paid subscription key from your Azure dashboard.
 
 To start a subscription in Azure portal:
 1. Enter 'BingSearchV7' in the text box at the top of the Azure portal that says `Search resources, services, and docs`.  
