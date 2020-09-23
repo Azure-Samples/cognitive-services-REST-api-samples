@@ -10,7 +10,7 @@ def add_data_feed(endpoint, subscription_key, api_key):
         "dataFeedName": "test_data_feed_00000001",
         "dataFeedDescription": "",
         "dataSourceParameter": {
-            "connectionString": "Server=ad-sample.database.windows.net,1433;Initial Catalog=ad-sample;Persist Security Info=False;User ID=adreadonly;Password=Readonly@2020;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+            "connectionString": "Server=<server>.database.windows.net,1433;Initial Catalog=<catelog>;Persist Security Info=False;User ID=<user-name>;Password=<password>;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
             "query": "select * from adsample3 where Timestamp = @StartTime"
         },
         "granularityName": "Daily",
