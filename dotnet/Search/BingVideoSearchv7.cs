@@ -1,45 +1,74 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using Newtonsoft.Json;
 using System;
-using System.Text;
-using System.Net;
-using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 /* This sample makes a call to the Bing Video Search API with a query and returns data about it.
  * Bing Video Search API: 
- * https://dev.cognitive.microsoft.com/docs/services/3960b4bc7b3a4bc5b97c42d78036d234/operations/56b440d2cf5ff8098cef380b
+ * https://docs.microsoft.com/en-us/azure/cognitive-services/bing-video-search/quickstarts/csharp
  */
 
 namespace BingVideoSearch
 {
-
     class Program
     {
-        // Add your Azure Bing Search v7 key and endpoint to your environment variables.
-        static string subscriptionKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
-        static string endpoint = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/videos/search";
+        // Replace the accessKey string value with your valid access key.
+        static string _accessKey = Environment.GetEnvironmentVariable("BING_SEARCH_V7_SUBSCRIPTION_KEY");
 
-        const string query = "kittens";
+        // Or use the custom subdomain endpoint displayed in the Azure portal for your resource.
+        static string _uriBase = Environment.GetEnvironmentVariable("BING_SEARCH_V7_ENDPOINT") + "/bing/v7.0/videos/search";
 
-        static void Main()
+        const string _searchTerm = "kittens";
+
+        static async Task Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine("Searching videos for: " + query);
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(_uriBase);
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _accessKey);
 
-            // Construct the URI of the search request
-            var uriQuery = endpoint + "?q=" + Uri.EscapeDataString(query);
+            var response = await client.GetAsync($"?q={Uri.EscapeDataString(_searchTerm)}");
 
-            // Perform the Web request and get the response
-            WebRequest request = HttpWebRequest.Create(uriQuery);
-            request.Headers["Ocp-Apim-Subscription-Key"] = subscriptionKey;
-            HttpWebResponse response = (HttpWebResponse)request.GetResponseAsync().Result;
-            string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<SearchResult>(json);
 
-            Console.WriteLine("\nJSON Response:\n");
-            dynamic parsedJson = JsonConvert.DeserializeObject(json);
-            Console.WriteLine(JsonConvert.SerializeObject(parsedJson, Formatting.Indented));
+                foreach (var video in result.Videos)
+                {
+                    Console.WriteLine($"Name: {video.Name}");
+                    Console.WriteLine($"ContentUrl: {video.ContentUrl}");
+                    Console.WriteLine();
+                }
+            }
         }
+    }
+
+    class SearchResult
+    {
+        [JsonPropertyName("totalEstimatedMatches")]
+        public int TotalEstimatedMatches { get; set; }
+
+        [JsonPropertyName("value")]
+        public List<Video> Videos { get; set; }
+    }
+
+    class Video
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [JsonPropertyName("thumbnailUrl")]
+        public string ThumbnailUrl { get; set; }
+
+        [JsonPropertyName("contentUrl")]
+        public string ContentUrl { get; set; }
     }
 }
