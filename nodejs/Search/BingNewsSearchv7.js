@@ -12,7 +12,7 @@ let request = require('request');
 
 // Add your Bing Search V7 subscription key and endpoint to your environment variables.
 let subscriptionKey = process.env['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-let endpoint = process.env['BING_SEARCH_V7_ENDPOINT'] + '/bing/v7.0/news/search';
+let endpoint = process.env['BING_SEARCH_V7_ENDPOINT'] + '/v7.0/news/search';
 
 // News topics you'd like to search for.
 let query = 'Microsoft';
