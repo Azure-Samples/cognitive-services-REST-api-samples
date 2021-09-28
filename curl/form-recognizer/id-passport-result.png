@@ -1,0 +1,96 @@
+{
+	"status": "succeeded",
+	"createdDateTime": "2021-09-28T03:17:58Z",
+	"lastUpdatedDateTime": "2021-09-28T03:18:00Z",
+	"analyzeResult": {
+		"version": "2.1.0",
+		"readResults": [
+			{
+				"page": 1,
+				"angle": 0,
+				"width": 410,
+				"height": 583,
+				"unit": "pixel",
+            }
+        ],
+		"documentResults": [
+			{
+				"docType": "prebuilt:idDocument:passport",
+				"docTypeConfidence": 0.995,
+				"pageRange": [
+					1,
+					1
+				],
+				"fields": {
+					"MachineReadableZone": {
+						"type": "object",
+						"valueObject": {
+							"CountryRegion": {
+								"type": "countryRegion",
+								"text": "CAN",
+								"valueCountryRegion": "CAN"
+							},
+							"DateOfBirth": {
+								"type": "date",
+								"valueDate": "1985-01-01",
+								"text": "850101"
+							},
+							"DateOfExpiration": {
+								"type": "date",
+								"valueDate": "2023-01-14",
+								"text": "230114"
+							},
+							"DocumentNumber": {
+								"type": "string",
+								"valueString": "ZE000509",
+								"text": "ZE000509"
+							},
+							"FirstName": {
+								"type": "string",
+								"valueString": "HOLLIE",
+								"text": "HOLLIE"
+							},
+							"LastName": {
+								"type": "string",
+								"valueString": "BROWN",
+								"text": "BROWN"
+							},
+							"Nationality": {
+								"type": "countryRegion",
+								"text": "CAN",
+								"valueCountryRegion": "CAN"
+							},
+							"Sex": {
+								"type": "string",
+								"valueString": "F",
+								"text": "F"
+							}
+						},
+						"text": "P<CANBROWN<<HOLLIE<<<<<<<<<<<<<<<<<<<<<<<<<< ZE000509<9CAN8501019F2301147<<<<<<<<<<<<<<08",
+						"boundingBox": [
+							23,
+							514,
+							379,
+							514,
+							379,
+							549,
+							23,
+							549
+						],
+						"page": 1,
+						"confidence": 0.995,
+						"elements": [
+							"#/readResults/0/lines/36/words/0",
+							"#/readResults/0/lines/36/words/1",
+							"#/readResults/0/lines/36/words/2",
+							"#/readResults/0/lines/36/words/3",
+							"#/readResults/0/lines/37/words/0",
+							"#/readResults/0/lines/37/words/1",
+							"#/readResults/0/lines/37/words/2"
+						]
+					}
+				}
+			}
+		]
+	}
+}
