@@ -10,9 +10,9 @@
 				"angle": 0,
 				"width": 410,
 				"height": 583,
-				"unit": "pixel",
-            }
-        ],
+				"unit": "pixel"
+			}
+		],
 		"documentResults": [
 			{
 				"docType": "prebuilt:idDocument:passport",
