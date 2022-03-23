@@ -1,0 +1,206 @@
+{
+    "status": "succeeded",
+    "createdDateTime": "2021-09-28T16:52:51Z",
+    "lastUpdatedDateTime": "2021-09-28T16:53:08Z",
+    "analyzeResult": {
+        "apiVersion": "2022-01-30-preview",
+        "modelId": "prebuilt-document",
+        "stringIndexType": "textElements",
+        "content": "content extracted",
+        "pages": [
+            {
+                "pageNumber": 1,
+                "angle": 0,
+                "width": 8.4722,
+                "height": 11,
+                "unit": "inch",
+                "words": [
+                    {
+                        "content": "Case",
+                        "boundingBox": [
+                            1.3578,
+                            0.2244,
+                            1.7328,
+                            0.2244,
+                            1.7328,
+                            0.3502,
+                            1.3578,
+                            0.3502
+                        ],
+                        "confidence": 1,
+                        "span": {
+                            "offset": 0,
+                            "length": 4
+                        }
+                    }
+
+                ],
+                "lines": [
+                    {
+                        "content": "Case",
+                        "boundingBox": [
+                            1.3578,
+                            0.2244,
+                            3.2879,
+                            0.2244,
+                            3.2879,
+                            0.3502,
+                            1.3578,
+                            0.3502
+                        ],
+                        "spans": [
+                            {
+                                "offset": 0,
+                                "length": 22
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "tables": [
+            {
+                "rowCount": 8,
+                "columnCount": 3,
+                "cells": [
+                    {
+                        "kind": "columnHeader",
+                        "rowIndex": 0,
+                        "columnIndex": 0,
+                        "rowSpan": 1,
+                        "columnSpan": 1,
+                        "content": "Applicant's Name:",
+                        "boundingRegions": [
+                            {
+                                "pageNumber": 1,
+                                "boundingBox": [
+                                    1.9198,
+                                    4.277,
+                                    3.3621,
+                                    4.2715,
+                                    3.3621,
+                                    4.5034,
+                                    1.9198,
+                                    4.5089
+                                ]
+                            }
+                        ],
+                        "spans": [
+                            {
+                                "offset": 578,
+                                "length": 17
+                            }
+                        ]
+                    }
+                ],
+                "spans": [
+                    {
+                        "offset": 578,
+                        "length": 300
+                    },
+                    {
+                        "offset": 1358,
+                        "length": 10
+                    }
+                ]
+            }
+        ],
+        "keyValuePairs": [
+            {
+                "key": {
+                    "content": "Case",
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "boundingBox": [
+                                1.3578,
+                                0.2244,
+                                1.7328,
+                                0.2244,
+                                1.7328,
+                                0.3502,
+                                1.3578,
+                                0.3502
+                            ]
+                        }
+                    ],
+                    "spans": [
+                        {
+                            "offset": 0,
+                            "length": 4
+                        }
+                    ]
+                },
+                "value": {
+                    "content": "A Case",
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "boundingBox": [
+                                1.8026,
+                                0.2276,
+                                3.2879,
+                                0.2276,
+                                3.2879,
+                                0.3502,
+                                1.8026,
+                                0.3502
+                            ]
+                        }
+                    ],
+                    "spans": [
+                        {
+                            "offset": 5,
+                            "length": 17
+                        }
+                    ]
+                },
+                "confidence": 0.867
+            }
+        ],
+        "entities": [
+            {
+                "category": "Person",
+                "content": "Jim Smith",
+                "boundingRegions": [
+                    {
+                        "pageNumber": 1,
+                        "boundingBox": [
+                            3.4672,
+                            4.3255,
+                            5.7118,
+                            4.3255,
+                            5.7118,
+                            4.4783,
+                            3.4672,
+                            4.4783
+                        ]
+                    }
+                ],
+                "confidence": 0.93,
+                "spans": [
+                    {
+                        "offset": 596,
+                        "length": 21
+                    }
+                ]
+            }
+        ],
+        "styles": [
+            {
+                "isHandwritten": true,
+                "confidence": 0.95,
+                "spans": [
+                    {
+                        "offset": 565,
+                        "length": 12
+                    },
+                    {
+                        "offset": 3493,
+                        "length": 1
+                    }
+                ]
+            }
+        ]
+    }
+}
