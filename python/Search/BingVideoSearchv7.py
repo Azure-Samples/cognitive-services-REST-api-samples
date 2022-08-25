@@ -15,7 +15,7 @@ Documentation: https: // docs.microsoft.com/en-us/azure/cognitive-services/bing-
 
 # Add your Bing Search V7 subscription key and endpoint to your environment variables.
 subscriptionKey = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/bing/v7.0/videos/search"
+endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/v7.0/videos/search"
 
 # Search query
 query = "kittens"
