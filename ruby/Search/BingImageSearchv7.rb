@@ -14,7 +14,7 @@ accessKey = "enter your key here"
 # encounter unexpected authorization errors, double-check this value against
 # the endpoint for your Bing Search instance in your Azure dashboard.
 
-uri  = "https://api.cognitive.microsoft.com"
+uri  = URI("https://api.cognitive.microsoft.com")
 path = "/bing/v7.0/images/search"
 
 term = "tropical ocean"
@@ -25,16 +25,14 @@ if accessKey.length != 32 then
     abort
 end
 
-uri = URI(uri + path + "?q=" + URI.escape(term))
-
+uri = URI(uri + path + "?q=" + URI::Escape.escape(term))
+    
 puts "Searching images for: " + term
 
 request = Net::HTTP::Get.new(uri)
 request['Ocp-Apim-Subscription-Key'] = accessKey
 
-response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
-    http.request(request)
-end
+response = Net::HTTP.get_response(uri)
 
 puts "\nJSON Response:\n\n"
 
