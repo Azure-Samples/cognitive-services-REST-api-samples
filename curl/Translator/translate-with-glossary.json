@@ -11,7 +11,7 @@
                     "glossaries": [
                         {
                             "glossaryUrl": "https://my.blob.core.windows.net/glossaries/en-fr.tsv,
-                            "format": "tsv",
+                            "format": "tsv"
                         }
                     ]
 
