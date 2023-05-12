@@ -278,7 +278,7 @@ function bingWebSearch(query, options, key) {
     showDiv("noresults", "Working. Please wait.");
     hideDivs("pole", "mainline", "sidebar", "_json", "_headers", "paging1", "paging2", "error");
 
-    var endpoint = "https://api.cognitive.microsoft.com/bing/v7.0/search";
+    var endpoint = "https://api.bing.microsoft.com/v7.0/search";
     var request = new XMLHttpRequest();
     var queryurl = endpoint + "?q=" + encodeURIComponent(query) + "&" + options;
 
